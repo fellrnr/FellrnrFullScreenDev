@@ -1,0 +1,6 @@
+project.manifest = manifest.xml
+
+base.sourcePath=$(fenix5x.sourcePath)
+fr920xt.sourcePath=source;source-rectangle-landscape
+fenix5x.sourcePath=source;source-round
+

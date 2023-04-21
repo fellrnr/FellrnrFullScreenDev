@@ -1,0 +1,220 @@
+<resources>
+
+
+	<strings>
+    <!-- Release name: -->
+    <string id="AppName">Fellrnr Full Screen</string>
+     <string id="Pwr">Power Estimate</string>
+     <string id="SPwr">Smoothed Power Estimate</string>
+     <string id="SPace">Smoothed Pace</string>
+     <string id="SHR">Smoothed HR</string>
+     <string id="SHRPWR">Smoothed HRPwr</string>
+     <string id="Watts">Watts</string>
+     <string id="BPM">BPM</string>
+     <string id="EUnits">mW.HR-1</string>
+     <string id="PaceUnits">m/s</string>
+    </strings>
+    
+  <fitContributions>
+    <fitField id="0"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="1"
+      precision="0"
+      chartTitle="@Strings.Pwr"
+      dataLabel="@Strings.Pwr"
+      unitLabel="@Strings.Watts"
+      fillColor="#7b3294" />
+    <fitField id="1"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="2"
+      precision="1"
+      chartTitle="@Strings.SPwr"
+      dataLabel="@Strings.SPwr"
+      unitLabel="@Strings.Watts"
+      fillColor="#c2a5cf" />
+    <fitField id="2"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="1"
+      precision="1"
+      chartTitle="@Strings.SHR"
+      dataLabel="@Strings.SHR"
+      unitLabel="@Strings.BPM"
+      fillColor="#f7f7f7" />
+    <fitField id="3"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="1"
+      precision="1"
+      chartTitle="@Strings.SHRPWR"
+      dataLabel="@Strings.SHRPWR"
+      unitLabel="@Strings.EUnits"
+      fillColor="#a6dba0" />
+    <fitField id="4"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="1"
+      precision="1"
+      chartTitle="@Strings.SPace"
+      dataLabel="@Strings.SPace"
+      unitLabel="@Strings.PaceUnits"
+      fillColor="#0fc491" />
+    <fitField id="5"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="1"
+      precision="1"
+      chartTitle="@Strings.CardiacCostTitle"
+      dataLabel="@Strings.CardiacCostLabel"
+      unitLabel="@Strings.CardiacCostUnits"
+      fillColor="#008837" />
+    <fitField id="6"
+      displayInChart="true"
+      displayInActivityLaps="false"
+      displayInActivitySummary="false"
+      sortOrder="1"
+      precision="1"
+      chartTitle="@Strings.StrideLengthTitle"
+      dataLabel="@Strings.StrideLengthLabel"
+      unitLabel="@Strings.StrideLengthUnits"
+      fillColor="#008837" />
+  </fitContributions>
+
+
+  <properties>
+    <property id="ZeroPowerHR" type="number">45</property>
+  	<property id="TargetPace" type="float">2.9529</property>
+  	<!--  4 hour pace is 2.9529 -->
+  	<!-- 9 min/mile is 2.9803 -->
+  	<!--  7:30 (450 sec) hour pace is 3.57632 -->
+  	<!-- 10:30 = 2.5545142857143 -->
+  	<!-- 10:28 = 2.5618338108883 -->
+  	<!-- https://www.unitjuggler.com/convert-speed-from-minmile-to-ms.html?val=10.5  -->
+  	<!-- do connect iq, wizard, then copy from C:\coding\ConnectIQ tod  /GARMIN/APPS/  -->
+  	<property id="TargetPower" type="number">210</property>
+  	
+  	<property id="PaceSmoothing" type="number">60</property>
+  	<property id="HrPwrSmoothing" type="number">60</property>
+  	<property id="HrPwrDelay" type="number">20</property>
+  	
+  	<!--  From slope to power.xlsx NOT USED -->
+  	<property id="PowerFactor" type="float">1.136</property>
+  	<property id="PowerOffset" type="float">43.1</property>
+  	
+  	<property id="DisplayLoop" type="number">2</property>
+
+  	<property id="NormalHrPwr" type="number">0</property> 
+  	
+  	<!-- 
+  	<property id="LapDistance" type="float">402.336</property>
+  	 -->
+  	<!-- 
+  	<property id="PredictionDistance" type="number">50000</property>
+  	<property id="PredictionTime" type="number">240</property>
+  	 -->
+
+	<!--  80467.2 is 50 miles -->
+	<!-- 21098 is half marathon  -->
+	<!-- 43452 is 27 miles  -->
+	
+	<!-- WW 50 mile settings -->
+  	<property id="PredictionTime" type="number">0</property>
+  	<property id="PredictionDistance" type="number">0</property>
+  	
+  	<property id="LapDistance" type="float">402.336</property>
+  	<property id="DoElevation" type="boolean">true</property>
+
+  	<property id="MinPower" type="float">100</property>
+
+  </properties>
+
+
+	<strings>
+	    <!-- Release name: -->
+	    <string id="ZeroPowerHRTitle">Heart Rate at Zero Power</string>
+	    <string id="ZeroPowerHRPrompt">This is above resting HR, representing the HR when not running, but standing</string>
+	    <string id="TargetPaceTitle">Target Pace in meters/second</string>
+	    <string id="TargetPacePrompt">Target Pace in meters/second</string>
+	    <string id="TargetPowerTitle">Target Power in watts</string>
+	    <string id="TargetPowerPrompt">Target Power in watts</string>
+	    <string id="lTargetPace">Target pace metric</string>
+		<string id="HrPwrSmoothingTitle">HrPwr Smoothing</string>
+		<string id="HrPwrSmoothingPrompt">Seconds of smoothing to apply to HrPwr</string>
+		<string id="PaceSmoothingTitle">Pace Smoothing</string>
+		<string id="PaceSmoothingPrompt">Seconds of smoothing to apply to Pace</string>
+		<string id="HrPwrDelayTitle">HrPwr Delay of Power</string>
+		<string id="HrPwrDelayPrompt">Seconds to delay Power before calculating HrPwr as HR responds more slowly</string>
+		<string id="PowerFactorTitle">Power Factor</string>
+		<string id="PowerFactorPrompt">Multiply running power estimate by this factor to normalize to cycling power</string>
+		<string id="PowerOffsetTitle">Power Offset</string>
+		<string id="PowerOffsetPrompt">Add running power estimate by this factor to normalize to cycling power</string>
+		<string id="DisplayLoopTitle">Display Loop Time</string>
+		<string id="DisplayLoopPrompt">How many seconds between display scrolls</string>
+		<string id="NormalHrPwrTitle">Normal HrPwr</string>
+		<string id="NormalHrPwrPrompt">Normal HrPwr value to show percent</string>
+		<string id="LapDistanceTitle">Lap Distance</string>
+		<string id="LapDistancePrompt">Lap Distance in meters</string>
+		<string id="PredictionDistanceTitle">Predict Result Distance Race</string>
+		<string id="PredictionDistancePrompt">Distance of race in meters(0=none)</string>
+		<string id="PredictionTimeTitle">Predict Result Timed Race</string>
+		<string id="PredictionTimePrompt">Time of race in minutes(0=none)</string>
+		<string id="CardiacCostTitle">Cardiac Cost (Billat)</string>
+		<string id="CardiacCostLabel">CC</string>
+		<string id="CardiacCostUnits">HR.S.M-1</string>
+		<string id="StrideLengthTitle">Stride Length</string>
+		<string id="StrideLengthLabel">SL</string>
+		<string id="StrideLengthUnits">meters</string>
+    </strings>
+
+  <settings>
+    <setting propertyKey="@Properties.ZeroPowerHR" title="@Strings.ZeroPowerHRTitle" prompt="@Strings.ZeroPowerHRPrompt">
+		<settingConfig type="numeric" min="20" max="200" />
+    </setting>
+    <setting propertyKey="@Properties.TargetPace" title="@Strings.TargetPaceTitle" prompt="@Strings.TargetPacePrompt">
+		<settingConfig type="numeric" />
+    </setting>
+    <setting propertyKey="@Properties.TargetPower" title="@Strings.TargetPowerTitle" prompt="@Strings.TargetPowerPrompt">
+		<settingConfig type="numeric" />
+    </setting>
+    <setting propertyKey="@Properties.HrPwrSmoothing" title="@Strings.HrPwrSmoothingTitle" prompt="@Strings.HrPwrSmoothingPrompt">
+		<settingConfig type="numeric" min="0" max="3600" />
+    </setting>
+    <setting propertyKey="@Properties.PaceSmoothing" title="@Strings.PaceSmoothingTitle" prompt="@Strings.PaceSmoothingPrompt">
+		<settingConfig type="numeric" min="0" max="3600" />
+    </setting>
+    <setting propertyKey="@Properties.HrPwrDelay" title="@Strings.HrPwrDelayTitle" prompt="@Strings.HrPwrDelayPrompt">
+		<settingConfig type="numeric" min="2" max="100" />
+    </setting>
+    <setting propertyKey="@Properties.PowerFactor" title="@Strings.PowerFactorTitle" prompt="@Strings.PowerFactorPrompt">
+		<settingConfig type="numeric" min="-2" max="2" />
+    </setting>
+    <setting propertyKey="@Properties.PowerOffset" title="@Strings.PowerOffsetTitle" prompt="@Strings.PowerOffsetPrompt">
+		<settingConfig type="numeric" min="-100" max="100" />
+    </setting>
+    <setting propertyKey="@Properties.DisplayLoop" title="@Strings.DisplayLoopTitle" prompt="@Strings.DisplayLoopPrompt">
+		<settingConfig type="numeric" min="1" max="30" />
+    </setting>
+    <setting propertyKey="@Properties.NormalHrPwr" title="@Strings.NormalHrPwrTitle" prompt="@Strings.NormalHrPwrPrompt">
+		<settingConfig type="numeric" min="1" max="200" />
+    </setting>
+  </settings>
+    <setting propertyKey="@Properties.LapDistance" title="@Strings.LapDistanceTitle" prompt="@Strings.LapDistancePrompt">
+		<settingConfig type="numeric" min="100" />
+    </setting>
+    <setting propertyKey="@Properties.PredictionDistance" title="@Strings.PredictionDistanceTitle" prompt="@Strings.PredictionDistancePrompt">
+		<settingConfig type="numeric"  />
+    </setting>
+    <setting propertyKey="@Properties.PredictionTime" title="@Strings.PredictionTimeTitle" prompt="@Strings.PredictionTimePrompt">
+		<settingConfig type="numeric"  />
+    </setting>
+
+
+</resources>
