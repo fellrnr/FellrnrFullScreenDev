@@ -387,6 +387,7 @@ class ScreenLayout extends ScreenLayoutCommon {
 	
 	
 	//https://developer.garmin.com/connect-iq/reference-guides/devices-reference/#f%C4%93nix%C2%AE5xtactix%C2%AEcharlie
+	//https://developer.garmin.com/connect-iq/user-experience-guidelines/fenix-2022/ 
 //Font Symbol					Font Face			Font Size (pixels high?) 	Font
 //FONT_XTINY					Roboto Condensed	26	FENIX5_ROBOTOCONDENSEDREGULAR_26PX
 //FONT_TINY						Roboto Condensed	26	FENIX5_ROBOTOCONDENSEDBOLD_26PX

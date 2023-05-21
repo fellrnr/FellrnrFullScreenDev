@@ -1,0 +1,12 @@
+bin/FellrnrFullScreen-fit_contributions.json
+bin/FellrnrFullScreen-settings.json
+bin/FellrnrFullScreen.prg
+bin/FellrnrFullScreen.prg.debug.xml
+bin/gen/006-B3291-00/source/Rez.mcgen
+bin/gen/resources/cache/i2f9e8a8e.mbc
+bin/internal-mir/Rez.mir
+bin/mir/source/FellrnrFullScreenApp.mir
+bin/mir/source/FellrnrFullScreenBackground.mir
+bin/mir/source/FellrnrFullScreenView.mir
+bin/mir/source/ScreenLayoutCommon.mir
+bin/mir/source-round/ScreenRound.mir
