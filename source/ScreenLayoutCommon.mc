@@ -45,8 +45,8 @@ class ScreenLayoutCommon {
 	var varHead = "";
 	var varTail = "";
 	
-	var ColorHeadFG = Graphics.COLOR_TRANSPARENT;
-	var ColorHeadBG = Graphics.COLOR_TRANSPARENT;
+	var ColorHeadFG = Graphics.COLOR_WHITE;
+	var ColorHeadBG = Graphics.COLOR_WHITE;
 	
 	var ColorFGVarTL = Graphics.COLOR_BLACK;
 	var ColorFGVarTR = Graphics.COLOR_BLACK;
@@ -67,21 +67,21 @@ class ScreenLayoutCommon {
 	var ColorFGVarB = Graphics.COLOR_BLACK;
 	var ColorFGVarTail = Graphics.COLOR_BLACK;
 
-	var ColorBGVarTL = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarTR = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarSML = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarSMM = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarSMR = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarIML = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarIMM = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarIMR = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarLML = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarLMM = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarLMR = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarBL = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarBR = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarB = Graphics.COLOR_TRANSPARENT;
-	var ColorBGVarTail = Graphics.COLOR_TRANSPARENT;
+	var ColorBGVarTL = Graphics.COLOR_WHITE;
+	var ColorBGVarTR = Graphics.COLOR_WHITE;
+	var ColorBGVarSML = Graphics.COLOR_WHITE;
+	var ColorBGVarSMM = Graphics.COLOR_WHITE;
+	var ColorBGVarSMR = Graphics.COLOR_WHITE;
+	var ColorBGVarIML = Graphics.COLOR_WHITE;
+	var ColorBGVarIMM = Graphics.COLOR_WHITE;
+	var ColorBGVarIMR = Graphics.COLOR_WHITE;
+	var ColorBGVarLML = Graphics.COLOR_WHITE;
+	var ColorBGVarLMM = Graphics.COLOR_WHITE;
+	var ColorBGVarLMR = Graphics.COLOR_WHITE;
+	var ColorBGVarBL = Graphics.COLOR_WHITE;
+	var ColorBGVarBR = Graphics.COLOR_WHITE;
+	var ColorBGVarB = Graphics.COLOR_WHITE;
+	var ColorBGVarTail = Graphics.COLOR_WHITE;
 
 
 	var ColorFGTailFG = Graphics.COLOR_BLACK;

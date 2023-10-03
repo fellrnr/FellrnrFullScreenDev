@@ -50,12 +50,27 @@
     <property id="ZeroPowerHR" type="number">45</property>
   	<property id="PaceSmoothing" type="number">30</property>
   	<property id="HrPwrSmoothing" type="number">10</property>
-  	<property id="HrPwrDelay" type="number">2</property>
   	<property id="DisplayLoop" type="number">1</property>
-  	<property id="MinPower" type="float">100</property>
-
+  	<property id="CriticalPower" type="number">268</property>
   </properties>
 
+  <settings>
+    <setting propertyKey="@Properties.ZeroPowerHR" title="@Strings.ZeroPowerHRTitle" prompt="@Strings.ZeroPowerHRPrompt">
+		  <settingConfig type="numeric" min="20" max="200" />
+    </setting>
+    <setting propertyKey="@Properties.PaceSmoothing" title="@Strings.PaceSmoothingTitle" prompt="@Strings.PaceSmoothingPrompt">
+		  <settingConfig type="numeric" min="0" max="3600" />
+    </setting>
+    <setting propertyKey="@Properties.HrPwrSmoothing" title="@Strings.HrPwrSmoothingTitle" prompt="@Strings.HrPwrSmoothingPrompt">
+		  <settingConfig type="numeric" min="0" max="3600" />
+    </setting>
+    <setting propertyKey="@Properties.DisplayLoop" title="@Strings.DisplayLoopTitle" prompt="@Strings.DisplayLoopPrompt">
+  		<settingConfig type="numeric" min="1" max="30" />
+    </setting>
+    <setting propertyKey="@Properties.CriticalPower" title="@Strings.CriticalPowerTitle" prompt="@Strings.CriticalPowerPrompt">
+  		<settingConfig type="numeric" min="100" max="1000" />
+    </setting>
+  </settings>
 
 	<strings>
     <string id="AppName">Fellrnr Full Screen</string>
@@ -71,10 +86,10 @@
 		<string id="HrPwrSmoothingPrompt">Seconds of smoothing to apply to HrPwr</string>
 		<string id="PaceSmoothingTitle">Pace Smoothing</string>
 		<string id="PaceSmoothingPrompt">Seconds of smoothing to apply to Pace</string>
-		<string id="HrPwrDelayTitle">HrPwr Delay of Power</string>
-		<string id="HrPwrDelayPrompt">Seconds to delay Power before calculating HrPwr as HR responds more slowly</string>
 		<string id="DisplayLoopTitle">Display Loop Time</string>
 		<string id="DisplayLoopPrompt">How many seconds between display scrolls</string>
+		<string id="CriticalPowerTitle">Critical Power (watts)</string>
+		<string id="CriticalPowerPrompt">Critical Power, used to color power field</string>
 		<string id="CardiacGADTitle">Cardiac GAP Distance</string>
 		<string id="CardiacGADLabel">HrDistance</string>
 		<string id="CardiacGADUnits">mm.HR-1</string>
@@ -82,24 +97,6 @@
 		<string id="StrideLengthLabel">SL</string>
 		<string id="StrideLengthUnits">meters</string>
     </strings>
-
-  <settings>
-    <setting propertyKey="@Properties.ZeroPowerHR" title="@Strings.ZeroPowerHRTitle" prompt="@Strings.ZeroPowerHRPrompt">
-		  <settingConfig type="numeric" min="20" max="200" />
-    </setting>
-    <setting propertyKey="@Properties.HrPwrSmoothing" title="@Strings.HrPwrSmoothingTitle" prompt="@Strings.HrPwrSmoothingPrompt">
-		  <settingConfig type="numeric" min="0" max="3600" />
-    </setting>
-    <setting propertyKey="@Properties.PaceSmoothing" title="@Strings.PaceSmoothingTitle" prompt="@Strings.PaceSmoothingPrompt">
-		  <settingConfig type="numeric" min="0" max="3600" />
-    </setting>
-    <setting propertyKey="@Properties.HrPwrDelay" title="@Strings.HrPwrDelayTitle" prompt="@Strings.HrPwrDelayPrompt">
-	  	<settingConfig type="numeric" min="2" max="100" />
-    </setting>
-    <setting propertyKey="@Properties.DisplayLoop" title="@Strings.DisplayLoopTitle" prompt="@Strings.DisplayLoopPrompt">
-  		<settingConfig type="numeric" min="1" max="30" />
-    </setting>
-  </settings>
 
 
 </resources>

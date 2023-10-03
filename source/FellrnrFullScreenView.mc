@@ -43,9 +43,8 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var ZeroPowerHR;
 	var HrPwrSmoothing;
 	var PaceSmoothing;
-	var HrPwrDelay;
 	var DisplayLoop;
-	var MinPower;
+	var CriticalPower;
 	
 	var StartingElevation = 0;
 	var ElevationDelta;
@@ -54,7 +53,6 @@ class FellrnrFullScreenView extends WatchUi.DataField {
     var unitE                        = 1000.0;
     var elapsedTime = 0;
     
-    var pwrdelay;
     var smoothhr=0;
     var smoothpwr=0;
     var smoothpace=0;
@@ -97,13 +95,11 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		StartingElevation = 0;
     	SmoothPaceCounter=0;
     	SmoothHrPwrCounter=0;
-	    pwrdelay = null;
 	    smoothhr=0;
 	    smoothpwr=0;
     }
 
     function onTimerPause () {
-	    pwrdelay = null;
     	SmoothPaceCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
@@ -111,7 +107,6 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	}	
 
     function onTimerResume() {
-	    pwrdelay = null;
     	SmoothPaceCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
@@ -119,7 +114,6 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	}	
 
     function onTimerStop() {
-	    pwrdelay = null;
     	SmoothPaceCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
@@ -171,16 +165,14 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	        ZeroPowerHR = mApp.getProperty("ZeroPowerHR");
 			HrPwrSmoothing = mApp.getProperty("HrPwrSmoothing").toFloat();
 			PaceSmoothing = mApp.getProperty("PaceSmoothing").toFloat();
-			HrPwrDelay = mApp.getProperty("HrPwrDelay");
 			DisplayLoop = mApp.getProperty("DisplayLoop");
-			MinPower = mApp.getProperty("MinPower");
+			CriticalPower = mApp.getProperty("CriticalPower");
 
 	System.println("ZeroPowerHR:        " + ZeroPowerHR);
 	System.println("HrPwrSmoothing:     " + HrPwrSmoothing);
 	System.println("PaceSmoothing:      " + PaceSmoothing);
-	System.println("HrPwrDelay:         " + HrPwrDelay);
 	System.println("DisplayLoop:        " + DisplayLoop);
-	System.println("MinPower:           " + MinPower);
+	System.println("CriticalPower:           " + CriticalPower);
 
 	
 	        hrpwrlabel = "" + ZeroPowerHR.format("%d") + ":" + weight.format("%d") + "";
@@ -297,7 +289,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		if(loop) {
 			var myTime = System.getClockTime(); // ClockTime object
 			display.varTail = "T" + myTime.hour.format("%02d") + ":" + myTime.min.format("%02d"); // + ":" + myTime.sec.format("%02d");
-			display.ColorFGTailBG = Graphics.COLOR_TRANSPARENT;
+			display.ColorFGTailBG = Graphics.COLOR_WHITE;
 			display.ColorFGTailFG = Graphics.COLOR_BLACK;
 		} else {
 			var ElapsedSeconds = info.timerTime / 1000.0;
@@ -322,7 +314,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 // |_|  |_|\___|\__,_|\__,_|           \_____\__,_|\__,_|\___|_| |_|\___\___|
 //                                                                           
 		if(info.currentCadence  == 0 || info.currentCadence == null) {
-			display.ColorHeadBG = Graphics.COLOR_TRANSPARENT;
+			display.ColorHeadBG = Graphics.COLOR_WHITE;
 			display.ColorHeadFG = Graphics.COLOR_BLACK;
 			display.varHead = "-";
 		} else  {
@@ -331,7 +323,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				display.ColorHeadBG = Graphics.COLOR_BLUE;
 				alertcount=0;
 			} else if(info.currentCadence  < 176){ 
-				display.ColorHeadBG = Graphics.COLOR_DK_RED;
+				display.ColorHeadBG = Graphics.COLOR_RED;
 				alert = Attention.TONE_ALERT_LO;
 			} else if(info.currentCadence  < 178) {
 				display.ColorHeadBG = Graphics.COLOR_ORANGE;
@@ -340,7 +332,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				display.ColorHeadBG = Graphics.COLOR_YELLOW;
 				alert = Attention.TONE_MSG;
 			} else if(info.currentCadence  < 182){ 
-				display.ColorHeadBG = Graphics.COLOR_DK_GREEN;
+				display.ColorHeadBG = Graphics.COLOR_GREEN;
 				alertcount=0;
 			} else { //> 184
 				display.ColorHeadBG = Graphics.COLOR_PURPLE;
@@ -480,21 +472,16 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			pwr = info.currentPower;
 			//var wpkg = pwr / weight;
 			
-			if(loop) {
-				display.varSML = pwr.format("%d");
-	            display.ColorBGVarSML = Graphics.COLOR_WHITE;
-	            display.ColorFGVarSML = Graphics.COLOR_BLACK;
-			} else {
-				display.varSML = calcpwr.format("%.1f");
-	            display.ColorBGVarSML = Graphics.COLOR_BLACK;
-	            display.ColorFGVarSML = Graphics.COLOR_WHITE;
-			}
+			display.varSML = pwr.format("%d");
+			display.ColorBGVarSML = GetPwrColor(pwr);
+			display.ColorFGVarSML = Graphics.COLOR_BLACK;
             display.isNumSML = true;
         } else {
 
+			//confirm we're calculating power with inverted colours
 			display.varSML = calcpwr.format("%.1f");
-			display.ColorFGVarSML = Graphics.COLOR_BLACK;
-			display.ColorBGVarSML = Graphics.COLOR_WHITE;
+			display.ColorFGVarSML = Graphics.COLOR_WHITE;
+			display.ColorBGVarSML = Graphics.COLOR_BLACK;
             display.isNumSML = true;
 			pwr = calcpwr; //default to calc as the best we can do
 		}
@@ -517,37 +504,21 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	            display.isNumTL = false;
 			} else {
 	            display.isNumTL = true;
-
-				if(pwrdelay == null) {
-					pwrdelay = new [0];
-					smoothhr = hr.toFloat();
-					smoothpwr = pwr.toFloat();
-					SmoothHrPwrCounter=0;
-				}
-
-				pwrField.setData(pwr.toFloat());
-				if(pwr > MinPower) {
-					pwrdelay.add(pwr);
-				}
-				if(pwrdelay.size() > HrPwrDelay) {
 				
-					if(SmoothHrPwrCounter < HrPwrSmoothing) {
-						SmoothHrPwrCounter++;
-					}
-					var delayedpwr = pwrdelay[0].toFloat();
-					pwrdelay = pwrdelay.slice(1, null);
-					
-					smoothhr = (smoothhr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + hr.toFloat()/SmoothHrPwrCounter;
-					smoothpwr = (smoothpwr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + delayedpwr/SmoothHrPwrCounter;
-					
-					//System.println("HR " + hr + " old HR " + delayedpwr + " smoothhr " + smoothhr); 
+				if(SmoothHrPwrCounter < HrPwrSmoothing) {
+					SmoothHrPwrCounter++;
+				}
 				
-					var pwrMw = smoothpwr * 1000.0;
-			        var pwkg = (pwrMw / weight);
-			        var deltahr = (smoothhr - ZeroPowerHR);
-			        var hrpw = pwkg / deltahr;
-			        var hrpw1dp = Math.round(hrpw*10)/10.0;
-		    	    hrpwr = hrpw1dp;
+				smoothhr = (smoothhr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + hr.toFloat()/SmoothHrPwrCounter;
+				smoothpwr = (smoothpwr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + pwr/SmoothHrPwrCounter;
+					
+				
+				var pwrMw = smoothpwr * 1000.0;
+				var pwkg = (pwrMw / weight);
+				var deltahr = (smoothhr - ZeroPowerHR);
+				var hrpw = pwkg / deltahr;
+				var hrpw1dp = Math.round(hrpw*10)/10.0;
+				hrpwr = hrpw1dp;
 
 					//Calculate instantanious HrPwr
 					// var pwrMwInst = pwr * 1000.0;
@@ -560,18 +531,18 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 					//Garmin keeps reseting max hr, making percent HRR useless
 
-					display.varTL = hrpwr.format("%.1f");
-					display.ColorFGVarTL = Graphics.COLOR_WHITE;
-					display.ColorBGVarTL = GetHrPwrColor(hrpwr);
-					display.ColorFGVarTL = Graphics.COLOR_BLACK;
-		    	    
-					shrpwrField.setData(hrpwr.toFloat());
-				} else {
-		            display.isNumTL = false;
-					display.varTL = "Wait";
-				}	    	    
+				display.varTL = hrpwr.format("%.1f");
+				display.ColorBGVarTL = GetHrPwrColor(hrpwr);
+				display.ColorFGVarTL = Graphics.COLOR_BLACK;
+				
+				shrpwrField.setData(hrpwr.toFloat());
 			}
-	    }
+	    } else {
+				display.varTL = "--";
+				display.ColorBGVarTL = Graphics.COLOR_WHITE;
+				display.ColorFGVarTL = Graphics.COLOR_BLACK;
+
+		}
 
 
 
@@ -820,7 +791,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			gradeAdjustedCardiacCost = 0; //don't leave it as current value as this is misleading
 		}
 		gacardiacCostField.setData(gradeAdjustedCardiacCost.toFloat());
-		display.varIMR = gradeAdjustedCardiacCost.format("%.1f") + "°"; //degree symbol to make it obvioius
+		display.varIMR = gradeAdjustedCardiacCost.format("%.1f");
 //		display.ColorFGVarIMR = Graphics.COLOR_WHITE;
 //		display.ColorBGVarIMR = Graphics.COLOR_BLACK;
 
@@ -954,10 +925,10 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			return Graphics.COLOR_RED;
 		} else if( currentHeartRate >= (MaxHR * 0.75)) { 
         	return Graphics.COLOR_YELLOW;
-		} else if( currentHeartRate >= (MaxHR * 0.50)) { 
+		} else if( currentHeartRate >= (MaxHR * 0.60)) { 
         	return Graphics.COLOR_GREEN;
 		} else {
-        	return Graphics.COLOR_LT_GRAY;
+        	return Graphics.COLOR_BLUE;
 		}
 	}
 
@@ -971,15 +942,36 @@ class FellrnrFullScreenView extends WatchUi.DataField {
         } else if( currentHrPwr >= 40) {
         	return Graphics.COLOR_GREEN;
         } else if( currentHrPwr >= 35) {
-			return Graphics.COLOR_ORANGE;
+			return Graphics.COLOR_YELLOW;
         } else if( currentHrPwr >= 30) {
-        	return Graphics.COLOR_RED;
+        	return Graphics.COLOR_ORANGE;
         } else if( currentHrPwr >= 25) {
-        	return Graphics.COLOR_BLUE;
+        	return Graphics.COLOR_RED;
 		} else {
-			return Graphics.COLOR_LT_GRAY;
+			return Graphics.COLOR_DK_RED;
 		}
 	}
 
+	function GetPwrColor(currentPwr) {
+		if(currentPwr == 0) {
+			return Graphics.COLOR_WHITE;
+		}
+
+        if( currentPwr >= (CriticalPower * 1.3)) { 
+			return Graphics.COLOR_PINK;
+        } else if( currentPwr >= (CriticalPower * 1.15)) { 
+        	return Graphics.COLOR_PURPLE;
+        } else if( currentPwr >= (CriticalPower * 1.0)) { 
+			return Graphics.COLOR_RED;
+        } else if( currentPwr >= (CriticalPower * 0.9)) { 
+        	return Graphics.COLOR_ORANGE;
+        } else if( currentPwr >= (CriticalPower * 0.8)) { 
+        	return Graphics.COLOR_YELLOW;
+        } else if( currentPwr >= (CriticalPower * 0.65)) { 
+        	return Graphics.COLOR_GREEN;
+		} else {
+			return Graphics.COLOR_BLUE;
+		}
+	}
 
 }
