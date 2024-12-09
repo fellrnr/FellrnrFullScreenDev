@@ -2,6 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Application;
 using Toybox.Graphics;
 using Toybox.System;
+import Toybox.Lang;
 
 //fonts
 // https://developer.garmin.com/connect-iq/user-experience-guide/appendices/
@@ -163,6 +164,8 @@ class ScreenLayout extends ScreenLayoutCommon {
 		tinyh = dc.getFontHeight(head_tail_font);
 //		System.println("tinyh " + tinyh);
 		rowh = (h-(2*tinyh))/5; 
+
+		row0y = tinyh / 2;
 //		System.println("rowh " + rowh);
 		row1y = tinyh;
 //		System.println("row1y " + row1y);
@@ -264,9 +267,9 @@ class ScreenLayout extends ScreenLayoutCommon {
 
 		//bottom full width
 		bxc = cx;
-		byc = row5y+rowh/2;
+		byc = row6y+rowh/2;
 		bxc_bg = 0;
-		byc_bg = row5y;
+		byc_bg = row6y;
 		byw_bg = w;
 		bw = w - (w * 18 / 100); //about 18% narrower
 	}
@@ -305,87 +308,180 @@ class ScreenLayout extends ScreenLayoutCommon {
         dc.drawLine(col2,   row2y,  col2, row5y);
 
 
-
-		//head
-		dc.setColor(ColorHeadBG, Graphics.COLOR_TRANSPARENT);
-		//drawRectangle(x, y, width, height)
-        dc.fillRectangle(0, 0, w, row1y);
-		dc.setColor(ColorHeadFG, Graphics.COLOR_TRANSPARENT);
-		dc.drawText(cx, 0, head_tail_font, varHead, Graphics.TEXT_JUSTIFY_CENTER);
-
-
+		drawTextbg(dc, posHead, 0, 0, w, rowh);
+		drawText(dc, posHead, cx, row0y, w, rowh);
 
 		//top
-		drawTextbg(dc, ColorFGVarTL, ColorBGVarTL, tlxc_bg, tlyc_bg, tlyw_bg, rowh);
-		drawText(dc, ColorFGVarTL, ColorBGVarTL, tlxc, tlyc, bigw, rowh, isNumTL, varTL);
+		drawTextbg(dc, posTL, tlxc_bg, tlyc_bg, tlyw_bg, rowh);
+		drawText(dc, posTL, tlxc, tlyc, bigw, rowh);
 
-        drawTextbg(dc, ColorFGVarTR, ColorBGVarTR, trxc_bg, tryc_bg, tryw_bg, rowh);
-        drawText(dc, ColorFGVarTR, ColorBGVarTR, trxc, tryc, bigw, rowh, isNumTR, varTR);
+        drawTextbg(dc, posTR, trxc_bg, tryc_bg, tryw_bg, rowh);
+        drawText(dc, posTR, trxc, tryc, bigw, rowh);
 		
 		//superior middle
-        drawTextbg(dc, ColorFGVarSML, ColorBGVarSML, smlxc_bg, smlyc_bg, smlyw_bg, rowh);
-        drawText(dc, ColorFGVarSML, ColorBGVarSML, smlxc, smlyc, colw, rowh, isNumSML, varSML);
+        drawTextbg(dc, posSML, smlxc_bg, smlyc_bg, smlyw_bg, rowh);
+        drawText(dc, posSML, smlxc, smlyc, colw, rowh);
 
-        drawTextbg(dc, ColorFGVarSMM, ColorBGVarSMM, smmxc_bg, smmyc_bg, smmyw_bg, rowh);
-        drawText(dc, ColorFGVarSMM, ColorBGVarSMM, smmxc, smmyc, colw, rowh, isNumSMM, varSMM);
+        drawTextbg(dc, posSMM, smmxc_bg, smmyc_bg, smmyw_bg, rowh);
+        drawText(dc, posSMM, smmxc, smmyc, colw, rowh);
 
-        drawTextbg(dc, ColorFGVarSMR, ColorBGVarSMR, smrxc_bg, smryc_bg, smryw_bg, rowh);
-        drawText(dc, ColorFGVarSMR, ColorBGVarSMR, smrxc, smryc, colw, rowh, isNumSMR, varSMR);
+        drawTextbg(dc, posSMR, smrxc_bg, smryc_bg, smryw_bg, rowh);
+        drawText(dc, posSMR, smrxc, smryc, colw, rowh);
 
 		//inferior middle
-        drawTextbg(dc, ColorFGVarIML, ColorBGVarIML, imlxc_bg, imlyc_bg, imlyw_bg, rowh);
-        drawText(dc, ColorFGVarIML, ColorBGVarIML, imlxc, imlyc, colw, rowh, isNumIML, varIML);
+        drawTextbg(dc, posIML, imlxc_bg, imlyc_bg, imlyw_bg, rowh);
+        drawText(dc, posIML, imlxc, imlyc, colw, rowh);
 
-        drawTextbg(dc, ColorFGVarIMM, ColorBGVarIMM, immxc_bg, immyc_bg, immyw_bg, rowh);
-        drawText(dc, ColorFGVarIMM, ColorBGVarIMM, immxc, immyc, colw, rowh, isNumIMM, varIMM);
+        drawTextbg(dc, posIMM, immxc_bg, immyc_bg, immyw_bg, rowh);
+        drawText(dc, posIMM, immxc, immyc, colw, rowh);
 
-        drawTextbg(dc, ColorFGVarIMR, ColorBGVarIMR, imrxc_bg, imryc_bg, imryw_bg, rowh);
-        drawText(dc, ColorFGVarIMR, ColorBGVarIMR, imrxc, imryc, colw, rowh, isNumIMR, varIMR);
+        drawTextbg(dc, posIMR, imrxc_bg, imryc_bg, imryw_bg, rowh);
+        drawText(dc, posIMR, imrxc, imryc, colw, rowh);
 
 		//lower middle
-        drawTextbg(dc, ColorFGVarLML, ColorBGVarLML, lmlxc_bg, lmlyc_bg, lmlyw_bg, rowh);
-        drawText(dc, ColorFGVarLML, ColorBGVarLML, lmlxc, lmlyc, colw, rowh, isNumLML, varLML);
+        drawTextbg(dc, posLML, lmlxc_bg, lmlyc_bg, lmlyw_bg, rowh);
+        drawText(dc, posLML, lmlxc, lmlyc, colw, rowh);
 
-        drawTextbg(dc, ColorFGVarLMM, ColorBGVarLMM, lmmxc_bg, lmmyc_bg, lmmyw_bg, rowh);
-        drawText(dc, ColorFGVarLMM, ColorBGVarLMM, lmmxc, lmmyc, colw, rowh, isNumLMM, varLMM);
+        drawTextbg(dc, posLMM, lmmxc_bg, lmmyc_bg, lmmyw_bg, rowh);
+        drawText(dc, posLMM, lmmxc, lmmyc, colw, rowh);
 
-        drawTextbg(dc, ColorFGVarLMR, ColorBGVarLMR, lmrxc_bg, lmryc_bg, lmryw_bg, rowh);
-        drawText(dc, ColorFGVarLMR, ColorBGVarLMR, lmrxc, lmryc, colw, rowh, isNumLMR, varLMR);
+        drawTextbg(dc, posLMR, lmrxc_bg, lmryc_bg, lmryw_bg, rowh);
+        drawText(dc, posLMR, lmrxc, lmryc, colw, rowh);
 
-		//bottom
-        if(varB == null) {
-	        drawTextbg(dc, ColorFGVarBL, ColorBGVarBL, blxc_bg, blyc_bg, blyw_bg, rowh);
-	        drawText(dc, ColorFGVarBL, ColorBGVarBL, blxc, blyc, bigw, rowh, isNumBL, varBL);
-	
-	        drawTextbg(dc, ColorFGVarBR, ColorBGVarBR, brxc_bg, bryc_bg, bryw_bg, rowh);
-	        drawText(dc, ColorFGVarBR, ColorBGVarBR, brxc, bryc, bigw, rowh, isNumBR, varBR);
-		} else {
-	        drawTextbg(dc, ColorFGVarB, ColorBGVarB, bxc_bg, byc_bg, byw_bg, rowh);
-	        drawText(dc, ColorFGVarB, ColorBGVarB, bxc, byc, bw, rowh, isNumB, varB);
-		}
+		drawTextbg(dc, posBL, blxc_bg, blyc_bg, blyw_bg, rowh);
+		drawText(dc, posBL, blxc, blyc, bigw, rowh);
+
+		drawTextbg(dc, posBR, brxc_bg, bryc_bg, bryw_bg, rowh);
+		drawText(dc, posBR, brxc, bryc, bigw, rowh);
+
 		//tail
+
+		//drawTextbg(dc, posTail, bxc_bg, byc_bg, byw_bg, rowh);
+		//drawText(dc, posTail, bxc, byc, bigw, rowh);
+
+		drawTextbg(dc, posTail, bxc_bg, byc_bg, byw_bg, rowh);
+		drawText(dc, posTail, bxc, byc, bigw, rowh);
+
+		/*
 		dc.setColor(ColorFGTailBG, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(0, row6y, w, tinyh+2);
         dc.setColor(ColorFGTailFG, Graphics.COLOR_TRANSPARENT);
         dc.drawText(cx, row6y, head_tail_font, varTail, Graphics.TEXT_JUSTIFY_CENTER);
-		
+*/
     }
 
-	function drawTextbg(dc, fg, bg, bgx, bgy, bgw, bgh) {
 
-        if(bg != Graphics.COLOR_TRANSPARENT) {
-	        dc.setColor(bg, Graphics.COLOR_TRANSPARENT);
-    	    dc.fillRectangle(bgx+1, bgy+1, bgw-1, bgh-1);
-	    }
+/* debug layout
+	var colorList = [		
+Graphics.COLOR_LT_GRAY ,
+Graphics.COLOR_DK_GRAY ,
+Graphics.COLOR_RED ,
+Graphics.COLOR_DK_RED ,
+Graphics.COLOR_ORANGE ,
+Graphics.COLOR_YELLOW ,
+Graphics.COLOR_GREEN ,
+Graphics.COLOR_DK_GREEN ,
+Graphics.COLOR_BLUE ,
+Graphics.COLOR_DK_BLUE ,
+Graphics.COLOR_PURPLE ,
+Graphics.COLOR_PINK ,
+	];
+
+	function drawTextbg(dc, pos, bgx, bgy, bgw, bgh) {
+
+		var i = pos % colorList.size();
+
+		dc.setColor(colorList[i], Graphics.COLOR_TRANSPARENT);
+		dc.fillRectangle(bgx+1, bgy+1, bgw-1, bgh-1);
+	}
+*/
+
+
+	function drawTextbg(dc, pos, bgx, bgy, bgw, bgh) {
+
+		if(screenData.screenFields != null && screenData.screenFields.size() > pos && screenData.screenFields[pos] != null) {
+			var bgSym = screenData.screenFields[pos][:background] as Lang.Symbol;
+
+			if(screenData has bgSym) {
+
+				var bg = screenData[bgSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
+				if(bg != Graphics.COLOR_TRANSPARENT) {
+					dc.setColor(bg.toNumber(), Graphics.COLOR_TRANSPARENT);
+					dc.fillRectangle(bgx+1, bgy+1, bgw-1, bgh-1);
+				}
+			}
+		}
 	}
 
 	
-	function drawText(dc, fg, bg, x, y, w, h, isNum, avar) {
-        dc.setColor(fg, Graphics.COLOR_TRANSPARENT);
-		dc.drawText(x, y, getFont(dc, avar, isNum, w, h), avar, Graphics.TEXT_JUSTIFY_CENTER |Graphics.TEXT_JUSTIFY_VCENTER);
+	function drawText(dc, pos, x, y, w, h) {
+
+		var oops = null;
+		if(screenData.screenFields != null && screenData.screenFields.size() > pos && screenData.screenFields[pos] != null) {
+			var bgSym = screenData.screenFields[pos][:background] as Lang.Symbol;
+			var isNumSym = screenData.screenFields[pos][:isNum] as Lang.Symbol;
+			var valSym = screenData.screenFields[pos][:val] as Lang.Symbol;
+			var name = screenData.screenFields[pos][:name] as Lang.String;
+
+
+			if(screenData has bgSym && screenData has isNumSym && screenData has valSym) {
+
+				var bg = screenData[bgSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
+				var isNum = screenData[isNumSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
+				var val = screenData[valSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
+				//var name = screenData[nameSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
+				System.println("display[" + pos + "], name [" + name + "] value [" + val + "]");
+
+				if(val == null) {
+					val = "-";
+					bg = Graphics.COLOR_YELLOW;
+					isNum = true;
+				}
+
+				var fg = foregroundForBackground(bg);
+				//val = "XXX"; //uncomment to debug laout
+				dc.setColor(fg, Graphics.COLOR_TRANSPARENT);
+				dc.drawText(x, y, getFont(dc, val, isNum, w, h), val, Graphics.TEXT_JUSTIFY_CENTER |Graphics.TEXT_JUSTIFY_VCENTER);
+			} else {
+				
+				if(!(screenData has valSym)) {
+					System.println("display[" + pos + "] screenData lacks val symbol for " + name);
+				}
+				if(!(screenData has bgSym)) {
+					System.println("display[" + pos + "] screenData lacks bg symbol for " + name);
+				}
+				if(!(screenData has isNumSym)) {
+					System.println("display[" + pos + "] screenData lacks isNum symbol for " + name);
+				}
+				
+				oops = "Oops1";
+			}
+		} else {
+			System.println("display[" + pos + "] no entry");
+			oops = "Oops2";
+		}
+
+		if(oops != null) {
+			dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_WHITE);
+			var avar = oops;
+			var isNum = false;
+			dc.drawText(x, y, getFont(dc, avar, isNum, w, h), avar, Graphics.TEXT_JUSTIFY_CENTER |Graphics.TEXT_JUSTIFY_VCENTER);
+		}
 	}
-	
-	
+
+	function foregroundForBackground(bg) {
+		var red = (bg & 0xFF0000) >> 16;
+		var green = (bg & 0x00FF00) >> 8;
+		var blue = (bg & 0xFF);
+		var total = red + blue + green;
+		//3*127=381
+		if(total > 381) {
+			return Graphics.COLOR_BLACK;
+		} else {
+			return Graphics.COLOR_WHITE;
+		}
+	}
+
 	//https://developer.garmin.com/connect-iq/reference-guides/devices-reference/#f%C4%93nix%C2%AE5xtactix%C2%AEcharlie
 	//https://developer.garmin.com/connect-iq/user-experience-guidelines/fenix-2022/ 
 //Font Symbol					Font Face			Font Size (pixels high?) 	Font

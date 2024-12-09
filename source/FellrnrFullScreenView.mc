@@ -4,6 +4,7 @@ using Toybox.System;
 using Toybox.Attention;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
+import Toybox.Lang;
 
 
 //http://patorjk.com/software/taag/#p=display&c=c%2B%2B&f=Big&t=Debug
@@ -24,13 +25,16 @@ using Toybox.Time.Gregorian;
 
 //note this is under the connect iq	 account
 
+//logging via println
+//Logs stored in /Garmin/APPS/LOGS, but customer needs to create an empty text file and put proper name that corresponds to the application name, like for 88833555.PRG is 88833555.txt should be created.
+
 class FellrnrFullScreenView extends WatchUi.DataField {
 
 
-    hidden var pwr;
+    var pwr;
 	var calcpwr=0;
-    hidden var hr;
-    hidden var hrpwr;
+    var hr;
+    var hrpwr;
 
 	var weight;
 	var rhr;
@@ -51,12 +55,11 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var simple;
     var unitP                        = 1000.0;
     var unitE                        = 1000.0;
-    var elapsedTime = 0;
     
     var smoothhr=0;
     var smoothpwr=0;
-    var smoothpace=0;
-    var SmoothPaceCounter=0;
+	var smoothSpeed = 0;
+    var smoothSpeedCounter=0;
     var SmoothHrPwrCounter=0;
     var alertcount=0;
     const ALERT_FREQUENCY=15;
@@ -85,36 +88,39 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 	var hrZones = null;
 
+	var runningDynamics as Toybox.AntPlus.RunningDynamics or Null = null;
+	var isTrailRun = true;
+
     function onTimerReset() {
 		StartingElevation = 0;
-    	SmoothPaceCounter=0;
+    	smoothSpeedCounter=0;
     	SmoothHrPwrCounter=0;
 	}	
 	
     function onTimerStart() {
 		StartingElevation = 0;
-    	SmoothPaceCounter=0;
+    	smoothSpeedCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
 	    smoothpwr=0;
     }
 
     function onTimerPause () {
-    	SmoothPaceCounter=0;
+    	smoothSpeedCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
 	    smoothpwr=0;
 	}	
 
     function onTimerResume() {
-    	SmoothPaceCounter=0;
+    	smoothSpeedCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
 	    smoothpwr=0;
 	}	
 
     function onTimerStop() {
-    	SmoothPaceCounter=0;
+    	smoothSpeedCounter=0;
     	SmoothHrPwrCounter=0;
 	    smoothhr=0;
 	    smoothpwr=0;
@@ -168,29 +174,51 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			DisplayLoop = mApp.getProperty("DisplayLoop");
 			CriticalPower = mApp.getProperty("CriticalPower");
 
-	System.println("ZeroPowerHR:        " + ZeroPowerHR);
-	System.println("HrPwrSmoothing:     " + HrPwrSmoothing);
-	System.println("PaceSmoothing:      " + PaceSmoothing);
-	System.println("DisplayLoop:        " + DisplayLoop);
-	System.println("CriticalPower:           " + CriticalPower);
+			System.println("ZeroPowerHR:        " + ZeroPowerHR);
+			System.println("HrPwrSmoothing:     " + HrPwrSmoothing);
+			System.println("PaceSmoothing:      " + PaceSmoothing);
+			System.println("DisplayLoop:        " + DisplayLoop);
+			System.println("CriticalPower:           " + CriticalPower);
 
 	
 	        hrpwrlabel = "" + ZeroPowerHR.format("%d") + ":" + weight.format("%d") + "";
 	        
 	        display = new ScreenLayout(); //governed by monkey.jungle
 	        
-//	        pwrField = createField("pwr", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"N" });
+			//pwrField = createField("pwr", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"N" });
 
-	        pwrField = createField("Fellrnr_FS_power", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
+	        //pwrField = createField("Fellrnr_FS_power", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
+
+			pwrField = createField("Power", 0, FitContributor.DATA_TYPE_UINT16, {:mesgType => FitContributor.MESG_TYPE_RECORD, :units => "W", :nativeNum => 7});
+
 			shrpwrField = createField("Fellrnr_FS_hrpwr", 1, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 			strideLengthField = createField("Fellrnr_FS_stride_length", 2, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 			gacardiacCostField = createField("Fellrnr_FS_cardic_distance", 3, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 	        
-	        pwrField.setData(0.0);
+	        pwrField.setData(0);
 			shrpwrField.setData(0.0);
 			strideLengthField.setData(0.0); 
 			gacardiacCostField.setData(0.0); 
-	        
+
+			if(Toybox.AntPlus has :RunningDynamics) {
+				runningDynamics = new Toybox.AntPlus.RunningDynamics(null);
+			}
+
+// adding duty factor
+
+			//Fenix 5X is 3.3.0
+			//Fenix 6X is 3.4.0
+			if(Toybox.Activity has :ProfileInfo) {
+				if(Activity.getProfileInfo() != null) { 			//API Level 3.2.0
+					if(Activity.getProfileInfo().subSport != null) { //API Level 3.2.0
+						if(Activity.getProfileInfo().subSport != Activity.SUB_SPORT_TRAIL) {
+							isTrailRun = false;
+						}
+					}
+				}
+			}
+
+
 	}
 
 	function setupField(session) {
@@ -240,7 +268,12 @@ class FellrnrFullScreenView extends WatchUi.DataField {
     // Note that compute() and onUpdate() are asynchronous, and there is no
     // guarantee that compute() will be called before onUpdate().
     // This method is called once per second
+
+
     function compute(info) {
+
+
+		display.screenData.mapDisplayFields();
 
 //  ____                                  
 // |  _ \                                 
@@ -267,102 +300,137 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			lapmsgtime--;
 		}
 */
-		sequence++;
-		loop = ((sequence / DisplayLoop) % 2) == 0;
 
-                                         
+//    _____                   _               _____                              _          
+//   |  __ \                 (_)             |  __ \                            (_)         
+//   | |__) |   _ _ __  _ __  _ _ __   __ _  | |  | |_   _ _ __   __ _ _ __ ___  _  ___ ___ 
+//   |  _  / | | | '_ \| '_ \| | '_ \ / _` | | |  | | | | | '_ \ / _` | '_ ` _ \| |/ __/ __|
+//   | | \ \ |_| | | | | | | | | | | | (_| | | |__| | |_| | | | | (_| | | | | | | | (__\__ \
+//   |_|  \_\__,_|_| |_|_| |_|_|_| |_|\__, | |_____/ \__, |_| |_|\__,_|_| |_| |_|_|\___|___/
+//                                     __/ |          __/ |                                 
+//                                    |___/          |___/                                  
 
-	 	display.varB = null; 
-	 	display.isNumB = true;
+
+		var stepPerMinutes = null;
+		var groundContactTimeMs = null;
+        if (runningDynamics != null) {
+		     var rd = runningDynamics.getRunningDynamics();
+		     if (rd != null) {
+		         stepPerMinutes = rd.cadence * 2; //it looks like strides per minute is one leg
+		         display.screenData.d_verticalOscillationMM = rd.verticalOscillation;
+		         groundContactTimeMs = rd.groundContactTime.toFloat();
+				 display.screenData.d_groundContactTimeMs = rd.groundContactTime;
+		         //var stepLength = rd.stepLength;
+			 }
+		}
 
 
-//  _______    _ _            _______ _                     
-// |__   __|  (_) |          |__   __(_)                    
-//    | | __ _ _| |  ______     | |   _ _ __ ___   ___  ___ 
-//    | |/ _` | | | |______|    | |  | | '_ ` _ \ / _ \/ __|
-//    | | (_| | | |             | |  | | | | | | |  __/\__ \
-//    |_|\__,_|_|_|             |_|  |_|_| |_| |_|\___||___/
-//                                                          
-// 
-		
-		//tail
-		if(loop) {
-			var myTime = System.getClockTime(); // ClockTime object
-			display.varTail = "T" + myTime.hour.format("%02d") + ":" + myTime.min.format("%02d"); // + ":" + myTime.sec.format("%02d");
-			display.ColorFGTailBG = Graphics.COLOR_WHITE;
-			display.ColorFGTailFG = Graphics.COLOR_BLACK;
-		} else {
-			var ElapsedSeconds = info.timerTime / 1000.0;
-			display.varTail = "E" + fmtTime(ElapsedSeconds);
-			display.ColorFGTailBG = Graphics.COLOR_BLACK;
-			display.ColorFGTailFG = Graphics.COLOR_WHITE;
-		} 
-		
-		
-		pwr = 0;
-		hr = 0;
+		//System.println("Running Dynamics at " + timeString);
+		if(stepPerMinutes != null && stepPerMinutes > 0 && groundContactTimeMs != null) {
+			stepPerMinutes = stepPerMinutes.toFloat();
 
-		var alert = null;
-		//cadence
-		
 
-//  _    _                _             _____          _                     
-// | |  | |              | |           / ____|        | |                    
-// | |__| | ___  __ _  __| |  ______  | |     __ _  __| | ___ _ __   ___ ___ 
-// |  __  |/ _ \/ _` |/ _` | |______| | |    / _` |/ _` |/ _ \ '_ \ / __/ _ \
-// | |  | |  __/ (_| | (_| |          | |___| (_| | (_| |  __/ | | | (_|  __/
-// |_|  |_|\___|\__,_|\__,_|           \_____\__,_|\__,_|\___|_| |_|\___\___|
-//                                                                           
-		if(info.currentCadence  == 0 || info.currentCadence == null) {
-			display.ColorHeadBG = Graphics.COLOR_WHITE;
-			display.ColorHeadFG = Graphics.COLOR_BLACK;
-			display.varHead = "-";
-		} else  {
-			display.varHead = info.currentCadence;
-			if(info.currentCadence  < 150){ //walking
-				display.ColorHeadBG = Graphics.COLOR_BLUE;
-				alertcount=0;
-			} else if(info.currentCadence  < 176){ 
-				display.ColorHeadBG = Graphics.COLOR_RED;
-				alert = Attention.TONE_ALERT_LO;
-			} else if(info.currentCadence  < 178) {
-				display.ColorHeadBG = Graphics.COLOR_ORANGE;
-				alert = Attention.TONE_KEY;
-			} else if(info.currentCadence  < 180){ 
-				display.ColorHeadBG = Graphics.COLOR_YELLOW;
-				alert = Attention.TONE_MSG;
-			} else if(info.currentCadence  < 182){ 
-				display.ColorHeadBG = Graphics.COLOR_GREEN;
-				alertcount=0;
-			} else { //> 184
-				display.ColorHeadBG = Graphics.COLOR_PURPLE;
-				alertcount=0;
-			}
+			var stepTimeMs = 60.0 / stepPerMinutes * 1000.0;
+			var dutyFactor = groundContactTimeMs / stepTimeMs * 100.0;
+			display.screenData.d_dutyFactor = dutyFactor.format("%.0f") + "%";
 
-			display.ColorHeadFG = Graphics.COLOR_BLACK;
+			if(display.screenData.d_verticalOscillationMM != null) {
+				var flightTimeMs = stepTimeMs - display.screenData.d_groundContactTimeMs;
+				var gravity = 9.8;
+				var timeGoingUpMs = flightTimeMs/2.0;
+				var timeGoingUpSec = timeGoingUpMs / 1000.0;
+				var stanceVelocityMpS = timeGoingUpSec * gravity;
+				var stanceHeightM = stanceVelocityMpS * timeGoingUpSec;
+				var stanceHeightCm = stanceHeightM * 100;
+				var verticalOscillationCm = display.screenData.d_verticalOscillationMM.toFloat() / 10.0;
 
-			alertinterval--;
-			if (alert != null && alertcount < 30 && alertinterval==0 && Attention has :playTone) {
- 				  //Attention.playTone(alert);
- 				  alertcount++;
- 				  alertinterval=ALERT_FREQUENCY;
+				display.screenData.d_stanceOccelation = verticalOscillationCm - stanceHeightCm;
 			}
 		}
 
 
-//  ____  _____             _____       _ _                   _ _   _ _             _      
-// |  _ \|  __ \           |  __ \     | | |            /\   | | | (_) |           | |     
-// | |_) | |__) |  ______  | |  | | ___| | |_ __ _     /  \  | | |_ _| |_ _   _  __| | ___ 
-// |  _ <|  _  /  |______| | |  | |/ _ \ | __/ _` |   / /\ \ | | __| | __| | | |/ _` |/ _ \
-// | |_) | | \ \           | |__| |  __/ | || (_| |  / ____ \| | |_| | |_| |_| | (_| |  __/
-// |____/|_|  \_\          |_____/ \___|_|\__\__,_| /_/    \_\_|\__|_|\__|\__,_|\__,_|\___|
-//                                                                                         
+
+		sequence++;
+		loop = ((sequence / DisplayLoop) % 2) == 0;
+
+	 	display.varB = null; 
+
+
+
+//    _______ _                     
+//   |__   __(_)                    
+//      | |   _ _ __ ___   ___  ___ 
+//      | |  | | '_ ` _ \ / _ \/ __|
+//      | |  | | | | | | |  __/\__ \
+//      |_|  |_|_| |_| |_|\___||___/
+//                                  
+//                                  
+
+		//tail
+		var myTime = System.getClockTime(); // ClockTime object
+		display.screenData.d_clockTime = "T" + myTime.hour.format("%02d") + ":" + myTime.min.format("%02d"); // + ":" + myTime.sec.format("%02d");
+
+		var ElapsedSeconds = info.timerTime / 1000.0;
+		display.screenData.d_elapsedTime = "E" + fmtTime(ElapsedSeconds);
+
+		if(loop) {
+			display.screenData.d_times = display.screenData.d_clockTime;
+			display.screenData.d_timesBG = Graphics.COLOR_WHITE;
+		} else {
+			display.screenData.d_times = display.screenData.d_elapsedTime;
+			display.screenData.d_timesBG = Graphics.COLOR_BLACK;
+		} 
+		
+
+		pwr = 0;
+		hr = 0;
+
+
+
+
+//     _____          _                     
+//    / ____|        | |                    
+//   | |     __ _  __| | ___ _ __   ___ ___ 
+//   | |    / _` |/ _` |/ _ \ '_ \ / __/ _ \
+//   | |___| (_| | (_| |  __/ | | | (_|  __/
+//    \_____\__,_|\__,_|\___|_| |_|\___\___|
+//                                          
+//                                          
+
+		if(info.currentCadence  == 0 || info.currentCadence == null) {
+			display.screenData.d_cadence = null;
+			display.screenData.d_cadenceBG = Graphics.COLOR_WHITE;
+		} else  {
+			display.screenData.d_cadence = info.currentCadence;
+			if(info.currentCadence  < 150){ //walking
+				display.screenData.d_cadenceBG = Graphics.COLOR_BLUE;
+			} else if(info.currentCadence  < 176){ 
+				display.screenData.d_cadenceBG = Graphics.COLOR_RED;
+			} else if(info.currentCadence  < 178) {
+				display.screenData.d_cadenceBG = Graphics.COLOR_ORANGE;
+			} else if(info.currentCadence  < 180){ 
+				display.screenData.d_cadenceBG = Graphics.COLOR_YELLOW;
+			} else if(info.currentCadence  < 182){ 
+				display.screenData.d_cadenceBG = Graphics.COLOR_GREEN;
+			} else { //> 184
+				display.screenData.d_cadenceBG = Graphics.COLOR_PURPLE;
+			}
+		}
+
+
+
+
+//    _____       _ _          ______ _                 _   _             
+//   |  __ \     | | |        |  ____| |               | | (_)            
+//   | |  | | ___| | |_ __ _  | |__  | | _____   ____ _| |_ _  ___  _ __  
+//   | |  | |/ _ \ | __/ _` | |  __| | |/ _ \ \ / / _` | __| |/ _ \| '_ \ 
+//   | |__| |  __/ | || (_| | | |____| |  __/\ V / (_| | |_| | (_) | | | |
+//   |_____/ \___|_|\__\__,_| |______|_|\___| \_/ \__,_|\__|_|\___/|_| |_|
+//                                                                        
+//                                                                        
 
 //GAP relies on changeinelevation, so this first
-
-		var changeinelevation = 0; 
-
-
+		var changeinelevation = 0;
 		if(info.altitude != null && info.altitude != 0) {  //improbable we're actually exactly at sea level
 
 			if(elevationarray == null) {
@@ -372,28 +440,30 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				}
 			}
 			changeinelevation = info.altitude - elevationarray[0]; 
-			display.varBR = "Δ" + changeinelevation.format("%.1f");
+			display.screenData.d_deltaElevation = "Δ" + changeinelevation.format("%.1f");
 
 			//fifo
 			elevationarray = elevationarray.slice(1, null);
 			elevationarray.add(info.altitude);
-		} else {
-			display.varBR = "!Alt";
-		}
+		} 
+
+
+//		if(isTrailRun) {
 
 
 
-//  _____ __  __ __  __    _____               _                    _ _           _           _   _____               
-// |_   _|  \/  |  \/  |  / ____|             | |          /\      | (_)         | |         | | |  __ \              
-//   | | | \  / | \  / | | |  __ _ __ __ _  __| | ___     /  \   __| |_ _   _ ___| |_ ___  __| | | |__) |_ _  ___ ___ 
-//   | | | |\/| | |\/| | | | |_ | '__/ _` |/ _` |/ _ \   / /\ \ / _` | | | | / __| __/ _ \/ _` | |  ___/ _` |/ __/ _ \
-//  _| |_| |  | | |  | | | |__| | | | (_| | (_| |  __/  / ____ \ (_| | | |_| \__ \ ||  __/ (_| | | |  | (_| | (_|  __/
-// |_____|_|  |_|_|  |_|  \_____|_|  \__,_|\__,_|\___| /_/    \_\__,_| |\__,_|___/\__\___|\__,_| |_|   \__,_|\___\___|
-//                                                                  _/ |                                              
-//                                                                 |__/                                               
+//     _____          _____     _____               _                    _ _           _           _   _____               
+//    / ____|   /\   |  __ \   / ____|             | |          /\      | (_)         | |         | | |  __ \              
+//   | |  __   /  \  | |__) | | |  __ _ __ __ _  __| | ___     /  \   __| |_ _   _ ___| |_ ___  __| | | |__) |_ _  ___ ___ 
+//   | | |_ | / /\ \ |  ___/  | | |_ | '__/ _` |/ _` |/ _ \   / /\ \ / _` | | | | / __| __/ _ \/ _` | |  ___/ _` |/ __/ _ \
+//   | |__| |/ ____ \| |      | |__| | | | (_| | (_| |  __/  / ____ \ (_| | | |_| \__ \ ||  __/ (_| | | |  | (_| | (_|  __/
+//    \_____/_/    \_\_|       \_____|_|  \__,_|\__,_|\___| /_/    \_\__,_| |\__,_|___/\__\___|\__,_| |_|   \__,_|\___\___|
+//                                                                       _/ |                                              
+//                                                                      |__/                                               
+
 //https://journals.physiology.org/doi/full/10.1152/japplphysiol.01177.2001
 //NOTE: other fields rely on the GAP
-		var grade = 0;
+		var grade = null;
 		if(info.currentSpeed != null && info.currentSpeed > 0) {
 			var hspeed = info.currentSpeed;
 			var vspeed = changeinelevation / 60.0; //mps
@@ -418,92 +488,90 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			gradeAdjustedSpeed = hspeed * cost;
 
 			  
-			display.varIMM = fmtPace(gradeAdjustedSpeed);
-        	display.ColorFGVarIMM = Graphics.COLOR_BLACK;
+			display.screenData.d_gradeAdjustedPace = fmtPace(gradeAdjustedSpeed);
 
 		} else {
-			display.varIMM = "!hspeed";
+			display.screenData.d_gradeAdjustedPace = null;
 			gradeAdjustedSpeed = 0;
 		}
 
+		display.screenData.d_grade = null;
+		if(grade != null) {
+			display.screenData.d_grade = grade.format("%.1f") + "%";
+		}
 
+//    _    _                 _     _____       _       
+//   | |  | |               | |   |  __ \     | |      
+//   | |__| | ___  __ _ _ __| |_  | |__) |__ _| |_ ___ 
+//   |  __  |/ _ \/ _` | '__| __| |  _  // _` | __/ _ \
+//   | |  | |  __/ (_| | |  | |_  | | \ \ (_| | ||  __/
+//   |_|  |_|\___|\__,_|_|   \__| |_|  \_\__,_|\__\___|
+//                                                     
+//                                                     
 
-//  _______ _____             _    _                 _     _____       _       
-// |__   __|  __ \           | |  | |               | |   |  __ \     | |      
-//    | |  | |__) |  ______  | |__| | ___  __ _ _ __| |_  | |__) |__ _| |_ ___ 
-//    | |  |  _  /  |______| |  __  |/ _ \/ _` | '__| __| |  _  // _` | __/ _ \
-//    | |  | | \ \           | |  | |  __/ (_| | |  | |_  | | \ \ (_| | ||  __/
-//    |_|  |_|  \_\          |_|  |_|\___|\__,_|_|   \__| |_|  \_\__,_|\__\___|
-//                                                                             
-                                                                             
-		
 		//Just HR
 		if(info.currentHeartRate == 0 || info.currentHeartRate == null) {
-			display.varTR = "No HR";
-			display.isNumTR = false;
+			display.screenData.d_heartRate = null;
 			hr=0;
 		} else  {
-			hr = info.currentHeartRate;
-			display.varTR = hr;
-			display.ColorBGVarTR = GetPolHrColor(hr);
-			display.ColorFGVarTR = Graphics.COLOR_BLACK;
-			display.isNumTR = true;
+			hr =  info.currentHeartRate;
+			display.screenData.d_heartRate = info.currentHeartRate;
+			display.screenData.d_heartRateBG = GetHrColor(hr);
+			display.screenData.d_heartRateIsNum = true;
 		}
 
 
-//  __  __ _                 _____                       
-// |  \/  | |               |  __ \                      
-// | \  / | |       ______  | |__) |____      _____ _ __ 
-// | |\/| | |      |______| |  ___/ _ \ \ /\ / / _ \ '__|
-// | |  | | |____           | |  | (_) \ V  V /  __/ |   
-// |_|  |_|______|          |_|   \___/ \_/\_/ \___|_|   
-//                                                       
-//                                                       
+
+//    _____                       
+//   |  __ \                      
+//   | |__) |____      _____ _ __ 
+//   |  ___/ _ \ \ /\ / / _ \ '__|
+//   | |  | (_) \ V  V /  __/ |   
+//   |_|   \___/ \_/\_/ \___|_|   
+//                                
+//                                
 
 		//Calcualted Power 
 		calcpwr=0;
 		if(info.currentSpeed != null && info.currentSpeed > 0) {
 			//power is about speed (m/s) * weight (kg) * 1.04;
 			calcpwr = gradeAdjustedSpeed * weight * 1.04;
-			pwrField.setData(calcpwr.toFloat());
 		}
 
 		if(info.currentPower != 0 && info.currentPower != null) {
 			pwr = info.currentPower;
 			//var wpkg = pwr / weight;
+			display.screenData.d_powerBG = GetPwrColor(pwr);
 			
-			display.varSML = pwr.format("%d");
-			display.ColorBGVarSML = GetPwrColor(pwr);
-			display.ColorFGVarSML = Graphics.COLOR_BLACK;
-            display.isNumSML = true;
         } else {
-
 			//confirm we're calculating power with inverted colours
-			display.varSML = calcpwr.format("%.1f");
-			display.ColorFGVarSML = Graphics.COLOR_WHITE;
-			display.ColorBGVarSML = Graphics.COLOR_BLACK;
-            display.isNumSML = true;
+			display.screenData.d_powerBG = Graphics.COLOR_WHITE;
 			pwr = calcpwr; //default to calc as the best we can do
 		}
 
+		pwrField.setData(pwr.toNumber());
+		display.screenData.d_power = pwr.format("%d");
 
-//  _______ _                 _    _      _____                
-// |__   __| |               | |  | |    |  __ \               
-//    | |  | |       ______  | |__| |_ __| |__) |_      ___ __ 
-//    | |  | |      |______| |  __  | '__|  ___/\ \ /\ / / '__|
-//    | |  | |____           | |  | | |  | |     \ V  V /| |   
-//    |_|  |______|          |_|  |_|_|  |_|      \_/\_/ |_|   
-//                                                             
-                                                             
+
+
+//    _    _      _____                
+//   | |  | |    |  __ \               
+//   | |__| |_ __| |__) |_      ___ __ 
+//   |  __  | '__|  ___/\ \ /\ / / '__|
+//   | |  | | |  | |     \ V  V /| |   
+//   |_|  |_|_|  |_|      \_/\_/ |_|   
+//                                     
+//                                     
+
 
 		//HR-PWR
-	    display.varTL = "-";
 	    if(hr != 0 && pwr != 0) {
 			if(info.currentHeartRate <= ZeroPowerHR) {
-				display.varTL = "HR < 0pHR";
-	            display.isNumTL = false;
+				display.screenData.d_hrPwr = "HR < 0pHR";
+	            display.screenData.d_hrPwrIsNum = false;
+				display.screenData.d_hrPwrBG = Graphics.COLOR_WHITE;
 			} else {
-	            display.isNumTL = true;
+	            display.screenData.d_hrPwrIsNum = true;
 				
 				if(SmoothHrPwrCounter < HrPwrSmoothing) {
 					SmoothHrPwrCounter++;
@@ -518,29 +586,18 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				var deltahr = (smoothhr - ZeroPowerHR);
 				var hrpw = pwkg / deltahr;
 				var hrpw1dp = Math.round(hrpw*10)/10.0;
-				hrpwr = hrpw1dp;
-
-					//Calculate instantanious HrPwr
-					// var pwrMwInst = pwr * 1000.0;
-			        // var pwkgInst = (pwrMwInst / weight);
-			        // var deltahrInst = (hr - ZeroPowerHR);
-			        // var hrpwInst = pwkgInst / deltahrInst;
-			        // var hrpw1dpInst = Math.round(hrpwInst*10)/10.0;
-		    	    // var hrpwrInst = hrpw1dpInst;
-
-
-					//Garmin keeps reseting max hr, making percent HRR useless
-
-				display.varTL = hrpwr.format("%.1f");
-				display.ColorBGVarTL = GetHrPwrColor(hrpwr);
-				display.ColorFGVarTL = Graphics.COLOR_BLACK;
 				
-				shrpwrField.setData(hrpwr.toFloat());
+				display.screenData.d_hrPwr = hrpw1dp.format("%.1f");
+
+				//Garmin keeps reseting max hr, making percent HRR useless
+
+				display.screenData.d_hrPwrBG = GetHrPwrColor(hrpwr);
+				
+				shrpwrField.setData(hrpw1dp.toFloat());
 			}
 	    } else {
-				display.varTL = "--";
-				display.ColorBGVarTL = Graphics.COLOR_WHITE;
-				display.ColorFGVarTL = Graphics.COLOR_BLACK;
+				display.screenData.d_hrPwr = null;
+				display.screenData.d_hrPwrBG = Graphics.COLOR_WHITE;
 
 		}
 
@@ -549,171 +606,160 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 
-//  ____  _                          _                    _ _   _ _             _      
-// |  _ \| |                   /\   | |             /\   | | | (_) |           | |     
-// | |_) | |       ______     /  \  | |__  ___     /  \  | | |_ _| |_ _   _  __| | ___ 
-// |  _ <| |      |______|   / /\ \ | '_ \/ __|   / /\ \ | | __| | __| | | |/ _` |/ _ \
-// | |_) | |____            / ____ \| |_) \__ \  / ____ \| | |_| | |_| |_| | (_| |  __/
-// |____/|______|          /_/    \_\_.__/|___/ /_/    \_\_|\__|_|\__|\__,_|\__,_|\___|
-//                                                                                     
-                                                                                     
+//             _ _   _ _             _      
+//       /\   | | | (_) |           | |     
+//      /  \  | | |_ _| |_ _   _  __| | ___ 
+//     / /\ \ | | __| | __| | | |/ _` |/ _ \
+//    / ____ \| | |_| | |_| |_| | (_| |  __/
+//   /_/    \_\_|\__|_|\__|\__,_|\__,_|\___|
+//                                          
+//                                          
+
 		if(info.altitude != null) {
-			display.varBL = "@" +  info.altitude.format("%.0f");
-		} else {
-			display.varBL = "!Alt";
+			display.screenData.d_altitude = "@" +  info.altitude.format("%.0f");
 		}
 
 		
 
-//  _____ __  __ _                 _____ __  __ _____     _____                      _       _   _                      _ _   _ _             _      
-// |_   _|  \/  | |        ___    |_   _|  \/  |  __ \   / ____|                    | |     | | (_)               /\   | | | (_) |           | |     
-//   | | | \  / | |       ( _ )     | | | \  / | |__) | | |    _   _ _ __ ___  _   _| | __ _| |_ ___   _____     /  \  | | |_ _| |_ _   _  __| | ___ 
-//   | | | |\/| | |       / _ \/\   | | | |\/| |  _  /  | |   | | | | '_ ` _ \| | | | |/ _` | __| \ \ / / _ \   / /\ \ | | __| | __| | | |/ _` |/ _ \
-//  _| |_| |  | | |____  | (_>  <  _| |_| |  | | | \ \  | |___| |_| | | | | | | |_| | | (_| | |_| |\ V /  __/  / ____ \| | |_| | |_| |_| | (_| |  __/
-// |_____|_|  |_|______|  \___/\/ |_____|_|  |_|_|  \_\  \_____\__,_|_| |_| |_|\__,_|_|\__,_|\__|_| \_/ \___| /_/    \_\_|\__|_|\__|\__,_|\__,_|\___|
-//                                                                                                                                                   
 
-		if(loop) {
-			if(info.totalAscent != null) {
-				display.varIML = "+" +  info.totalAscent.format("%.0f");
-			} else {
-				display.varIML = "zero";
-			}
-		} else {
-			if(info.totalDescent != null) {
-				display.varIML = "-" + info.totalDescent.format("%.0f");
-			} else {
-				display.varIML = "zero";
-			}
-		}		
+//                                _              _____                           _   
+//       /\                      | |     ___    |  __ \                         | |  
+//      /  \   ___  ___ ___ _ __ | |_   ( _ )   | |  | | ___  ___  ___ ___ _ __ | |_ 
+//     / /\ \ / __|/ __/ _ \ '_ \| __|  / _ \/\ | |  | |/ _ \/ __|/ __/ _ \ '_ \| __|
+//    / ____ \\__ \ (_|  __/ | | | |_  | (_>  < | |__| |  __/\__ \ (_|  __/ | | | |_ 
+//   /_/    \_\___/\___\___|_| |_|\__|  \___/\/ |_____/ \___||___/\___\___|_| |_|\__|
+//                                                                                   
+//                                                                                   
+
+		if(info.totalAscent != null) {
+			display.screenData.d_totalAscent = "+" +  info.totalAscent.format("%.0f");
+		}
+
+		if(info.totalDescent != null) {
+			display.screenData.d_totalDescent = "-" + info.totalDescent.format("%.0f");
+		}
 		
+		if(loop) {
+			display.screenData.d_totalAscentDescent = display.screenData.d_totalAscent;
+			display.screenData.d_totalAscentDescentBG = Graphics.COLOR_WHITE;
+		} else {
+			display.screenData.d_totalAscentDescent = display.screenData.d_totalDescent;
+			display.screenData.d_totalAscentDescentBG = Graphics.COLOR_BLACK;
+		} 
 
 
-//  __  __ _____             _____  _     _                       
-// |  \/  |  __ \           |  __ \(_)   | |                      
-// | \  / | |__) |  ______  | |  | |_ ___| |_ __ _ _ __   ___ ___ 
-// | |\/| |  _  /  |______| | |  | | / __| __/ _` | '_ \ / __/ _ \
-// | |  | | | \ \           | |__| | \__ \ || (_| | | | | (_|  __/
-// |_|  |_|_|  \_\          |_____/|_|___/\__\__,_|_| |_|\___\___|
-//                                                                
-      
+//    _____  _     _                       
+//   |  __ \(_)   | |                      
+//   | |  | |_ ___| |_ __ _ _ __   ___ ___ 
+//   | |  | | / __| __/ _` | '_ \ / __/ _ \
+//   | |__| | \__ \ || (_| | | | | (_|  __/
+//   |_____/|_|___/\__\__,_|_| |_|\___\___|
+//                                         
+//                                         
+
 		if(info.elapsedDistance != null) {
-			var distance; 
+			var distance;
 			if(!loop && distancecorrection.abs() > 50) {
 				distance = info.elapsedDistance - distancecorrection;
-                display.ColorFGVarSMR = Graphics.COLOR_WHITE;
-                display.ColorBGVarSMR = Graphics.COLOR_BLACK;
 			} else {
 				distance = info.elapsedDistance;
-                display.ColorFGVarSMR = Graphics.COLOR_BLACK;
-                display.ColorBGVarSMR = Graphics.COLOR_WHITE;
 			}
 			distance = distance / unitP;
 			
-			display.varSMR = distance.format("%.2f");
 			if(distance < 100.0) {
-				display.varSMR = distance.format("%.2f");
+				display.screenData.d_distanceDisplay = distance.format("%.2f");
 			} else {
-				display.varSMR = distance.format("%.1f");
+				display.screenData.d_distanceDisplay = distance.format("%.1f");
 			}
-            display.isNumSMR = true;
-		} else {
-			display.varSMR = "-";
-            display.isNumSMR = false;
 		}
-
+		
 
 //Used to calcualte time delta for race pacing - see version history
 
 
-//  __  __ __  __            _____               
-// |  \/  |  \/  |          |  __ \              
-// | \  / | \  / |  ______  | |__) |_ _  ___ ___ 
-// | |\/| | |\/| | |______| |  ___/ _` |/ __/ _ \
-// | |  | | |  | |          | |  | (_| | (_|  __/
-// |_|  |_|_|  |_|          |_|   \__,_|\___\___|
-                                               
-                                               
+
+//     _____                          _     _____               
+//    / ____|                        | |   |  __ \              
+//   | |    _   _ _ __ _ __ ___ _ __ | |_  | |__) |_ _  ___ ___ 
+//   | |   | | | | '__| '__/ _ \ '_ \| __| |  ___/ _` |/ __/ _ \
+//   | |___| |_| | |  | | |  __/ | | | |_  | |  | (_| | (_|  __/
+//    \_____\__,_|_|  |_|  \___|_| |_|\__| |_|   \__,_|\___\___|
+//                                                              
+//                                                              
 
 
 	    if(info.currentSpeed != null && info.currentSpeed > 0) {
-			display.varSMM = fmtPace(info.currentSpeed*AverageLap);
-            display.ColorBGVarSMM = Graphics.COLOR_WHITE;
-            display.ColorFGVarSMM = Graphics.COLOR_BLACK;
+			display.screenData.d_currentPace = fmtPace(info.currentSpeed*AverageLap);
 
 		} else {
-            display.ColorFGVarSMM = Graphics.COLOR_BLACK;
-            display.ColorBGVarSMM = Graphics.COLOR_WHITE;
-			display.varSMM = "-:--";
+			display.screenData.d_currentPace = null;
 		}
 		
 		
 
-//    _      __  __                                           _____               
-//   | |    |  \/  |     /\                                  |  __ \              
-//   | |    | \  / |    /  \__   _____ _ __ __ _  __ _  ___  | |__) |_ _  ___ ___ 
-//   | |    | |\/| |   / /\ \ \ / / _ \ '__/ _` |/ _` |/ _ \ |  ___/ _` |/ __/ _ \
-//   | |____| |  | |  / ____ \ V /  __/ | | (_| | (_| |  __/ | |  | (_| | (_|  __/
-//   |______|_|  |_| /_/    \_\_/ \___|_|  \__,_|\__, |\___| |_|   \__,_|\___\___|
-//                                                __/ |                           
-//                                               |___/                            
+
+//                                            _____               
+//       /\                                  |  __ \              
+//      /  \__   _____ _ __ __ _  __ _  ___  | |__) |_ _  ___ ___ 
+//     / /\ \ \ / / _ \ '__/ _` |/ _` |/ _ \ |  ___/ _` |/ __/ _ \
+//    / ____ \ V /  __/ | | (_| | (_| |  __/ | |  | (_| | (_|  __/
+//   /_/    \_\_/ \___|_|  \__,_|\__, |\___| |_|   \__,_|\___\___|
+//                                __/ |                           
+//                               |___/                            
+
                 		
 	    if(info.averageSpeed != null && info.averageSpeed > 0) {
-				display.varLMM = fmtPace(info.averageSpeed);
+			display.screenData.d_averagePace = fmtPace(info.averageSpeed);
 		} else {
-			display.varLMM = "-:--";
+			display.screenData.d_averagePace = null;
 		}
-        display.ColorFGVarLMM = Graphics.COLOR_BLACK;
-        display.ColorBGVarLMM = Graphics.COLOR_WHITE;
 
 
-//    _      _____    _____  _     _                         _____                      _       _                         _____               _      
-//   | |    |  __ \  |  __ \(_)   | |                       |  __ \                    (_)     (_)               ___     / ____|             | |     
-//   | |    | |__) | | |  | |_ ___| |_ __ _ _ __   ___ ___  | |__) |___ _ __ ___   __ _ _ _ __  _ _ __   __ _   ( _ )   | |  __ _ __ __ _  __| | ___ 
-//   | |    |  _  /  | |  | | / __| __/ _` | '_ \ / __/ _ \ |  _  // _ \ '_ ` _ \ / _` | | '_ \| | '_ \ / _` |  / _ \/\ | | |_ | '__/ _` |/ _` |/ _ \
-//   | |____| | \ \  | |__| | \__ \ || (_| | | | | (_|  __/ | | \ \  __/ | | | | | (_| | | | | | | | | | (_| | | (_>  < | |__| | | | (_| | (_| |  __/
-//   |______|_|  \_\ |_____/|_|___/\__\__,_|_| |_|\___\___| |_|  \_\___|_| |_| |_|\__,_|_|_| |_|_|_| |_|\__, |  \___/\/  \_____|_|  \__,_|\__,_|\___|
-//                                                                                                       __/ |                                       
-//                                                                                                      |___/                                        
+
+//    _____  _     _                         _____                      _       _             
+//   |  __ \(_)   | |                       |  __ \                    (_)     (_)            
+//   | |  | |_ ___| |_ __ _ _ __   ___ ___  | |__) |___ _ __ ___   __ _ _ _ __  _ _ __   __ _ 
+//   | |  | | / __| __/ _` | '_ \ / __/ _ \ |  _  // _ \ '_ ` _ \ / _` | | '_ \| | '_ \ / _` |
+//   | |__| | \__ \ || (_| | | | | (_|  __/ | | \ \  __/ | | | | | (_| | | | | | | | | | (_| |
+//   |_____/|_|___/\__\__,_|_| |_|\___\___| |_|  \_\___|_| |_| |_|\__,_|_|_| |_|_|_| |_|\__, |
+//                                                                                       __/ |
+//                                                                                      |___/ 
+
 
 	    if(info.distanceToDestination  != null && info.distanceToDestination  > 0) {
 
 			var distance; 
 			distance = info.distanceToDestination / unitP;
 
-			display.varLMR = distance.format("%.2f");
 			if(distance < 100.0) {
-				display.varLMR = distance.format("%.2f");
+				display.screenData.d_distanceRemaining = distance.format("%.2f");
 			} else {
-				display.varLMR = distance.format("%.1f");
+				display.screenData.d_distanceRemaining = distance.format("%.1f");
 			}
-            display.isNumLMR = true;
 
 		} else {
-			display.varLMR = grade.format("%.1f") + "%";
-			
+			display.screenData.d_distanceRemaining = null;
 		}
 		
 
-		
 
 
-//  _      _                  _____ _        _     _        _                      _   _     
-// | |    | |                / ____| |      (_)   | |      | |                    | | | |    
-// | |    | |       ______  | (___ | |_ _ __ _  __| | ___  | |     ___ _ __   __ _| |_| |__  
-// | |    | |      |______|  \___ \| __| '__| |/ _` |/ _ \ | |    / _ \ '_ \ / _` | __| '_ \ 
-// | |____| |____            ____) | |_| |  | | (_| |  __/ | |___|  __/ | | | (_| | |_| | | |
-// |______|______|          |_____/ \__|_|  |_|\__,_|\___| |______\___|_| |_|\__, |\__|_| |_|
-//                                                                            __/ |          
-//                                                                           |___/           
+//     _____ _        _     _        _                      _   _     
+//    / ____| |      (_)   | |      | |                    | | | |    
+//   | (___ | |_ _ __ _  __| | ___  | |     ___ _ __   __ _| |_| |__  
+//    \___ \| __| '__| |/ _` |/ _ \ | |    / _ \ '_ \ / _` | __| '_ \ 
+//    ____) | |_| |  | | (_| |  __/ | |___|  __/ | | | (_| | |_| | | |
+//   |_____/ \__|_|  |_|\__,_|\___| |______\___|_| |_|\__, |\__|_| |_|
+//                                                     __/ |          
+//                                                    |___/           
 
 		if(info.currentCadence == null || info.currentCadence  == 0 || info.currentSpeed == null || info.currentSpeed == 0) {
-			display.varLML = "-.--";
+			display.screenData.d_strideLength = null;
 			strideLengthField.setData(0.0); 
 		} else {
-			var stridelength = (info.currentSpeed * 60) / info.currentCadence;
-			display.varLML = stridelength.format("%.2f");
-			strideLengthField.setData(stridelength); 
+			var sl = (info.currentSpeed * 60) / info.currentCadence;
+			display.screenData.d_strideLength = sl.format("%.2f");
+			strideLengthField.setData(sl); 
 		}
 
 
@@ -729,74 +775,21 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	    if(info.currentSpeed != null && info.currentSpeed > 0) {
 			var realPace = info.currentSpeed*AverageLap;
 
-			if(smoothpace == 0) {
-				smoothpace = info.currentSpeed;
+			if(smoothSpeed == 0) {
+				smoothSpeed = info.currentSpeed;
 			}
-			if(SmoothPaceCounter < PaceSmoothing) {
-				SmoothPaceCounter++;
+			if(smoothSpeedCounter < PaceSmoothing) {
+				smoothSpeedCounter++;
 			}
-			smoothpace = (smoothpace*(SmoothPaceCounter-1)/SmoothPaceCounter) + realPace/SmoothPaceCounter;
-			//System.println("smoothpace " +  smoothpace.format("%.2f") +", currentSpeed " +  info.currentSpeed.format("%.2f") +", SmoothPaceCounter " +  SmoothPaceCounter);  
+			smoothSpeed = (smoothSpeed*(smoothSpeedCounter-1)/smoothSpeedCounter) + realPace/smoothSpeedCounter;
+			//System.println("smoothpace " +  smoothpace.format("%.2f") +", currentSpeed " +  info.currentSpeed.format("%.2f") +", smoothSpeedCounter " +  smoothSpeedCounter);  
+			display.screenData.d_smoothPace = fmtPace(smoothSpeed);
 
 		}
 
-/*
-//  _____        _          ______ _      _     _             _____              _ _               _____          _   
-// |  __ \      | |        |  ____(_)    | |   | |           / ____|            | (_)             / ____|        | |  
-// | |  | | __ _| |_ __ _  | |__   _  ___| | __| |  ______  | |     __ _ _ __ __| |_  __ _  ___  | |     ___  ___| |_ 
-// | |  | |/ _` | __/ _` | |  __| | |/ _ \ |/ _` | |______| | |    / _` | '__/ _` | |/ _` |/ __| | |    / _ \/ __| __|
-// | |__| | (_| | || (_| | | |    | |  __/ | (_| |          | |___| (_| | | | (_| | | (_| | (__  | |___| (_) \__ \ |_ 
-// |_____/ \__,_|\__\__,_| |_|    |_|\___|_|\__,_|           \_____\__,_|_|  \__,_|_|\__,_|\___|  \_____\___/|___/\__|
-//                                                                                                                    
-     
-		//cardiac cost
-		if(hr != 0 && info.currentSpeed != null && info.currentSpeed != 0) {
 
-			//from Pacing Strategy Affects the Sub-Elite Marathoner's Cardiac Drift and Performance|doi=10.3389/fpsyg.2019.03026
-			//note the research paper is ambiguous about speed in meters/min or km/min, but corespondence with the author conformed meter/min
-			//The current speed in meters per second (mps), so divide by 60 to get meters/min
-			//"The cardiac cost (CC) (which has a unit corresponding to the amount of heartbeat by meter ran)"
-			//Example: 140 @ 5:33 min/km, 140 @ 3.0 m/s, 140 @ 0.015 m/min, 140/0.015 = 9,333, 9,333/6,000 = 1.55
-			var speedMetersPerMinute = info.currentSpeed / 60.0;
-			cardiacCost = (info.currentHeartRate / speedMetersPerMinute) / 6000.0; 
-		} else {
-			cardiacCost = 0; //don't leave it as current value as this is misleading
-		}
-		if(hr != 0 && gradeAdjustedSpeed != 0) {
-			var speedMetersPerMinute = gradeAdjustedSpeed / 60.0;
-			gradeAdjustedCardiacCost = (info.currentHeartRate / speedMetersPerMinute) / 6000.0; 
-		} else {
-			gradeAdjustedCardiacCost = 0; //don't leave it as current value as this is misleading
-		}
-		cardiacCostField.setData(cardiacCost.toFloat());
-		gacardiacCostField.setData(gradeAdjustedCardiacCost.toFloat());
-		if(loop) {
-			display.varIMR = cardiacCost.format("%.1f");
-			display.ColorFGVarIMR = Graphics.COLOR_BLACK;
-			display.ColorBGVarIMR = Graphics.COLOR_WHITE;
-		} else {
-			display.varIMR = "Δ" + gradeAdjustedCardiacCost.format("%.1f");
-			display.ColorFGVarIMR = Graphics.COLOR_WHITE;
-			display.ColorBGVarIMR = Graphics.COLOR_BLACK;
-		}
-*/
-		if(hr != 0 && gradeAdjustedSpeed != 0) {
-			//I'm not finding the original CC useful
-			// power is about speed * weight, and HR pwr is per Kg, so simply use
-			// use hr/speed (mps)
-			//Example: 140 @ 5:33 min/km, 140 @ 3.0 m/s, if rest is 40 bpm, so (140-40)/3.0 is 33.3
-			var deltahr = (hr - ZeroPowerHR);
-			gradeAdjustedCardiacCost = (gradeAdjustedSpeed / deltahr) * 1000.0; 
-		} else {
-			gradeAdjustedCardiacCost = 0; //don't leave it as current value as this is misleading
-		}
-		gacardiacCostField.setData(gradeAdjustedCardiacCost.toFloat());
-		display.varIMR = gradeAdjustedCardiacCost.format("%.1f");
-//		display.ColorFGVarIMR = Graphics.COLOR_WHITE;
-//		display.ColorBGVarIMR = Graphics.COLOR_BLACK;
 
-    }
-		
+	}
 
 
     // Display the value you computed here. This will be called
@@ -894,7 +887,6 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 		
 
-	
 
 	function GetHrColor(currentHeartRate) {
 		if(hrZones == null) {
@@ -902,11 +894,11 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		}
 
         if( currentHeartRate >= hrZones[4]) { 
-        	return Graphics.COLOR_DK_RED;
+        	return Graphics.COLOR_RED;
 		} else if( currentHeartRate >= hrZones[3]) {
 			return Graphics.COLOR_ORANGE;
         } else if( currentHeartRate >= hrZones[2]) {
-        	return Graphics.COLOR_DK_GREEN;
+        	return Graphics.COLOR_GREEN;
         } else if( currentHeartRate >= hrZones[1]) {
         	return Graphics.COLOR_BLUE;
         } else if( currentHeartRate >= hrZones[0]) {
@@ -931,6 +923,23 @@ class FellrnrFullScreenView extends WatchUi.DataField {
         	return Graphics.COLOR_BLUE;
 		}
 	}
+
+	var colorArray = [0xAA0000, 0xFF0000, 0xFF5500, 0xFFAA00, 0xFFFF00, 0xAAFF00, 0x00FF00, 0x00FF55, 0x00FFAA, 0x00FFFF, 0x00AAFF, 0x0055FF,0x00AAFF, 0x5500FF, 0xAA00FF, 0xFF00FF] as Lang.Array<Number>;
+	var colorCount = colorArray.size();
+	function GetColor(value, white, red, green, pink) {
+		if(value <= white) {
+			return Graphics.COLOR_WHITE;
+		}
+
+        if( value >= pink) { 
+			return Graphics.COLOR_PINK;
+        } else if(value > green) {
+        	return Graphics.COLOR_GREEN;
+		} else {
+			return Graphics.COLOR_DK_RED;
+		}
+	}
+
 
 	function GetHrPwrColor(currentHrPwr) {
 		if(currentHrPwr == 0) {

@@ -1,7 +1,5 @@
 <resources>
 
-
-    
   <fitContributions>
     <fitField id="0"
       displayInChart="true"
@@ -17,7 +15,7 @@
       displayInChart="true"
       displayInActivityLaps="false"
       displayInActivitySummary="false"
-      sortOrder="1"
+      sortOrder="2"
       precision="1"
       chartTitle="@Strings.SHRPWR"
       dataLabel="@Strings.SHRPWR"
@@ -27,7 +25,7 @@
       displayInChart="true"
       displayInActivityLaps="false"
       displayInActivitySummary="false"
-      sortOrder="1"
+      sortOrder="3"
       precision="1"
       chartTitle="@Strings.StrideLengthTitle"
       dataLabel="@Strings.StrideLengthLabel"
@@ -37,7 +35,7 @@
       displayInChart="true"
       displayInActivityLaps="false"
       displayInActivitySummary="false"
-      sortOrder="1"
+      sortOrder="4"
       precision="1"
       chartTitle="@Strings.CardiacGADTitle"
       dataLabel="@Strings.CardiacGADLabel"
@@ -74,7 +72,7 @@
 
 	<strings>
     <string id="AppName">Fellrnr Full Screen</string>
-    <string id="Pwr">Calculated Power</string>
+    <string id="Pwr">Power</string>
     <string id="SHRPWR">Smoothed HRPwr</string>
     <string id="Watts">Watts</string>
     <string id="BPM">BPM</string>

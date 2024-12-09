@@ -1,0 +1,87 @@
+import Toybox.Lang;
+using Toybox.WatchUi;
+using Toybox.WatchUi as Ui;
+using Toybox.Graphics;
+using Toybox.Graphics as Gfx;
+
+module Rez {
+    module Drawables {
+        (:initialized) var LauncherIcon as ResourceId;
+    } // Drawables
+
+    module Layouts {
+        function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+            var rez_cmp_local_custom_drawable_20961631751605275737 = new Background();
+
+            var rez_cmp_local_text_2227467641 = new WatchUi.Text({:color=>Gfx.COLOR_BLUE, :locX=>10, :locY=>5, :text=>"Page Heading", :font=>Gfx.FONT_LARGE});
+
+            return [rez_cmp_local_custom_drawable_20961631751605275737, rez_cmp_local_text_2227467641] as Array<WatchUi.Drawable>;
+        }
+
+        function TopLeftLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+            var rez_cmp_local_custom_drawable_31227071488501924219 = new Background();
+
+            var rez_cmp_local_text_label = new WatchUi.Text({:identifier=>"label", :color=>Graphics.COLOR_LT_GRAY, :locX=>95, :locY=>75, :justification=>Graphics.TEXT_JUSTIFY_RIGHT, :font=>Graphics.FONT_TINY});
+
+            var rez_cmp_local_text_value = new WatchUi.Text({:identifier=>"value", :color=>Graphics.COLOR_WHITE, :locX=>95, :locY=>42, :justification=>Graphics.TEXT_JUSTIFY_RIGHT, :font=>Graphics.FONT_LARGE});
+
+            return [rez_cmp_local_custom_drawable_31227071488501924219, rez_cmp_local_text_label, rez_cmp_local_text_value] as Array<WatchUi.Drawable>;
+        }
+
+        function TopRightLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+            var rez_cmp_local_custom_drawable_13200390851811505204 = new Background();
+
+            var rez_cmp_local_text_label = new WatchUi.Text({:identifier=>"label", :color=>Graphics.COLOR_LT_GRAY, :locX=>14, :locY=>75, :justification=>Graphics.TEXT_JUSTIFY_LEFT, :font=>Graphics.FONT_TINY});
+
+            var rez_cmp_local_text_value = new WatchUi.Text({:identifier=>"value", :color=>Graphics.COLOR_WHITE, :locX=>14, :locY=>42, :justification=>Graphics.TEXT_JUSTIFY_LEFT, :font=>Graphics.FONT_LARGE});
+
+            return [rez_cmp_local_custom_drawable_13200390851811505204, rez_cmp_local_text_label, rez_cmp_local_text_value] as Array<WatchUi.Drawable>;
+        }
+
+        function BottomLeftLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+            var rez_cmp_local_custom_drawable_85273931016580224572 = new Background();
+
+            var rez_cmp_local_text_label = new WatchUi.Text({:identifier=>"label", :color=>Graphics.COLOR_LT_GRAY, :locX=>95, :locY=>10, :justification=>Graphics.TEXT_JUSTIFY_RIGHT, :font=>Graphics.FONT_TINY});
+
+            var rez_cmp_local_text_value = new WatchUi.Text({:identifier=>"value", :color=>Graphics.COLOR_WHITE, :locX=>95, :locY=>27, :justification=>Graphics.TEXT_JUSTIFY_RIGHT, :font=>Graphics.FONT_LARGE});
+
+            return [rez_cmp_local_custom_drawable_85273931016580224572, rez_cmp_local_text_label, rez_cmp_local_text_value] as Array<WatchUi.Drawable>;
+        }
+
+        function BottomRightLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+            var rez_cmp_local_custom_drawable_16717149241790308240 = new Background();
+
+            var rez_cmp_local_text_label = new WatchUi.Text({:identifier=>"label", :color=>Graphics.COLOR_LT_GRAY, :locX=>14, :locY=>10, :justification=>Graphics.TEXT_JUSTIFY_LEFT, :font=>Graphics.FONT_TINY});
+
+            var rez_cmp_local_text_value = new WatchUi.Text({:identifier=>"value", :color=>Graphics.COLOR_WHITE, :locX=>14, :locY=>27, :justification=>Graphics.TEXT_JUSTIFY_LEFT, :font=>Graphics.FONT_LARGE});
+
+            return [rez_cmp_local_custom_drawable_16717149241790308240, rez_cmp_local_text_label, rez_cmp_local_text_value] as Array<WatchUi.Drawable>;
+        }
+    } // Layouts
+
+    module Strings {
+        (:initialized) var StrideLengthTitle as ResourceId;
+        (:initialized) var CriticalPowerPrompt as ResourceId;
+        (:initialized) var PaceUnits as ResourceId;
+        (:initialized) var DisplayLoopPrompt as ResourceId;
+        (:initialized) var CardiacGADTitle as ResourceId;
+        (:initialized) var CriticalPowerTitle as ResourceId;
+        (:initialized) var Pwr as ResourceId;
+        (:initialized) var DisplayLoopTitle as ResourceId;
+        (:initialized) var HrPwrSmoothingTitle as ResourceId;
+        (:initialized) var AppName as ResourceId;
+        (:initialized) var HrPwrSmoothingPrompt as ResourceId;
+        (:initialized) var PaceSmoothingPrompt as ResourceId;
+        (:initialized) var SHRPWR as ResourceId;
+        (:initialized) var StrideLengthLabel as ResourceId;
+        (:initialized) var ZeroPowerHRTitle as ResourceId;
+        (:initialized) var EUnits as ResourceId;
+        (:initialized) var PaceSmoothingTitle as ResourceId;
+        (:initialized) var StrideLengthUnits as ResourceId;
+        (:initialized) var ZeroPowerHRPrompt as ResourceId;
+        (:initialized) var Watts as ResourceId;
+        (:initialized) var BPM as ResourceId;
+        (:initialized) var CardiacGADLabel as ResourceId;
+        (:initialized) var CardiacGADUnits as ResourceId;
+    } // Strings
+} // Rez

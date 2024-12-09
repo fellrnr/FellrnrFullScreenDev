@@ -1,0 +1,1039 @@
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 1; ]
+using Toybox.WatchUi;
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 2; ]
+using Toybox.Application;
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 3; ]
+using Toybox.Graphics;
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 4; ]
+using Toybox.System;
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 5; ]
+import Toybox.Lang;
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 7; ]
+class ScreenData{
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 7; ]
+    <init> {
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 13 5 ]
+        %tmp.1 = getm $.Toybox.Graphics;
+        %tmp.2 = getv %tmp.1 :COLOR_WHITE;
+        putv self :d_timesBG %tmp.2;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 15 5 ]
+        %tmp.3 = getm $.Toybox.Graphics;
+        %tmp.4 = getv %tmp.3 :COLOR_WHITE;
+        putv self :d_cadenceBG %tmp.4;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 19 5 ]
+        %tmp.5 = getm $.Toybox.Graphics;
+        %tmp.6 = getv %tmp.5 :COLOR_WHITE;
+        putv self :d_heartRateBG %tmp.6;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 22 5 ]
+        %tmp.7 = getm $.Toybox.Graphics;
+        %tmp.8 = getv %tmp.7 :COLOR_WHITE;
+        putv self :d_powerBG %tmp.8;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 24 5 ]
+        %tmp.9 = getm $.Toybox.Graphics;
+        %tmp.10 = getv %tmp.9 :COLOR_WHITE;
+        putv self :d_hrPwrBG %tmp.10;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 31 5 ]
+        %tmp.11 = getm $.Toybox.Graphics;
+        %tmp.12 = getv %tmp.11 :COLOR_WHITE;
+        putv self :d_totalAscentDescentBG %tmp.12;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 45 5 ]
+        %tmp.13 = getm $.Toybox.Graphics;
+        %tmp.14 = getv %tmp.13 :COLOR_WHITE;
+        putv self :defaultBG %tmp.14;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 55 7 ]
+        %tmp.15 = newd 25;
+        %tmp.16 = "cadence";
+        %tmp.17 = newd 4;
+        %tmp.19 = const :name;
+        %tmp.20 = "cadence";
+        %tmp.21 = dup %tmp.17;
+        %tmp.22 = aputv %tmp.21 %tmp.19 %tmp.20;
+        %tmp.24 = const :val;
+        %tmp.26 = const :d_cadence;
+        %tmp.27 = dup %tmp.22;
+        %tmp.28 = aputv %tmp.27 %tmp.24 %tmp.26;
+        %tmp.30 = const :background;
+        %tmp.32 = const :d_cadenceBG;
+        %tmp.33 = dup %tmp.28;
+        %tmp.34 = aputv %tmp.33 %tmp.30 %tmp.32;
+        %tmp.36 = const :isNum;
+        %tmp.38 = const :defaultIsNum;
+        %tmp.39 = dup %tmp.34;
+        %tmp.40 = aputv %tmp.39 %tmp.36 %tmp.38;
+        %tmp.41 = dup %tmp.15;
+        %tmp.42 = aputv %tmp.41 %tmp.16 %tmp.40;
+        %tmp.43 = "hrPwr";
+        %tmp.44 = newd 4;
+        %tmp.46 = const :name;
+        %tmp.47 = "hrPwr";
+        %tmp.48 = dup %tmp.44;
+        %tmp.49 = aputv %tmp.48 %tmp.46 %tmp.47;
+        %tmp.51 = const :val;
+        %tmp.53 = const :d_hrPwr;
+        %tmp.54 = dup %tmp.49;
+        %tmp.55 = aputv %tmp.54 %tmp.51 %tmp.53;
+        %tmp.57 = const :background;
+        %tmp.59 = const :d_hrPwrBG;
+        %tmp.60 = dup %tmp.55;
+        %tmp.61 = aputv %tmp.60 %tmp.57 %tmp.59;
+        %tmp.63 = const :isNum;
+        %tmp.65 = const :d_hrPwrIsNum;
+        %tmp.66 = dup %tmp.61;
+        %tmp.67 = aputv %tmp.66 %tmp.63 %tmp.65;
+        %tmp.68 = dup %tmp.42;
+        %tmp.69 = aputv %tmp.68 %tmp.43 %tmp.67;
+        %tmp.70 = "heartRate";
+        %tmp.71 = newd 4;
+        %tmp.73 = const :name;
+        %tmp.74 = "heartRate";
+        %tmp.75 = dup %tmp.71;
+        %tmp.76 = aputv %tmp.75 %tmp.73 %tmp.74;
+        %tmp.78 = const :val;
+        %tmp.80 = const :d_heartRate;
+        %tmp.81 = dup %tmp.76;
+        %tmp.82 = aputv %tmp.81 %tmp.78 %tmp.80;
+        %tmp.84 = const :background;
+        %tmp.86 = const :d_heartRateBG;
+        %tmp.87 = dup %tmp.82;
+        %tmp.88 = aputv %tmp.87 %tmp.84 %tmp.86;
+        %tmp.90 = const :isNum;
+        %tmp.92 = const :defaultIsNum;
+        %tmp.93 = dup %tmp.88;
+        %tmp.94 = aputv %tmp.93 %tmp.90 %tmp.92;
+        %tmp.95 = dup %tmp.69;
+        %tmp.96 = aputv %tmp.95 %tmp.70 %tmp.94;
+        %tmp.97 = "power";
+        %tmp.98 = newd 4;
+        %tmp.100 = const :name;
+        %tmp.101 = "power";
+        %tmp.102 = dup %tmp.98;
+        %tmp.103 = aputv %tmp.102 %tmp.100 %tmp.101;
+        %tmp.105 = const :val;
+        %tmp.107 = const :d_power;
+        %tmp.108 = dup %tmp.103;
+        %tmp.109 = aputv %tmp.108 %tmp.105 %tmp.107;
+        %tmp.111 = const :background;
+        %tmp.113 = const :d_powerBG;
+        %tmp.114 = dup %tmp.109;
+        %tmp.115 = aputv %tmp.114 %tmp.111 %tmp.113;
+        %tmp.117 = const :isNum;
+        %tmp.119 = const :defaultIsNum;
+        %tmp.120 = dup %tmp.115;
+        %tmp.121 = aputv %tmp.120 %tmp.117 %tmp.119;
+        %tmp.122 = dup %tmp.96;
+        %tmp.123 = aputv %tmp.122 %tmp.97 %tmp.121;
+        %tmp.124 = "currentPace";
+        %tmp.125 = newd 4;
+        %tmp.127 = const :name;
+        %tmp.128 = "currentPace";
+        %tmp.129 = dup %tmp.125;
+        %tmp.130 = aputv %tmp.129 %tmp.127 %tmp.128;
+        %tmp.132 = const :val;
+        %tmp.134 = const :d_currentPace;
+        %tmp.135 = dup %tmp.130;
+        %tmp.136 = aputv %tmp.135 %tmp.132 %tmp.134;
+        %tmp.138 = const :background;
+        %tmp.140 = const :defaultBG;
+        %tmp.141 = dup %tmp.136;
+        %tmp.142 = aputv %tmp.141 %tmp.138 %tmp.140;
+        %tmp.144 = const :isNum;
+        %tmp.146 = const :defaultIsNum;
+        %tmp.147 = dup %tmp.142;
+        %tmp.148 = aputv %tmp.147 %tmp.144 %tmp.146;
+        %tmp.149 = dup %tmp.123;
+        %tmp.150 = aputv %tmp.149 %tmp.124 %tmp.148;
+        %tmp.151 = "altitude";
+        %tmp.152 = newd 4;
+        %tmp.154 = const :name;
+        %tmp.155 = "altitude";
+        %tmp.156 = dup %tmp.152;
+        %tmp.157 = aputv %tmp.156 %tmp.154 %tmp.155;
+        %tmp.159 = const :val;
+        %tmp.161 = const :d_altitude;
+        %tmp.162 = dup %tmp.157;
+        %tmp.163 = aputv %tmp.162 %tmp.159 %tmp.161;
+        %tmp.165 = const :background;
+        %tmp.167 = const :defaultBG;
+        %tmp.168 = dup %tmp.163;
+        %tmp.169 = aputv %tmp.168 %tmp.165 %tmp.167;
+        %tmp.171 = const :isNum;
+        %tmp.173 = const :defaultIsNum;
+        %tmp.174 = dup %tmp.169;
+        %tmp.175 = aputv %tmp.174 %tmp.171 %tmp.173;
+        %tmp.176 = dup %tmp.150;
+        %tmp.177 = aputv %tmp.176 %tmp.151 %tmp.175;
+        %tmp.178 = "deltaElevation";
+        %tmp.179 = newd 4;
+        %tmp.181 = const :name;
+        %tmp.182 = "deltaElevation";
+        %tmp.183 = dup %tmp.179;
+        %tmp.184 = aputv %tmp.183 %tmp.181 %tmp.182;
+        %tmp.186 = const :val;
+        %tmp.188 = const :d_deltaElevation;
+        %tmp.189 = dup %tmp.184;
+        %tmp.190 = aputv %tmp.189 %tmp.186 %tmp.188;
+        %tmp.192 = const :background;
+        %tmp.194 = const :defaultBG;
+        %tmp.195 = dup %tmp.190;
+        %tmp.196 = aputv %tmp.195 %tmp.192 %tmp.194;
+        %tmp.198 = const :isNum;
+        %tmp.200 = const :defaultIsNum;
+        %tmp.201 = dup %tmp.196;
+        %tmp.202 = aputv %tmp.201 %tmp.198 %tmp.200;
+        %tmp.203 = dup %tmp.177;
+        %tmp.204 = aputv %tmp.203 %tmp.178 %tmp.202;
+        %tmp.205 = "elapsedTime";
+        %tmp.206 = newd 4;
+        %tmp.208 = const :name;
+        %tmp.209 = "elapsedTime";
+        %tmp.210 = dup %tmp.206;
+        %tmp.211 = aputv %tmp.210 %tmp.208 %tmp.209;
+        %tmp.213 = const :val;
+        %tmp.215 = const :d_elapsedTime;
+        %tmp.216 = dup %tmp.211;
+        %tmp.217 = aputv %tmp.216 %tmp.213 %tmp.215;
+        %tmp.219 = const :background;
+        %tmp.221 = const :defaultBG;
+        %tmp.222 = dup %tmp.217;
+        %tmp.223 = aputv %tmp.222 %tmp.219 %tmp.221;
+        %tmp.225 = const :isNum;
+        %tmp.227 = const :defaultIsNum;
+        %tmp.228 = dup %tmp.223;
+        %tmp.229 = aputv %tmp.228 %tmp.225 %tmp.227;
+        %tmp.230 = dup %tmp.204;
+        %tmp.231 = aputv %tmp.230 %tmp.205 %tmp.229;
+        %tmp.232 = "clockTime";
+        %tmp.233 = newd 4;
+        %tmp.235 = const :name;
+        %tmp.236 = "clockTime";
+        %tmp.237 = dup %tmp.233;
+        %tmp.238 = aputv %tmp.237 %tmp.235 %tmp.236;
+        %tmp.240 = const :val;
+        %tmp.242 = const :d_clockTime;
+        %tmp.243 = dup %tmp.238;
+        %tmp.244 = aputv %tmp.243 %tmp.240 %tmp.242;
+        %tmp.246 = const :background;
+        %tmp.248 = const :defaultBG;
+        %tmp.249 = dup %tmp.244;
+        %tmp.250 = aputv %tmp.249 %tmp.246 %tmp.248;
+        %tmp.252 = const :isNum;
+        %tmp.254 = const :defaultIsNum;
+        %tmp.255 = dup %tmp.250;
+        %tmp.256 = aputv %tmp.255 %tmp.252 %tmp.254;
+        %tmp.257 = dup %tmp.231;
+        %tmp.258 = aputv %tmp.257 %tmp.232 %tmp.256;
+        %tmp.259 = "times";
+        %tmp.260 = newd 4;
+        %tmp.262 = const :name;
+        %tmp.263 = "times";
+        %tmp.264 = dup %tmp.260;
+        %tmp.265 = aputv %tmp.264 %tmp.262 %tmp.263;
+        %tmp.267 = const :val;
+        %tmp.269 = const :d_times;
+        %tmp.270 = dup %tmp.265;
+        %tmp.271 = aputv %tmp.270 %tmp.267 %tmp.269;
+        %tmp.273 = const :background;
+        %tmp.275 = const :d_timesBG;
+        %tmp.276 = dup %tmp.271;
+        %tmp.277 = aputv %tmp.276 %tmp.273 %tmp.275;
+        %tmp.279 = const :isNum;
+        %tmp.281 = const :defaultIsNum;
+        %tmp.282 = dup %tmp.277;
+        %tmp.283 = aputv %tmp.282 %tmp.279 %tmp.281;
+        %tmp.284 = dup %tmp.258;
+        %tmp.285 = aputv %tmp.284 %tmp.259 %tmp.283;
+        %tmp.286 = "gradeAdjustedPace";
+        %tmp.287 = newd 4;
+        %tmp.289 = const :name;
+        %tmp.290 = "gradeAdjustedPace";
+        %tmp.291 = dup %tmp.287;
+        %tmp.292 = aputv %tmp.291 %tmp.289 %tmp.290;
+        %tmp.294 = const :val;
+        %tmp.296 = const :d_gradeAdjustedPace;
+        %tmp.297 = dup %tmp.292;
+        %tmp.298 = aputv %tmp.297 %tmp.294 %tmp.296;
+        %tmp.300 = const :background;
+        %tmp.302 = const :defaultBG;
+        %tmp.303 = dup %tmp.298;
+        %tmp.304 = aputv %tmp.303 %tmp.300 %tmp.302;
+        %tmp.306 = const :isNum;
+        %tmp.308 = const :defaultIsNum;
+        %tmp.309 = dup %tmp.304;
+        %tmp.310 = aputv %tmp.309 %tmp.306 %tmp.308;
+        %tmp.311 = dup %tmp.285;
+        %tmp.312 = aputv %tmp.311 %tmp.286 %tmp.310;
+        %tmp.313 = "grade";
+        %tmp.314 = newd 4;
+        %tmp.316 = const :name;
+        %tmp.317 = "grade";
+        %tmp.318 = dup %tmp.314;
+        %tmp.319 = aputv %tmp.318 %tmp.316 %tmp.317;
+        %tmp.321 = const :val;
+        %tmp.323 = const :d_grade;
+        %tmp.324 = dup %tmp.319;
+        %tmp.325 = aputv %tmp.324 %tmp.321 %tmp.323;
+        %tmp.327 = const :background;
+        %tmp.329 = const :defaultBG;
+        %tmp.330 = dup %tmp.325;
+        %tmp.331 = aputv %tmp.330 %tmp.327 %tmp.329;
+        %tmp.333 = const :isNum;
+        %tmp.335 = const :defaultIsNum;
+        %tmp.336 = dup %tmp.331;
+        %tmp.337 = aputv %tmp.336 %tmp.333 %tmp.335;
+        %tmp.338 = dup %tmp.312;
+        %tmp.339 = aputv %tmp.338 %tmp.313 %tmp.337;
+        %tmp.340 = "totalAscent";
+        %tmp.341 = newd 4;
+        %tmp.343 = const :name;
+        %tmp.344 = "totalAscent";
+        %tmp.345 = dup %tmp.341;
+        %tmp.346 = aputv %tmp.345 %tmp.343 %tmp.344;
+        %tmp.348 = const :val;
+        %tmp.350 = const :d_totalAscent;
+        %tmp.351 = dup %tmp.346;
+        %tmp.352 = aputv %tmp.351 %tmp.348 %tmp.350;
+        %tmp.354 = const :background;
+        %tmp.356 = const :defaultBG;
+        %tmp.357 = dup %tmp.352;
+        %tmp.358 = aputv %tmp.357 %tmp.354 %tmp.356;
+        %tmp.360 = const :isNum;
+        %tmp.362 = const :defaultIsNum;
+        %tmp.363 = dup %tmp.358;
+        %tmp.364 = aputv %tmp.363 %tmp.360 %tmp.362;
+        %tmp.365 = dup %tmp.339;
+        %tmp.366 = aputv %tmp.365 %tmp.340 %tmp.364;
+        %tmp.367 = "totalDescent";
+        %tmp.368 = newd 4;
+        %tmp.370 = const :name;
+        %tmp.371 = "totalDescent";
+        %tmp.372 = dup %tmp.368;
+        %tmp.373 = aputv %tmp.372 %tmp.370 %tmp.371;
+        %tmp.375 = const :val;
+        %tmp.377 = const :d_totalDescent;
+        %tmp.378 = dup %tmp.373;
+        %tmp.379 = aputv %tmp.378 %tmp.375 %tmp.377;
+        %tmp.381 = const :background;
+        %tmp.383 = const :defaultBG;
+        %tmp.384 = dup %tmp.379;
+        %tmp.385 = aputv %tmp.384 %tmp.381 %tmp.383;
+        %tmp.387 = const :isNum;
+        %tmp.389 = const :defaultIsNum;
+        %tmp.390 = dup %tmp.385;
+        %tmp.391 = aputv %tmp.390 %tmp.387 %tmp.389;
+        %tmp.392 = dup %tmp.366;
+        %tmp.393 = aputv %tmp.392 %tmp.367 %tmp.391;
+        %tmp.394 = "totalAscentDescent";
+        %tmp.395 = newd 4;
+        %tmp.397 = const :name;
+        %tmp.398 = "totalAscentDescent";
+        %tmp.399 = dup %tmp.395;
+        %tmp.400 = aputv %tmp.399 %tmp.397 %tmp.398;
+        %tmp.402 = const :val;
+        %tmp.404 = const :d_totalAscentDescent;
+        %tmp.405 = dup %tmp.400;
+        %tmp.406 = aputv %tmp.405 %tmp.402 %tmp.404;
+        %tmp.408 = const :background;
+        %tmp.410 = const :d_totalAscentDescentBG;
+        %tmp.411 = dup %tmp.406;
+        %tmp.412 = aputv %tmp.411 %tmp.408 %tmp.410;
+        %tmp.414 = const :isNum;
+        %tmp.416 = const :defaultIsNum;
+        %tmp.417 = dup %tmp.412;
+        %tmp.418 = aputv %tmp.417 %tmp.414 %tmp.416;
+        %tmp.419 = dup %tmp.393;
+        %tmp.420 = aputv %tmp.419 %tmp.394 %tmp.418;
+        %tmp.421 = "distanceDisplay";
+        %tmp.422 = newd 4;
+        %tmp.424 = const :name;
+        %tmp.425 = "distanceDisplay";
+        %tmp.426 = dup %tmp.422;
+        %tmp.427 = aputv %tmp.426 %tmp.424 %tmp.425;
+        %tmp.429 = const :val;
+        %tmp.431 = const :d_distanceDisplay;
+        %tmp.432 = dup %tmp.427;
+        %tmp.433 = aputv %tmp.432 %tmp.429 %tmp.431;
+        %tmp.435 = const :background;
+        %tmp.437 = const :defaultBG;
+        %tmp.438 = dup %tmp.433;
+        %tmp.439 = aputv %tmp.438 %tmp.435 %tmp.437;
+        %tmp.441 = const :isNum;
+        %tmp.443 = const :defaultIsNum;
+        %tmp.444 = dup %tmp.439;
+        %tmp.445 = aputv %tmp.444 %tmp.441 %tmp.443;
+        %tmp.446 = dup %tmp.420;
+        %tmp.447 = aputv %tmp.446 %tmp.421 %tmp.445;
+        %tmp.448 = "averagePace";
+        %tmp.449 = newd 4;
+        %tmp.451 = const :name;
+        %tmp.452 = "averagePace";
+        %tmp.453 = dup %tmp.449;
+        %tmp.454 = aputv %tmp.453 %tmp.451 %tmp.452;
+        %tmp.456 = const :val;
+        %tmp.458 = const :d_averagePace;
+        %tmp.459 = dup %tmp.454;
+        %tmp.460 = aputv %tmp.459 %tmp.456 %tmp.458;
+        %tmp.462 = const :background;
+        %tmp.464 = const :defaultBG;
+        %tmp.465 = dup %tmp.460;
+        %tmp.466 = aputv %tmp.465 %tmp.462 %tmp.464;
+        %tmp.468 = const :isNum;
+        %tmp.470 = const :defaultIsNum;
+        %tmp.471 = dup %tmp.466;
+        %tmp.472 = aputv %tmp.471 %tmp.468 %tmp.470;
+        %tmp.473 = dup %tmp.447;
+        %tmp.474 = aputv %tmp.473 %tmp.448 %tmp.472;
+        %tmp.475 = "distanceRemaining";
+        %tmp.476 = newd 4;
+        %tmp.478 = const :name;
+        %tmp.479 = "distanceRemaining";
+        %tmp.480 = dup %tmp.476;
+        %tmp.481 = aputv %tmp.480 %tmp.478 %tmp.479;
+        %tmp.483 = const :val;
+        %tmp.485 = const :d_distanceRemaining;
+        %tmp.486 = dup %tmp.481;
+        %tmp.487 = aputv %tmp.486 %tmp.483 %tmp.485;
+        %tmp.489 = const :background;
+        %tmp.491 = const :defaultBG;
+        %tmp.492 = dup %tmp.487;
+        %tmp.493 = aputv %tmp.492 %tmp.489 %tmp.491;
+        %tmp.495 = const :isNum;
+        %tmp.497 = const :defaultIsNum;
+        %tmp.498 = dup %tmp.493;
+        %tmp.499 = aputv %tmp.498 %tmp.495 %tmp.497;
+        %tmp.500 = dup %tmp.474;
+        %tmp.501 = aputv %tmp.500 %tmp.475 %tmp.499;
+        %tmp.502 = "strideLength";
+        %tmp.503 = newd 4;
+        %tmp.505 = const :name;
+        %tmp.506 = "strideLength";
+        %tmp.507 = dup %tmp.503;
+        %tmp.508 = aputv %tmp.507 %tmp.505 %tmp.506;
+        %tmp.510 = const :val;
+        %tmp.512 = const :d_strideLength;
+        %tmp.513 = dup %tmp.508;
+        %tmp.514 = aputv %tmp.513 %tmp.510 %tmp.512;
+        %tmp.516 = const :background;
+        %tmp.518 = const :defaultBG;
+        %tmp.519 = dup %tmp.514;
+        %tmp.520 = aputv %tmp.519 %tmp.516 %tmp.518;
+        %tmp.522 = const :isNum;
+        %tmp.524 = const :defaultIsNum;
+        %tmp.525 = dup %tmp.520;
+        %tmp.526 = aputv %tmp.525 %tmp.522 %tmp.524;
+        %tmp.527 = dup %tmp.501;
+        %tmp.528 = aputv %tmp.527 %tmp.502 %tmp.526;
+        %tmp.529 = "smoothPace";
+        %tmp.530 = newd 4;
+        %tmp.532 = const :name;
+        %tmp.533 = "smoothPace";
+        %tmp.534 = dup %tmp.530;
+        %tmp.535 = aputv %tmp.534 %tmp.532 %tmp.533;
+        %tmp.537 = const :val;
+        %tmp.539 = const :d_smoothPace;
+        %tmp.540 = dup %tmp.535;
+        %tmp.541 = aputv %tmp.540 %tmp.537 %tmp.539;
+        %tmp.543 = const :background;
+        %tmp.545 = const :defaultBG;
+        %tmp.546 = dup %tmp.541;
+        %tmp.547 = aputv %tmp.546 %tmp.543 %tmp.545;
+        %tmp.549 = const :isNum;
+        %tmp.551 = const :defaultIsNum;
+        %tmp.552 = dup %tmp.547;
+        %tmp.553 = aputv %tmp.552 %tmp.549 %tmp.551;
+        %tmp.554 = dup %tmp.528;
+        %tmp.555 = aputv %tmp.554 %tmp.529 %tmp.553;
+        %tmp.556 = "cadiacCost";
+        %tmp.557 = newd 4;
+        %tmp.559 = const :name;
+        %tmp.560 = "cadiacCost";
+        %tmp.561 = dup %tmp.557;
+        %tmp.562 = aputv %tmp.561 %tmp.559 %tmp.560;
+        %tmp.564 = const :val;
+        %tmp.566 = const :d_cadiacCost;
+        %tmp.567 = dup %tmp.562;
+        %tmp.568 = aputv %tmp.567 %tmp.564 %tmp.566;
+        %tmp.570 = const :background;
+        %tmp.572 = const :defaultBG;
+        %tmp.573 = dup %tmp.568;
+        %tmp.574 = aputv %tmp.573 %tmp.570 %tmp.572;
+        %tmp.576 = const :isNum;
+        %tmp.578 = const :d_cardiacCostIsNum;
+        %tmp.579 = dup %tmp.574;
+        %tmp.580 = aputv %tmp.579 %tmp.576 %tmp.578;
+        %tmp.581 = dup %tmp.555;
+        %tmp.582 = aputv %tmp.581 %tmp.556 %tmp.580;
+        %tmp.583 = "dutyFactor";
+        %tmp.584 = newd 4;
+        %tmp.586 = const :name;
+        %tmp.587 = "dutyFactor";
+        %tmp.588 = dup %tmp.584;
+        %tmp.589 = aputv %tmp.588 %tmp.586 %tmp.587;
+        %tmp.591 = const :val;
+        %tmp.593 = const :d_dutyFactor;
+        %tmp.594 = dup %tmp.589;
+        %tmp.595 = aputv %tmp.594 %tmp.591 %tmp.593;
+        %tmp.597 = const :background;
+        %tmp.599 = const :defaultBG;
+        %tmp.600 = dup %tmp.595;
+        %tmp.601 = aputv %tmp.600 %tmp.597 %tmp.599;
+        %tmp.603 = const :isNum;
+        %tmp.605 = const :defaultIsNum;
+        %tmp.606 = dup %tmp.601;
+        %tmp.607 = aputv %tmp.606 %tmp.603 %tmp.605;
+        %tmp.608 = dup %tmp.582;
+        %tmp.609 = aputv %tmp.608 %tmp.583 %tmp.607;
+        %tmp.610 = "stanceOccelation";
+        %tmp.611 = newd 4;
+        %tmp.613 = const :name;
+        %tmp.614 = "stanceOccelation";
+        %tmp.615 = dup %tmp.611;
+        %tmp.616 = aputv %tmp.615 %tmp.613 %tmp.614;
+        %tmp.618 = const :val;
+        %tmp.620 = const :d_stanceOccelation;
+        %tmp.621 = dup %tmp.616;
+        %tmp.622 = aputv %tmp.621 %tmp.618 %tmp.620;
+        %tmp.624 = const :background;
+        %tmp.626 = const :defaultBG;
+        %tmp.627 = dup %tmp.622;
+        %tmp.628 = aputv %tmp.627 %tmp.624 %tmp.626;
+        %tmp.630 = const :isNum;
+        %tmp.632 = const :defaultIsNum;
+        %tmp.633 = dup %tmp.628;
+        %tmp.634 = aputv %tmp.633 %tmp.630 %tmp.632;
+        %tmp.635 = dup %tmp.609;
+        %tmp.636 = aputv %tmp.635 %tmp.610 %tmp.634;
+        %tmp.637 = "verticalOscillationMM";
+        %tmp.638 = newd 4;
+        %tmp.640 = const :name;
+        %tmp.641 = "verticalOscillationMM";
+        %tmp.642 = dup %tmp.638;
+        %tmp.643 = aputv %tmp.642 %tmp.640 %tmp.641;
+        %tmp.645 = const :val;
+        %tmp.647 = const :d_verticalOscillationMM;
+        %tmp.648 = dup %tmp.643;
+        %tmp.649 = aputv %tmp.648 %tmp.645 %tmp.647;
+        %tmp.651 = const :background;
+        %tmp.653 = const :defaultBG;
+        %tmp.654 = dup %tmp.649;
+        %tmp.655 = aputv %tmp.654 %tmp.651 %tmp.653;
+        %tmp.657 = const :isNum;
+        %tmp.659 = const :defaultIsNum;
+        %tmp.660 = dup %tmp.655;
+        %tmp.661 = aputv %tmp.660 %tmp.657 %tmp.659;
+        %tmp.662 = dup %tmp.636;
+        %tmp.663 = aputv %tmp.662 %tmp.637 %tmp.661;
+        %tmp.664 = "groundContactTimeMs";
+        %tmp.665 = newd 4;
+        %tmp.667 = const :name;
+        %tmp.668 = "groundContactTimeMs";
+        %tmp.669 = dup %tmp.665;
+        %tmp.670 = aputv %tmp.669 %tmp.667 %tmp.668;
+        %tmp.672 = const :val;
+        %tmp.674 = const :d_groundContactTimeMs;
+        %tmp.675 = dup %tmp.670;
+        %tmp.676 = aputv %tmp.675 %tmp.672 %tmp.674;
+        %tmp.678 = const :background;
+        %tmp.680 = const :defaultBG;
+        %tmp.681 = dup %tmp.676;
+        %tmp.682 = aputv %tmp.681 %tmp.678 %tmp.680;
+        %tmp.684 = const :isNum;
+        %tmp.686 = const :defaultIsNum;
+        %tmp.687 = dup %tmp.682;
+        %tmp.688 = aputv %tmp.687 %tmp.684 %tmp.686;
+        %tmp.689 = dup %tmp.663;
+        %tmp.690 = aputv %tmp.689 %tmp.664 %tmp.688;
+        putv self :fieldData %tmp.690;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 89 5 ]
+        %tmp.691 = newd 4;
+        %tmp.693 = const :name;
+        %tmp.694 = "Bad Field";
+        %tmp.695 = dup %tmp.691;
+        %tmp.696 = aputv %tmp.695 %tmp.693 %tmp.694;
+        %tmp.698 = const :val;
+        %tmp.700 = const :badFieldWarning;
+        %tmp.701 = dup %tmp.696;
+        %tmp.702 = aputv %tmp.701 %tmp.698 %tmp.700;
+        %tmp.704 = const :background;
+        %tmp.706 = const :defaultBG;
+        %tmp.707 = dup %tmp.702;
+        %tmp.708 = aputv %tmp.707 %tmp.704 %tmp.706;
+        %tmp.710 = const :isNum;
+        %tmp.712 = const :defaultIsNum;
+        %tmp.713 = dup %tmp.708;
+        %tmp.714 = aputv %tmp.713 %tmp.710 %tmp.712;
+        putv self :badField %tmp.714;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 90 5 ]
+        %tmp.715 = newa 15;
+        %tmp.716 = "cadence";
+        %tmp.717 = dup %tmp.715;
+        %tmp.718 = aputv %tmp.717 0 %tmp.716;
+        %tmp.719 = "hrPwr";
+        %tmp.720 = dup %tmp.718;
+        %tmp.721 = aputv %tmp.720 1 %tmp.719;
+        %tmp.722 = "heartRate";
+        %tmp.723 = dup %tmp.721;
+        %tmp.724 = aputv %tmp.723 2 %tmp.722;
+        %tmp.725 = "power";
+        %tmp.726 = dup %tmp.724;
+        %tmp.727 = aputv %tmp.726 3 %tmp.725;
+        %tmp.728 = "currentPace";
+        %tmp.729 = dup %tmp.727;
+        %tmp.730 = aputv %tmp.729 4 %tmp.728;
+        %tmp.731 = "distanceDisplay";
+        %tmp.732 = dup %tmp.730;
+        %tmp.733 = aputv %tmp.732 5 %tmp.731;
+        %tmp.734 = "totalAscentDescent";
+        %tmp.735 = dup %tmp.733;
+        %tmp.736 = aputv %tmp.735 6 %tmp.734;
+        %tmp.737 = "gradeAdjustedPace";
+        %tmp.738 = dup %tmp.736;
+        %tmp.739 = aputv %tmp.738 7 %tmp.737;
+        %tmp.740 = "dutyFactor";
+        %tmp.741 = dup %tmp.739;
+        %tmp.742 = aputv %tmp.741 8 %tmp.740;
+        %tmp.743 = "strideLength";
+        %tmp.744 = dup %tmp.742;
+        %tmp.745 = aputv %tmp.744 9 %tmp.743;
+        %tmp.746 = "averagePace";
+        %tmp.747 = dup %tmp.745;
+        %tmp.748 = aputv %tmp.747 10 %tmp.746;
+        %tmp.749 = "grade";
+        %tmp.750 = dup %tmp.748;
+        %tmp.751 = aputv %tmp.750 11 %tmp.749;
+        %tmp.752 = "altitude";
+        %tmp.753 = dup %tmp.751;
+        %tmp.754 = aputv %tmp.753 12 %tmp.752;
+        %tmp.755 = "deltaElevation";
+        %tmp.756 = dup %tmp.754;
+        %tmp.757 = aputv %tmp.756 13 %tmp.755;
+        %tmp.758 = "times";
+        %tmp.759 = dup %tmp.757;
+        %tmp.760 = aputv %tmp.759 14 %tmp.758;
+        putv self :screenConfig %tmp.760;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 111 5 ]
+        %tmp.761 = null;
+        %tmp.762 = as %tmp.761 Lang.Array<FieldDatum>;
+        putv self :screenFields %tmp.762;
+    }
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 10; @position = 5; ]
+    var d_elapsedTime = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 11; @position = 5; ]
+    var d_clockTime = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 12; @position = 8; ]
+    var d_times = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 13; @position = 5; ]
+    var d_timesBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 14; @position = 5; ]
+    var d_cadence = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 15; @position = 5; ]
+    var d_cadenceBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 16; @position = 5; ]
+    var d_deltaElevation = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 17; @position = 5; ]
+    var d_gradeAdjustedPace = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 18; @position = 5; ]
+    var d_heartRate = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 19; @position = 5; ]
+    var d_heartRateBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 20; @position = 5; ]
+    var d_heartRateIsNum = false;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 21; @position = 5; ]
+    var d_power = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 22; @position = 5; ]
+    var d_powerBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 23; @position = 5; ]
+    var d_hrPwr = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 24; @position = 5; ]
+    var d_hrPwrBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 25; @position = 5; ]
+    var d_hrPwrIsNum = false;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 26; @position = 5; ]
+    var d_grade = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 27; @position = 5; ]
+    var d_altitude = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 28; @position = 5; ]
+    var d_totalAscent = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 29; @position = 5; ]
+    var d_totalDescent = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 30; @position = 5; ]
+    var d_totalAscentDescent = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 31; @position = 5; ]
+    var d_totalAscentDescentBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 32; @position = 5; ]
+    var d_distanceDisplay = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 33; @position = 5; ]
+    var d_currentPace = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 34; @position = 5; ]
+    var d_averagePace = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 35; @position = 5; ]
+    var d_distanceRemaining = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 36; @position = 5; ]
+    var d_strideLength = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 37; @position = 8; ]
+    var d_smoothPace = 0;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 38; @position = 5; ]
+    var d_cadiacCost = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 39; @position = 5; ]
+    var d_cardiacCostIsNum = false;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 40; @position = 5; ]
+    var d_dutyFactor = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 41; @position = 5; ]
+    var d_stanceOccelation = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 42; @position = 5; ]
+    var d_verticalOscillationMM = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 43; @position = 5; ]
+    var d_groundContactTimeMs = null;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 45; @position = 5; ]
+    var defaultBG;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 46; @position = 5; ]
+    var defaultIsNum = true;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 48; ]
+type FieldDatum as {:name as Lang.String, :val as Lang.Symbol, :background as Lang.Symbol, :isNum as Lang.Symbol};
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 55; @position = 7; ]
+    const fieldData as Lang.Dictionary<Lang.String, FieldDatum>;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 88; @position = 5; ]
+    var badFieldWarning = "Not Found";
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 89; @position = 5; ]
+    var badField as FieldDatum;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 90; @position = 5; ]
+    var screenConfig;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 109; @position = 8; ]
+    var screenConfigString = "cadence,hrPwr,heartRate,power,currentPace,distanceDisplay,totalAscentDescent,gradeAdjustedPace,dutyFactor,strideLength,averagePace,grade,altitude,deltaElevation,times";
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 111; @position = 5; ]
+    var screenFields;
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 114; ]
+    function mapDisplayFields() {
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_114_29_145_4_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 116 8 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_8_118_8_if_stmt:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_11_116_72_begin:
+        %tmp.2 = getv ? :screenConfigString;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bt %tmp.4 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_8_118_8_if_true;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_41_116_72_false:
+        %tmp.6 = getv ? :screenConfigString;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        %tmp.8 = getv function %tmp.7 :length;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        %tmp.10 = 0;
+        %tmp.11 = eq %tmp.9 %tmp.10;
+        push %tmp.11;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_41_116_72_end:
+        %tmp.12 = phi [%tmp.4 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_11_116_72_begin] [%tmp.11 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_41_116_72_false] [%tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_41_116_72_end];
+        bf %tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_8_118_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_8_118_8_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_75_118_8_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 117 12 ]
+        ret ?;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_75_118_8_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_8_118_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_116_8_118_8_if_end:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 121 8 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_114_29_145_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_114_29_145_4_stop" ]
+        %fields.1 = local;
+        %tmp.13 = newa 0 Lang.Array<Lang.String>;
+        lputv %fields.1 %tmp.13;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 122 8 ]
+        while @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_test @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_test:
+        %tmp.15 = getv ? :screenConfigString;
+        %tmp.16 = getv function %tmp.15 :length;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        %tmp.18 = 0;
+        %tmp.19 = gt %tmp.17 %tmp.18;
+        bf %tmp.19 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_begin:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_48_128_8_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 123 12 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_48_128_8_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_48_128_8_stop" ]
+        %splitPoint.2 = local;
+        %tmp.21 = getv ? :screenConfigString;
+        %tmp.22 = getv function %tmp.21 :find;
+        %tmp.23 = ",";
+        %tmp.24 = invoke %tmp.21 %tmp.22(%tmp.23);
+        %tmp.25 = as %tmp.24 Lang.Number or Null;
+        lputv %splitPoint.2 %tmp.25;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 124 12 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_48_128_8_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_48_128_8_stop" ]
+        %nibble.3 = local;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_begin:
+        %tmp.27 = lgetv %splitPoint.2;
+        %tmp.28 = null;
+        %tmp.29 = eq %tmp.27 %tmp.28;
+        bf %tmp.29 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_true:
+        %tmp.31 = getv ? :screenConfigString;
+        push %tmp.31;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_false:
+        %tmp.33 = getv ? :screenConfigString;
+        %tmp.34 = getv function %tmp.33 :substring;
+        %tmp.35 = 0;
+        %tmp.37 = lgetv %splitPoint.2;
+        %tmp.38 = as %tmp.37 { (!Null) };
+        %tmp.39 = invoke %tmp.33 %tmp.34(%tmp.35, %tmp.38);
+        push %tmp.39;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_end:
+        %tmp.40 = phi [%tmp.29 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_begin] [%tmp.31 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_true] [%tmp.39 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_false] [%tmp.40 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_124_25_124_109_end];
+        lputv %nibble.3 %tmp.40;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 125 12 ]
+        %tmp.41 = lgetv %fields.1;
+        %tmp.42 = getv function %tmp.41 :add;
+        %tmp.44 = lgetv %nibble.3;
+        invoke %tmp.41 %tmp.42(%tmp.44);
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 126 12 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_begin:
+        %tmp.46 = lgetv %splitPoint.2;
+        %tmp.47 = null;
+        %tmp.48 = eq %tmp.46 %tmp.47;
+        bf %tmp.48 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_true:
+        %tmp.49 = "";
+        push %tmp.49;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_false:
+        %tmp.51 = getv ? :screenConfigString;
+        %tmp.52 = getv function %tmp.51 :substring;
+        %tmp.54 = lgetv %splitPoint.2;
+        %tmp.55 = as %tmp.54 { (!Null) };
+        %tmp.56 = 1;
+        %tmp.57 = add %tmp.55 %tmp.56;
+        %tmp.59 = getv ? :screenConfigString;
+        %tmp.60 = getv function %tmp.59 :length;
+        %tmp.61 = invoke %tmp.59 %tmp.60();
+        %tmp.62 = invoke %tmp.51 %tmp.52(%tmp.57, %tmp.61);
+        push %tmp.62;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_end:
+        %tmp.63 = phi [%tmp.48 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_begin] [%tmp.49 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_true] [%tmp.62 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_false] [%tmp.63 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_126_33_126_131_end];
+        putv self :screenConfigString %tmp.63;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 127 12 ]
+        %tmp.64 = getm $.Toybox.System;
+        %tmp.65 = getv function %tmp.64 :println;
+        %tmp.66 = "found nibble [";
+        %tmp.68 = lgetv %nibble.3;
+        %tmp.69 = add %tmp.66 %tmp.68;
+        %tmp.70 = "] remainder ";
+        %tmp.71 = add %tmp.69 %tmp.70;
+        %tmp.73 = getv ? :screenConfigString;
+        %tmp.74 = add %tmp.71 %tmp.73;
+        invoke %tmp.64 %tmp.65(%tmp.74);
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_48_128_8_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_test;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_122_8_128_8_while_end:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 131 2 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_114_29_145_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_114_29_145_4_stop" ]
+        %total.4 = local;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_begin:
+        %tmp.75 = lgetv %fields.1;
+        %tmp.76 = getv function %tmp.75 :size;
+        %tmp.77 = invoke %tmp.75 %tmp.76();
+        %tmp.79 = getv ? :ScreenLayoutCommon;
+        %tmp.80 = getv %tmp.79 :ENTRIES;
+        %tmp.81 = lt %tmp.77 %tmp.80;
+        bf %tmp.81 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_true:
+        %tmp.82 = lgetv %fields.1;
+        %tmp.83 = getv function %tmp.82 :size;
+        %tmp.84 = invoke %tmp.82 %tmp.83();
+        push %tmp.84;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_false:
+        %tmp.86 = getv ? :ScreenLayoutCommon;
+        %tmp.87 = getv %tmp.86 :ENTRIES;
+        push %tmp.87;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_end:
+        %tmp.88 = phi [%tmp.81 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_begin] [%tmp.84 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_true] [%tmp.87 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_false] [%tmp.88 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_131_14_131_94_end];
+        lputv %total.4 %tmp.88;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 132 2 ]
+        %tmp.91 = lgetv %total.4;
+        %tmp.89 = newa %tmp.91;
+        putv self :screenFields %tmp.89;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 133 2 ]
+        for @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_test @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_incr @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_init:
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_begin" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_end" ]
+        %i.5 = local;
+        %tmp.92 = 0;
+        lputv %i.5 %tmp.92;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_test:
+        %tmp.94 = lgetv %i.5;
+        %tmp.96 = lgetv %total.4;
+        %tmp.97 = lt %tmp.94 %tmp.96;
+        bf %tmp.97 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_begin:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_34_144_8_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 135 3 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_34_144_8_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_34_144_8_stop" ]
+        %name.6 = local;
+        %tmp.99 = lgetv %fields.1;
+        %tmp.101 = lgetv %i.5;
+        %tmp.102 = agetv %tmp.99 %tmp.101;
+        lputv %name.6 %tmp.102;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 136 3 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_3_142_3_if_stmt:
+        %tmp.104 = getv ? :fieldData;
+        %tmp.105 = getv function %tmp.104 :hasKey;
+        %tmp.107 = lgetv %name.6;
+        %tmp.108 = invoke %tmp.104 %tmp.105(%tmp.107);
+        bf %tmp.108 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_3_142_3_if_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_3_142_3_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_30_139_3_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 137 4 ]
+        %tmp.109 = getv self :screenFields;
+        %tmp.111 = getv ? :fieldData;
+        %tmp.113 = lgetv %name.6;
+        %tmp.114 = agetv %tmp.111 %tmp.113;
+        %tmp.116 = lgetv %i.5;
+        aputv %tmp.109 %tmp.116 %tmp.114;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 138 4 ]
+        %tmp.117 = getm $.Toybox.System;
+        %tmp.118 = getv function %tmp.117 :println;
+        %tmp.119 = "map display[";
+        %tmp.121 = lgetv %i.5;
+        %tmp.122 = add %tmp.119 %tmp.121;
+        %tmp.123 = "] is ";
+        %tmp.124 = add %tmp.122 %tmp.123;
+        %tmp.126 = lgetv %name.6;
+        %tmp.127 = add %tmp.124 %tmp.126;
+        invoke %tmp.117 %tmp.118(%tmp.127);
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_30_139_3_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_3_142_3_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_3_142_3_if_false:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_139_10_142_3_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 140 16 ]
+        %tmp.128 = getm $.Toybox.System;
+        %tmp.129 = getv function %tmp.128 :println;
+        %tmp.130 = "map display[";
+        %tmp.132 = lgetv %i.5;
+        %tmp.133 = add %tmp.130 %tmp.132;
+        %tmp.134 = "] could not find ";
+        %tmp.135 = add %tmp.133 %tmp.134;
+        %tmp.137 = lgetv %name.6;
+        %tmp.138 = add %tmp.135 %tmp.137;
+        invoke %tmp.128 %tmp.129(%tmp.138);
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 141 16 ]
+        %tmp.139 = getv self :screenFields;
+        %tmp.141 = getv ? :badField;
+        %tmp.143 = lgetv %i.5;
+        aputv %tmp.139 %tmp.143 %tmp.141;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_139_10_142_3_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_136_3_142_3_if_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_34_144_8_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_incr:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 133 ]
+        %tmp.146 = lgetv %i.5;
+        %tmp.147 = add %tmp.146 1;
+        lputv %i.5 %tmp.147;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_test;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_133_2_144_8_for_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_114_29_145_4_stop:
+    }
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 147; ]
+    function mapDisplayFieldsX() {
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_147_30_162_1_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 148 2 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_147_30_162_1_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_147_30_162_1_stop" ]
+        %total.1 = local;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_begin:
+        %tmp.2 = getv ? :screenConfig;
+        %tmp.3 = getv function %tmp.2 :size;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        %tmp.6 = getv ? :ScreenLayoutCommon;
+        %tmp.7 = getv %tmp.6 :ENTRIES;
+        %tmp.8 = lt %tmp.4 %tmp.7;
+        bf %tmp.8 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_true:
+        %tmp.10 = getv ? :screenConfig;
+        %tmp.11 = getv function %tmp.10 :size;
+        %tmp.12 = invoke %tmp.10 %tmp.11();
+        push %tmp.12;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_false:
+        %tmp.14 = getv ? :ScreenLayoutCommon;
+        %tmp.15 = getv %tmp.14 :ENTRIES;
+        push %tmp.15;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_end:
+        %tmp.16 = phi [%tmp.8 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_begin] [%tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_true] [%tmp.15 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_false] [%tmp.16 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_14_148_106_end];
+        lputv %total.1 %tmp.16;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 149 2 ]
+        %tmp.19 = lgetv %total.1;
+        %tmp.17 = newa %tmp.19;
+        putv self :screenFields %tmp.17;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 150 2 ]
+        for @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_test @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_incr @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_init:
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_begin" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_end" ]
+        %i.2 = local;
+        %tmp.20 = 0;
+        lputv %i.2 %tmp.20;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_test:
+        %tmp.22 = lgetv %i.2;
+        %tmp.24 = lgetv %total.1;
+        %tmp.25 = lt %tmp.22 %tmp.24;
+        bf %tmp.25 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_begin:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_34_161_2_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 152 3 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_34_161_2_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_34_161_2_stop" ]
+        %name.3 = local;
+        %tmp.27 = getv ? :screenConfig;
+        %tmp.29 = lgetv %i.2;
+        %tmp.30 = agetv %tmp.27 %tmp.29;
+        lputv %name.3 %tmp.30;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 153 3 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_3_159_3_if_stmt:
+        %tmp.32 = getv ? :fieldData;
+        %tmp.33 = getv function %tmp.32 :hasKey;
+        %tmp.35 = lgetv %name.3;
+        %tmp.36 = invoke %tmp.32 %tmp.33(%tmp.35);
+        bf %tmp.36 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_3_159_3_if_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_3_159_3_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_30_156_3_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 154 4 ]
+        %tmp.37 = getv self :screenFields;
+        %tmp.39 = getv ? :fieldData;
+        %tmp.41 = lgetv %name.3;
+        %tmp.42 = agetv %tmp.39 %tmp.41;
+        %tmp.44 = lgetv %i.2;
+        aputv %tmp.37 %tmp.44 %tmp.42;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_30_156_3_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_3_159_3_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_3_159_3_if_false:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_156_10_159_3_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 157 16 ]
+        %tmp.45 = getm $.Toybox.System;
+        %tmp.46 = getv function %tmp.45 :println;
+        %tmp.47 = "map display[";
+        %tmp.49 = lgetv %i.2;
+        %tmp.50 = add %tmp.47 %tmp.49;
+        %tmp.51 = "] could not find ";
+        %tmp.52 = add %tmp.50 %tmp.51;
+        %tmp.54 = lgetv %name.3;
+        %tmp.55 = add %tmp.52 %tmp.54;
+        invoke %tmp.45 %tmp.46(%tmp.55);
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 158 16 ]
+        %tmp.56 = getv self :screenFields;
+        %tmp.58 = getv ? :badField;
+        %tmp.60 = lgetv %i.2;
+        aputv %tmp.56 %tmp.60 %tmp.58;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_156_10_159_3_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_153_3_159_3_if_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_34_161_2_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_incr:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 150 ]
+        %tmp.63 = lgetv %i.2;
+        %tmp.64 = add %tmp.63 1;
+        lputv %i.2 %tmp.64;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_test;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_2_161_2_for_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_147_30_162_1_stop:
+    }
+}
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 1; ]
+<init> {
+}
