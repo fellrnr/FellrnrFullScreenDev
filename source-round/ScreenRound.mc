@@ -430,15 +430,15 @@ Graphics.COLOR_PINK ,
 				var isNum = screenData[isNumSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
 				var val = screenData[valSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
 				//var name = screenData[nameSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
-				System.println("display[" + pos + "], name [" + name + "] value [" + val + "]");
+				//System.println("display[" + pos + "], name [" + name + "] value [" + val + "]");
+
+				var fg = foregroundForBackground(bg);
 
 				if(val == null) {
 					val = "-";
-					bg = Graphics.COLOR_YELLOW;
 					isNum = true;
 				}
 
-				var fg = foregroundForBackground(bg);
 				//val = "XXX"; //uncomment to debug laout
 				dc.setColor(fg, Graphics.COLOR_TRANSPARENT);
 				dc.drawText(x, y, getFont(dc, val, isNum, w, h), val, Graphics.TEXT_JUSTIFY_CENTER |Graphics.TEXT_JUSTIFY_VCENTER);

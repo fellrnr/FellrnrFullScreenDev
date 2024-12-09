@@ -85,46 +85,57 @@ class ScreenData {
 
 	};
 
+    const abbreviations = {
+        "ca" => "cadence",
+		"hrP" => "hrPwr",
+		"hr" => "heartRate",
+		"pwr" => "power",
+		"pac" => "currentPace",
+		"alt" => "altitude",
+		"dEl" => "deltaElevation",
+		"eT" => "elapsedTime",
+		"cT" => "clockTime",
+		"ts" => "times",
+		"gAP" => "gradeAdjustedPace",
+		"g" => "grade",
+		"tA" => "totalAscent",
+		"tD" => "totalDescent",
+		"tAD" => "totalAscentDescent",
+		"dis" => "distanceDisplay",
+		"aP" => "averagePace",
+		"dR" => "distanceRemaining",
+		"sL" => "strideLength",
+		"sP" => "smoothPace",
+		"cC" => "cadiacCost",
+		"dF" => "dutyFactor",
+		"sO" => "stanceOccelation",
+		"vO" => "verticalOscillationMM",
+		"gCT" => "groundContactTimeMs",
+    };
+
 	var badFieldWarning = "Not Found";
 	var badField as FieldDatum = {:name => "Bad Field", :val => :badFieldWarning, :background  => :defaultBG, :isNum => :defaultIsNum };
-	var screenConfig = [
-            "cadence",			                //Head	1
-            "hrPwr",			                //TL 	2
-            "heartRate",			            //TR 	3
-            "power",			                //SML 	4
-            "currentPace",			            //SMM 	5
-            "distanceDisplay",			        //SMR 	6
-            "totalAscentDescent",   			//IML 	7
-            "gradeAdjustedPace",			    //IMM 	8
-            "dutyFactor",			            //IMR 	9 (was cardiac cost, then offset hr pwr)
-            "strideLength",			            //LML 	10
-            "averagePace",			            //LMM 	11
-            "grade",			                //LMR 	12
-            "altitude",			                //BL 	13
-            "deltaElevation",			        //BR 	14
-            "times",                			//Tail 	15
 
-	];
-
-    var screenConfigString = "cadence,hrPwr,heartRate,power,currentPace,distanceDisplay,totalAscentDescent,gradeAdjustedPace,dutyFactor,strideLength,averagePace,grade,altitude,deltaElevation,times";
+    var screenConfig; // = "ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,aP,g,alt,dEl,ts";
+    //var screenConfig = "cadence,hrPwr,heartRate,power,currentPace,distanceDisplay,totalAscentDescent,gradeAdjustedPace,dutyFactor,strideLength,averagePace,grade,altitude,deltaElevation,times";
 
 	var screenFields = null as Lang.Array<FieldDatum>;
 
 	//need alternating and fall back (e.g. distance remaining goes to grade)
 	function mapDisplayFields() {
 
-        if(screenConfigString == null || screenConfigString.length() == 0) {
+        if(screenConfig == null || screenConfig.length() == 0) {
             return;
         }
 
 
         var fields = [] as Lang.Array<Lang.String>;
-        while (screenConfigString.length() > 0) {
-            var splitPoint = screenConfigString.find(",") as Lang.Number or Null;
-            var nibble = splitPoint == null ? screenConfigString : screenConfigString.substring(0, splitPoint);
+        while (screenConfig.length() > 0) {
+            var splitPoint = screenConfig.find(",") as Lang.Number or Null;
+            var nibble = splitPoint == null ? screenConfig : screenConfig.substring(0, splitPoint);
             fields.add(nibble);
-            screenConfigString = splitPoint == null ? "" : screenConfigString.substring(splitPoint + 1, screenConfigString.length());
-            System.println("found nibble [" + nibble + "] remainder " + screenConfigString);
+            screenConfig = splitPoint == null ? "" : screenConfig.substring(splitPoint + 1, screenConfig.length());
+            //System.println("found nibble [" + nibble + "] remainder " + screenConfig);
         }
 
 
@@ -133,23 +144,9 @@ class ScreenData {
 		for (var i = 0; i < total; i++) {
 
 			var name = fields[i];
-			if(fieldData.hasKey(name)) {
-				screenFields[i] = fieldData[name];
-				System.println("map display[" + i + "] is " + name);
-			} else {
-                System.println("map display[" + i + "] could not find " + name);
-                screenFields[i] = badField;
-			}
-
-        }
-    }
-
-	function mapDisplayFieldsX() {
-		var total = screenConfig.size() < ScreenLayoutCommon.ENTRIES ? screenConfig.size() : ScreenLayoutCommon.ENTRIES;
-		screenFields = new[total];
-		for (var i = 0; i < total; i++) {
-
-			var name = screenConfig[i];
+            if(abbreviations.hasKey(name)) {
+                name = abbreviations[name];
+            }
 			if(fieldData.hasKey(name)) {
 				screenFields[i] = fieldData[name];
 				//System.println("map display[" + i + "] is " + name);
@@ -158,6 +155,7 @@ class ScreenData {
                 screenFields[i] = badField;
 			}
 
-		}
-	}
+        }
+    }
+
 }

@@ -49,7 +49,12 @@
   	<property id="PaceSmoothing" type="number">30</property>
   	<property id="HrPwrSmoothing" type="number">10</property>
   	<property id="DisplayLoop" type="number">1</property>
-  	<property id="CriticalPower" type="number">268</property>
+  	<property id="CriticalPower" type="number">280</property>
+  	<property id="TargetCadence" type="number">180</property>
+  	<property id="CadenceColorStep" type="number">5</property>
+  	<property id="WalkingCadence" type="number">150</property>
+  	<property id="Fields" type="string">ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,aP,g,alt,dEl,ts</property>
+  	<property id="StoreNativePower" type="boolean">true</property>
   </properties>
 
   <settings>
@@ -67,6 +72,21 @@
     </setting>
     <setting propertyKey="@Properties.CriticalPower" title="@Strings.CriticalPowerTitle" prompt="@Strings.CriticalPowerPrompt">
   		<settingConfig type="numeric" min="100" max="1000" />
+    </setting>
+    <setting propertyKey="@Properties.CadenceColorStep" title="@Strings.CadenceColorStepTitle" prompt="@Strings.CadenceColorStepPrompt">
+  		<settingConfig type="numeric" min="1" max="30" />
+    </setting>
+    <setting propertyKey="@Properties.TargetCadence" title="@Strings.TargetCadenceTitle" prompt="@Strings.TargetCadencePrompt">
+  		<settingConfig type="numeric" min="100" max="250" />
+    </setting>
+    <setting propertyKey="@Properties.WalkingCadence" title="@Strings.WalkingCadenceTitle" prompt="@Strings.WalkingCadencePrompt">
+  		<settingConfig type="numeric" min="100" max="250" />
+    </setting>
+    <setting propertyKey="@Properties.Fields" title="@Strings.FieldsTitle" prompt="@Strings.FieldsPrompt">
+  		<settingConfig type="alphaNumeric"/>
+    </setting>
+    <setting propertyKey="@Properties.StoreNativePower" title="@Strings.StoreNativePowerTitle" prompt="@Strings.StoreNativePowerPrompt">
+  		<settingConfig type="boolean"/>
     </setting>
   </settings>
 
@@ -94,6 +114,20 @@
 		<string id="StrideLengthTitle">Stride Length</string>
 		<string id="StrideLengthLabel">SL</string>
 		<string id="StrideLengthUnits">meters</string>
+		<string id="FieldsTitle">Field List</string>
+		<string id="FieldsPrompt">Field list as CSV, see documentation</string>
+		<string id="StoreNativePowerTitle">Store Native Power</string>
+		<string id="StoreNativePowerPrompt">Put the power data into native power field in FIT, where it will get to Strava</string>
+
+		<string id="TargetCadenceTitle">Target cadence (SPM)</string>
+		<string id="TargetCadencePrompt">Target cadence (Use 180 not 90)</string>
+
+		<string id="WalkingCadenceTitle">Cadence for walking</string>
+		<string id="WalkingCadencePrompt">Below this cadence, color as walking</string>
+
+		<string id="CadenceColorStepTitle">Steps for coloring cadence field</string>
+		<string id="CadenceColorStepPrompt">Target cadence plus/minus this step for coloring</string>
+
     </strings>
 
 

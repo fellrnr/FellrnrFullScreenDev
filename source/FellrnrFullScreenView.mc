@@ -49,6 +49,12 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var PaceSmoothing;
 	var DisplayLoop;
 	var CriticalPower;
+	var FieldsProperty;
+	var StoreNativePower;
+	var TargetCadence;
+	var CadenceColorStep;
+	var WalkingCadence;
+
 	
 	var StartingElevation = 0;
 	var ElevationDelta;
@@ -71,7 +77,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var gradeAdjustedSpeed=0;
 	var gradeAdjustedCardiacCost=0;
 
-	hidden var pwrField;
+	hidden var pwrField = null;
 	hidden var shrpwrField;
 	var strideLengthField;
 	var gacardiacCostField;
@@ -153,6 +159,19 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	        
 	        hrpwr = -10;
 	        
+
+			//Fenix 5X is 3.3.0
+			//Fenix 6X is 3.4.0
+			if(Toybox.Activity has :ProfileInfo) {
+				if(Activity.getProfileInfo() != null) { 			//API Level 3.2.0
+					if(Activity.getProfileInfo().subSport != null) { //API Level 3.2.0
+						if(Activity.getProfileInfo().subSport != Activity.SUB_SPORT_TRAIL) {
+							isTrailRun = false;
+						}
+					}
+				}
+			}
+
 	        var profile = UserProfile.getProfile();
 	        weight = profile.weight / 1000.0; //grams to Kg
 	        hrZones = profile.getHeartRateZones(profile.getCurrentSport());
@@ -173,29 +192,41 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			PaceSmoothing = mApp.getProperty("PaceSmoothing").toFloat();
 			DisplayLoop = mApp.getProperty("DisplayLoop");
 			CriticalPower = mApp.getProperty("CriticalPower");
+			FieldsProperty = mApp.getProperty("Fields");
+			StoreNativePower = mApp.getProperty("StoreNativePower");
+			TargetCadence = mApp.getProperty("TargetCadence");
+			CadenceColorStep = mApp.getProperty("CadenceColorStep");
+			WalkingCadence = mApp.getProperty("WalkingCadence");
 
 			System.println("ZeroPowerHR:        " + ZeroPowerHR);
 			System.println("HrPwrSmoothing:     " + HrPwrSmoothing);
 			System.println("PaceSmoothing:      " + PaceSmoothing);
 			System.println("DisplayLoop:        " + DisplayLoop);
-			System.println("CriticalPower:           " + CriticalPower);
+			System.println("CriticalPower:      " + CriticalPower);
+			System.println("FieldsProperty:     " + FieldsProperty);
+			System.println("StoreNativePower:   " + StoreNativePower);
 
 	
 	        hrpwrlabel = "" + ZeroPowerHR.format("%d") + ":" + weight.format("%d") + "";
 	        
 	        display = new ScreenLayout(); //governed by monkey.jungle
+			display.screenData.screenConfig = FieldsProperty;
 	        
 			//pwrField = createField("pwr", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"N" });
 
 	        //pwrField = createField("Fellrnr_FS_power", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 
-			pwrField = createField("Power", 0, FitContributor.DATA_TYPE_UINT16, {:mesgType => FitContributor.MESG_TYPE_RECORD, :units => "W", :nativeNum => 7});
+			if(StoreNativePower) {
+				pwrField = createField("Power", 0, FitContributor.DATA_TYPE_UINT16, {:mesgType => FitContributor.MESG_TYPE_RECORD, :units => "W", :nativeNum => 7});
+			}
 
 			shrpwrField = createField("Fellrnr_FS_hrpwr", 1, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 			strideLengthField = createField("Fellrnr_FS_stride_length", 2, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 			gacardiacCostField = createField("Fellrnr_FS_cardic_distance", 3, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 	        
-	        pwrField.setData(0);
+			if(pwrField != null) {
+	        	pwrField.setData(0);
+			}
 			shrpwrField.setData(0.0);
 			strideLengthField.setData(0.0); 
 			gacardiacCostField.setData(0.0); 
@@ -204,19 +235,6 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				runningDynamics = new Toybox.AntPlus.RunningDynamics(null);
 			}
 
-// adding duty factor
-
-			//Fenix 5X is 3.3.0
-			//Fenix 6X is 3.4.0
-			if(Toybox.Activity has :ProfileInfo) {
-				if(Activity.getProfileInfo() != null) { 			//API Level 3.2.0
-					if(Activity.getProfileInfo().subSport != null) { //API Level 3.2.0
-						if(Activity.getProfileInfo().subSport != Activity.SUB_SPORT_TRAIL) {
-							isTrailRun = false;
-						}
-					}
-				}
-			}
 
 
 	}
@@ -402,15 +420,15 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			display.screenData.d_cadenceBG = Graphics.COLOR_WHITE;
 		} else  {
 			display.screenData.d_cadence = info.currentCadence;
-			if(info.currentCadence  < 150){ //walking
+			if(info.currentCadence  < WalkingCadence){ //walking
 				display.screenData.d_cadenceBG = Graphics.COLOR_BLUE;
-			} else if(info.currentCadence  < 176){ 
+			} else if(info.currentCadence  < (TargetCadence + CadenceColorStep * 2)){ 
 				display.screenData.d_cadenceBG = Graphics.COLOR_RED;
-			} else if(info.currentCadence  < 178) {
+			} else if(info.currentCadence  < (TargetCadence - CadenceColorStep)) {
 				display.screenData.d_cadenceBG = Graphics.COLOR_ORANGE;
-			} else if(info.currentCadence  < 180){ 
+			} else if(info.currentCadence  < TargetCadence){ 
 				display.screenData.d_cadenceBG = Graphics.COLOR_YELLOW;
-			} else if(info.currentCadence  < 182){ 
+			} else if(info.currentCadence  < (TargetCadence + CadenceColorStep)){ 
 				display.screenData.d_cadenceBG = Graphics.COLOR_GREEN;
 			} else { //> 184
 				display.screenData.d_cadenceBG = Graphics.COLOR_PURPLE;
@@ -549,7 +567,9 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			pwr = calcpwr; //default to calc as the best we can do
 		}
 
-		pwrField.setData(pwr.toNumber());
+		if(pwrField != null) {
+			pwrField.setData(pwr.toNumber());
+		}
 		display.screenData.d_power = pwr.format("%d");
 
 
