@@ -1,7 +1,92 @@
 <resources>
 
   <fitContributions>
-    <fitField id="0"
+
+		<fitField id="0" 
+			sortOrder="81" precision="2" 
+			displayInChart="true" 
+			displayInActivityLaps="true" 
+			displayInActivitySummary="true"
+			chartTitle="@Strings.fit_core_temp_label"
+			unitLabel="@Strings.fit_core_temp_units"
+			dataLabel="@Strings.fit_core_temp_label"
+			fillColor="#00FF00" />
+
+		<fitField id="1" 
+			sortOrder="57" precision="2" 
+			displayInChart="false" 
+			displayInActivityLaps="true"
+			displayInActivitySummary="false"
+			dataLabel="@Strings.fit_core_avg_label"
+			unitLabel="@Strings.fit_core_temp_units" />
+
+		<fitField id="2" 
+			sortOrder="58" precision="2" 
+			displayInChart="false" 
+			displayInActivityLaps="true"
+			displayInActivitySummary="false"
+			dataLabel="@Strings.fit_core_max_label"
+			unitLabel="@Strings.fit_core_temp_units" />
+
+		<fitField id="3" 
+			sortOrder="59" precision="2" 
+			displayInChart="false" 
+			displayInActivityLaps="true"
+			displayInActivitySummary="false"
+			dataLabel="@Strings.fit_core_min_label"
+			unitLabel="@Strings.fit_core_temp_units" />
+
+		<fitField id="5" 
+			sortOrder="54" precision="2" 
+			displayInChart="false" 
+			displayInActivityLaps="false"
+			displayInActivitySummary="true"
+			dataLabel="@Strings.fit_core_avg_label"
+			unitLabel="@Strings.fit_core_temp_units" />
+			
+		<fitField id="6" 
+			sortOrder="55" precision="2" 
+			displayInChart="false" 
+			displayInActivityLaps="false"
+			displayInActivitySummary="true"
+			dataLabel="@Strings.fit_core_max_label"
+			unitLabel="@Strings.fit_core_temp_units" />
+			
+		<fitField id="7" 
+			sortOrder="56" precision="2" 
+			displayInChart="false" 
+			displayInActivityLaps="false"
+			displayInActivitySummary="true"
+			dataLabel="@Strings.fit_core_min_label"
+			unitLabel="@Strings.fit_core_temp_units" />
+			
+		<fitField id="10"
+			sortOrder="82" precision="2"
+			displayInChart="true" 
+			displayInActivityLaps="false"
+			displayInActivitySummary="false"
+			chartTitle="@Strings.fit_skin_temp_label"
+			unitLabel="@Strings.fit_core_temp_units"
+			dataLabel="@Strings.fit_skin_temp_label"
+			fillColor="#0099FF" />
+		
+		<fitField id="19" 
+			sortOrder="35" precision="0" 
+      displayInChart="false"
+			displayInActivityLaps="false"
+			displayInActivitySummary="false"
+			unitLabel="@Strings.fit_core_qual_units"
+			dataLabel="@Strings.fit_core_qual_label" />
+			
+		<fitField id="20" 
+			sortOrder="30" precision="0" 
+      displayInChart="false"
+			displayInActivityLaps="false"
+			displayInActivitySummary="false"
+			unitLabel="@Strings.fit_core_resv_units"
+			dataLabel="@Strings.fit_core_resv_label" />
+			
+    <fitField id="30"
       displayInChart="true"
       displayInActivityLaps="false"
       displayInActivitySummary="false"
@@ -11,7 +96,7 @@
       dataLabel="@Strings.Pwr"
       unitLabel="@Strings.Watts"
       fillColor="#7b3294" />
-    <fitField id="1"
+    <fitField id="31"
       displayInChart="true"
       displayInActivityLaps="false"
       displayInActivitySummary="false"
@@ -21,26 +106,8 @@
       dataLabel="@Strings.SHRPWR"
       unitLabel="@Strings.EUnits"
       fillColor="#a6dba0" />
-    <fitField id="2"
-      displayInChart="true"
-      displayInActivityLaps="false"
-      displayInActivitySummary="false"
-      sortOrder="3"
-      precision="1"
-      chartTitle="@Strings.StrideLengthTitle"
-      dataLabel="@Strings.StrideLengthLabel"
-      unitLabel="@Strings.StrideLengthUnits"
-      fillColor="#008837" />
-    <fitField id="3"
-      displayInChart="true"
-      displayInActivityLaps="false"
-      displayInActivitySummary="false"
-      sortOrder="4"
-      precision="1"
-      chartTitle="@Strings.CardiacGADTitle"
-      dataLabel="@Strings.CardiacGADLabel"
-      unitLabel="@Strings.CardiacGADUnits"
-      fillColor="#008837" />
+
+
   </fitContributions>
 
 
@@ -53,9 +120,17 @@
   	<property id="TargetCadence" type="number">180</property>
   	<property id="CadenceColorStep" type="number">5</property>
   	<property id="WalkingCadence" type="number">150</property>
-  	<property id="Fields" type="string">ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,aP,g,alt,dEl,ts</property>
+  	<property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht,ts</property>
+  	<property id="FieldsRun" type="string">ca,hrP,hr,pwr,pac,dis,uD,GAP,dF,sL,oP,g,alt,ht,ts</property>
+  	<property id="FieldsTrail" type="string">ca,hrP,hr,pwr,pac,dis,uD,GAP,dEl,sL,oP,g,alt,ht,ts</property>
   	<property id="StoreNativePower" type="boolean">true</property>
+		<property id="CORE_ANT_ID" type="number">0</property>
+		<property id="UseCore" type="boolean">true</property>
+		<property id="StoreCore" type="boolean">true</property>
   </properties>
+
+<!--  	<property id="Fields" type="string">ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,oP,g,alt,dEl,aTp</property>-->
+
 
   <settings>
     <setting propertyKey="@Properties.ZeroPowerHR" title="@Strings.ZeroPowerHRTitle" prompt="@Strings.ZeroPowerHRPrompt">
@@ -82,11 +157,28 @@
     <setting propertyKey="@Properties.WalkingCadence" title="@Strings.WalkingCadenceTitle" prompt="@Strings.WalkingCadencePrompt">
   		<settingConfig type="numeric" min="100" max="250" />
     </setting>
-    <setting propertyKey="@Properties.Fields" title="@Strings.FieldsTitle" prompt="@Strings.FieldsPrompt">
+    <setting propertyKey="@Properties.FieldsDefault" title="@Strings.FieldsDefaultTitle" prompt="@Strings.FieldsDefaultPrompt">
+  		<settingConfig type="alphaNumeric"/>
+    </setting>
+    <setting propertyKey="@Properties.FieldsRun" title="@Strings.FieldsRunTitle" prompt="@Strings.FieldsRunPrompt">
+  		<settingConfig type="alphaNumeric"/>
+    </setting>
+    <setting propertyKey="@Properties.FieldsTrail" title="@Strings.FieldsTrailTitle" prompt="@Strings.FieldsTrailPrompt">
   		<settingConfig type="alphaNumeric"/>
     </setting>
     <setting propertyKey="@Properties.StoreNativePower" title="@Strings.StoreNativePowerTitle" prompt="@Strings.StoreNativePowerPrompt">
   		<settingConfig type="boolean"/>
+    </setting>
+    <setting propertyKey="@Properties.CORE_ANT_ID" title="@Strings.CORE_ANT_ID_title" prompt="@Strings.CORE_ANT_ID_prompt" helpUrl="https://corebodytemp.com/coreconnectiqmanual/">
+        <settingConfig type="numeric" readonly="false" 
+            required="false" min="0" max="65535" errorMessage="@Strings.CORE_ANT_ID_error_msg"  />
+    </setting>
+
+    <setting propertyKey="@Properties.UseCore" title="@Strings.UseCore">
+        <settingConfig type="boolean"/>
+    </setting>
+    <setting propertyKey="@Properties.StoreCore" title="@Strings.StoreCore">
+        <settingConfig type="boolean"/>
     </setting>
   </settings>
 
@@ -114,8 +206,26 @@
 		<string id="StrideLengthTitle">Stride Length</string>
 		<string id="StrideLengthLabel">SL</string>
 		<string id="StrideLengthUnits">meters</string>
-		<string id="FieldsTitle">Field List</string>
-		<string id="FieldsPrompt">Field list as CSV, see documentation</string>
+
+    <string id="fit_core_temp_label">CORE Temperature</string>
+    <string id="fit_core_avg_label">CORE Avg Temp</string>
+    <string id="fit_core_min_label">CORE Min Temp</string>
+    <string id="fit_core_max_label">CORE Max Temp</string>
+    <string id="fit_skin_temp_label">Skin Temperature</string>
+    <string id="fit_core_qual_label">CORE DataQuality</string>
+    <string id="fit_core_resv_label">CoreReserved</string>
+    <string id="fit_core_temp_units"><![CDATA[°C]]></string>
+    <string id="fit_core_qual_units">Q</string>
+    <string id="fit_core_resv_units">kcal</string>
+
+
+		<string id="FieldsDefaultTitle">Field List (default)</string>
+		<string id="FieldsDefaultPrompt">Field list as CSV, see documentation</string>
+		<string id="FieldsRunTitle">Field List (run)</string>
+		<string id="FieldsRunPrompt">Field list as CSV, see documentation</string>
+		<string id="FieldsTrailTitle">Field List (trail)</string>
+		<string id="FieldsTrailPrompt">Field list as CSV, see documentation</string>
+
 		<string id="StoreNativePowerTitle">Store Native Power</string>
 		<string id="StoreNativePowerPrompt">Put the power data into native power field in FIT, where it will get to Strava</string>
 
@@ -127,6 +237,13 @@
 
 		<string id="CadenceColorStepTitle">Steps for coloring cadence field</string>
 		<string id="CadenceColorStepPrompt">Target cadence plus/minus this step for coloring</string>
+
+    <string id="CORE_ANT_ID_title">CORE Sensor Id:</string>
+  	<string id="CORE_ANT_ID_prompt">Enter ANT+ id between 1 and 65535, 0 = use any CORE</string>
+	  <string id="CORE_ANT_ID_error_msg">only numbers between 0 and 65535</string>
+
+  	<string id="UseCore">Try to use CORE sensor?</string>
+  	<string id="StoreCore">Store CORE data into FIT file?</string>
 
     </strings>
 

@@ -15,6 +15,8 @@ class ScreenLayoutCommon {
 	};
 */
 
+	var countdown = 30;
+
 	const ENTRIES = 15;
 
 	var screenData = new ScreenData();

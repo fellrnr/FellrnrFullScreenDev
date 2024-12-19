@@ -146,6 +146,7 @@ class ScreenLayout extends ScreenLayoutCommon {
 	var bigw;
 	
 	var head_tail_font;
+
 	
 	function init(dc) {
 	
@@ -280,6 +281,8 @@ class ScreenLayout extends ScreenLayoutCommon {
 			init(dc);
 		}
 		
+		countdown--;
+
 		if(banner != null) {
 	//		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
 			dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
@@ -440,6 +443,9 @@ Graphics.COLOR_PINK ,
 				}
 
 				//val = "XXX"; //uncomment to debug laout
+				if(countdown > 0) {
+					val = screenData.fieldTitles[pos];
+				}
 				dc.setColor(fg, Graphics.COLOR_TRANSPARENT);
 				dc.drawText(x, y, getFont(dc, val, isNum, w, h), val, Graphics.TEXT_JUSTIFY_CENTER |Graphics.TEXT_JUSTIFY_VCENTER);
 			} else {
@@ -472,6 +478,8 @@ Graphics.COLOR_PINK ,
 	function foregroundForBackground(bg) {
 		var red = (bg & 0xFF0000) >> 16;
 		var green = (bg & 0x00FF00) >> 8;
+		//green is far lighter than you'd expect from RGB
+		green = green * 2; //hack
 		var blue = (bg & 0xFF);
 		var total = red + blue + green;
 		//3*127=381

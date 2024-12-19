@@ -31,6 +31,7 @@ class ScreenData {
 	var d_totalAscentDescentBG = Graphics.COLOR_WHITE;
 	var d_distanceDisplay = null;
 	var d_currentPace = null;
+	var d_oppositePace = null;
 	var d_averagePace = null;
 	var d_distanceRemaining = null;
 	var d_strideLength = null;
@@ -38,9 +39,18 @@ class ScreenData {
 	var d_cadiacCost = null;
 	var d_cardiacCostIsNum = false;
 	var d_dutyFactor = null;
+	var d_dutyFactorBG = Graphics.COLOR_WHITE;
 	var d_stanceOccelation = null;
 	var d_verticalOscillationMM = null;
 	var d_groundContactTimeMs = null;
+	var d_coreTemperature = null;
+	var d_skinTemperature = null;
+	var d_allTemperature = null;
+	var d_allTemperatureBG = Graphics.COLOR_WHITE;
+	var d_heatStrainIndex = null;
+	var d_heatStrainIndexBG = Graphics.COLOR_WHITE;
+	var d_heat = null;
+	var d_heatBG = Graphics.COLOR_WHITE;
 
 	var defaultBG = Graphics.COLOR_WHITE;
 	var defaultIsNum = true;
@@ -57,9 +67,8 @@ class ScreenData {
 		"hrPwr" => { :name => "hrPwr", :val => :d_hrPwr, :background => :d_hrPwrBG, :isNum => :d_hrPwrIsNum },
 		"heartRate" => { :name => "heartRate", :val => :d_heartRate, :background  => :d_heartRateBG, :isNum => :defaultIsNum },
 		"power" => { :name => "power", :val => :d_power, :background => :d_powerBG, :isNum => :defaultIsNum },
-		"currentPace" => { :name => "currentPace", :val => :d_currentPace, :background => :defaultBG, :isNum => :defaultIsNum },
-
-
+		"pace" => { :name => "pace", :val => :d_currentPace, :background => :defaultBG, :isNum => :defaultIsNum },
+		"opPace" => { :name => "opPace", :val => :d_oppositePace, :background => :defaultBG, :isNum => :defaultIsNum },
 		"altitude" => { :name => "altitude", :val => :d_altitude, :background => :defaultBG, :isNum => :defaultIsNum },
 		"deltaElevation" => { :name => "deltaElevation", :val => :d_deltaElevation, :background  => :defaultBG, :isNum => :defaultIsNum },
 
@@ -67,21 +76,28 @@ class ScreenData {
 		"clockTime" => { :name => "clockTime", :val => :d_clockTime, :background  => :defaultBG, :isNum => :defaultIsNum },
 		"times" => { :name => "times", :val => :d_times, :background  => :d_timesBG, :isNum => :defaultIsNum },
 
-		"gradeAdjustedPace" => { :name => "gradeAdjustedPace", :val => :d_gradeAdjustedPace, :background  => :defaultBG, :isNum => :defaultIsNum },
+		"GAP" => { :name => "GAP", :val => :d_gradeAdjustedPace, :background  => :defaultBG, :isNum => :defaultIsNum },
 		"grade" => { :name => "grade", :val => :d_grade, :background  => :defaultBG, :isNum => :defaultIsNum },
 		"totalAscent" => { :name => "totalAscent", :val => :d_totalAscent, :background => :defaultBG, :isNum => :defaultIsNum },
 		"totalDescent" => { :name => "totalDescent", :val => :d_totalDescent, :background => :defaultBG, :isNum => :defaultIsNum },
-		"totalAscentDescent" => { :name => "totalAscentDescent", :val => :d_totalAscentDescent, :background => :d_totalAscentDescentBG, :isNum => :defaultIsNum },
-		"distanceDisplay" => { :name => "distanceDisplay", :val => :d_distanceDisplay, :background => :defaultBG, :isNum => :defaultIsNum },
+		"upDown" => { :name => "upDown", :val => :d_totalAscentDescent, :background => :d_totalAscentDescentBG, :isNum => :defaultIsNum },
+		"dist" => { :name => "dist", :val => :d_distanceDisplay, :background => :defaultBG, :isNum => :defaultIsNum },
 		"averagePace" => { :name => "averagePace", :val => :d_averagePace, :background => :defaultBG, :isNum => :defaultIsNum },
-		"distanceRemaining" => { :name => "distanceRemaining", :val => :d_distanceRemaining, :background => :defaultBG, :isNum => :defaultIsNum },
-		"strideLength" => { :name => "strideLength", :val => :d_strideLength, :background => :defaultBG, :isNum => :defaultIsNum },
+		"distLeft" => { :name => "distLeft", :val => :d_distanceRemaining, :background => :defaultBG, :isNum => :defaultIsNum },
+		"strideLen" => { :name => "strideLen", :val => :d_strideLength, :background => :defaultBG, :isNum => :defaultIsNum },
 		"smoothPace" => { :name => "smoothPace", :val => :d_smoothPace, :background => :defaultBG, :isNum => :defaultIsNum },
 		"cadiacCost" => { :name => "cadiacCost", :val => :d_cadiacCost, :background => :defaultBG, :isNum => :d_cardiacCostIsNum },
-		"dutyFactor" => { :name => "dutyFactor", :val => :d_dutyFactor, :background => :defaultBG, :isNum => :defaultIsNum },
+		"dutyFactor" => { :name => "dutyFactor", :val => :d_dutyFactor, :background => :d_dutyFactorBG, :isNum => :defaultIsNum },
 		"stanceOccelation" => { :name => "stanceOccelation", :val => :d_stanceOccelation, :background => :defaultBG, :isNum => :defaultIsNum },
 		"verticalOscillationMM" => { :name => "verticalOscillationMM", :val => :d_verticalOscillationMM, :background => :defaultBG, :isNum => :defaultIsNum },
 		"groundContactTimeMs" => { :name => "groundContactTimeMs", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
+
+		"coreTemp" => { :name => "coreTemp", :val => :d_coreTemperature, :background => :defaultBG, :isNum => :defaultIsNum },
+		"skinTemp" => { :name => "skinTemp", :val => :d_skinTemperature, :background => :defaultBG, :isNum => :defaultIsNum },
+		"allTemp" => { :name => "allTemp", :val => :d_allTemperature, :background => :d_allTemperatureBG, :isNum => :defaultIsNum },
+		"heatStrainIndex" => { :name => "heatStrainIndex", :val => :d_heatStrainIndex, :background => :d_heatStrainIndexBG, :isNum => :defaultIsNum },
+		"heat" => { :name => "heat", :val => :d_heat, :background => :d_heatBG, :isNum => :defaultIsNum },
+		//"groundContactTimeMs" => { :name => "groundContactTimeMs", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
 
 	};
 
@@ -90,20 +106,21 @@ class ScreenData {
 		"hrP" => "hrPwr",
 		"hr" => "heartRate",
 		"pwr" => "power",
-		"pac" => "currentPace",
+		"pac" => "pace",
+		"oP" => "opPace",
 		"alt" => "altitude",
 		"dEl" => "deltaElevation",
 		"eT" => "elapsedTime",
 		"cT" => "clockTime",
 		"ts" => "times",
-		"gAP" => "gradeAdjustedPace",
+		"gAP" => "GAP",
 		"g" => "grade",
 		"tA" => "totalAscent",
 		"tD" => "totalDescent",
-		"tAD" => "totalAscentDescent",
-		"dis" => "distanceDisplay",
+		"uD" => "upDown",
+		"dis" => "dist",
 		"aP" => "averagePace",
-		"dR" => "distanceRemaining",
+		"dR" => "distLeft",
 		"sL" => "strideLength",
 		"sP" => "smoothPace",
 		"cC" => "cadiacCost",
@@ -111,8 +128,14 @@ class ScreenData {
 		"sO" => "stanceOccelation",
 		"vO" => "verticalOscillationMM",
 		"gCT" => "groundContactTimeMs",
+		"cTp" => "coreTemp",
+		"sTp" => "skinTemp",
+		"aTp" => "allTemp",
+		"ht" => "heat",
     };
 
+
+	var fieldTitles = null;
 	var badFieldWarning = "Not Found";
 	var badField as FieldDatum = {:name => "Bad Field", :val => :badFieldWarning, :background  => :defaultBG, :isNum => :defaultIsNum };
 
@@ -141,15 +164,20 @@ class ScreenData {
 
 		var total = fields.size() < ScreenLayoutCommon.ENTRIES ? fields.size() : ScreenLayoutCommon.ENTRIES;
 		screenFields = new[total];
+        fieldTitles = new[total];
 		for (var i = 0; i < total; i++) {
 
 			var name = fields[i];
             if(abbreviations.hasKey(name)) {
                 name = abbreviations[name];
-            }
+				fieldTitles[i] = name;
+            } else {
+				fieldTitles[i] = name.substring(0, 3);
+			}
+
 			if(fieldData.hasKey(name)) {
 				screenFields[i] = fieldData[name];
-				//System.println("map display[" + i + "] is " + name);
+				System.println("map display[" + i + "] is " + name);
 			} else {
                 System.println("map display[" + i + "] could not find " + name);
                 screenFields[i] = badField;
