@@ -180,7 +180,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	        hrpwr = -10;
 	        
 
-			//Fenix 5X is 3.3.0
+			//Fenix 5X is 3.1.0
 			//Fenix 6X is 3.4.0
 			if(Toybox.Activity has :ProfileInfo) {
 				if(Activity.getProfileInfo() != null) { 			//API Level 3.2.0
@@ -380,13 +380,13 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 		var stepPerMinutes = null;
-		var groundContactTimeMs = null;
+		var grndConTime = null;
         if (runningDynamics != null) {
 		     var rd = runningDynamics.getRunningDynamics();
 		     if (rd != null) {
 		         stepPerMinutes = rd.cadence; //like strides per minute is one leg
 		         display.screenData.d_verticalOscillationMM = rd.verticalOscillation;
-		         groundContactTimeMs = rd.groundContactTime.toFloat();
+		         grndConTime = rd.groundContactTime.toFloat();
 				 display.screenData.d_groundContactTimeMs = rd.groundContactTime;
 		         //var stepLength = rd.stepLength;
 			 }
@@ -394,17 +394,17 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 		 //stepPerMinutes = 90;
-		 //groundContactTimeMs = 250;
+		 //grndConTime = 250;
 
 		//System.println("Running Dynamics at " + timeString);
 		display.screenData.d_dutyFactor = null;
 		display.screenData.d_stanceOccelation = null;
-		if(stepPerMinutes != null && stepPerMinutes > 0 && groundContactTimeMs != null) {
+		if(stepPerMinutes != null && stepPerMinutes > 0 && grndConTime != null) {
 			stepPerMinutes = stepPerMinutes.toFloat();
 
 
 			var stepTimeMs = 60.0 / stepPerMinutes * 1000.0;
-			var dutyFactor = groundContactTimeMs / stepTimeMs * 100.0;
+			var dutyFactor = grndConTime / stepTimeMs * 100.0;
 			display.screenData.d_dutyFactor = dutyFactor.format("%.0f") + "%";
 			display.screenData.d_dutyFactorBG = GetDutyFactorColor(dutyFactor);
 			if(display.screenData.d_verticalOscillationMM != null) {
@@ -839,7 +839,9 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 //                                                                                      |___/ 
 
 
-	    if(info.distanceToDestination  != null && info.distanceToDestination  > 0) {
+	    if(!(info has :distanceToDestination)) {
+			display.screenData.d_distanceRemaining = "N/S";
+		} else if(info.distanceToDestination != null && info.distanceToDestination  > 0) {
 
 			var distance; 
 			distance = info.distanceToDestination / unitP;

@@ -15,7 +15,7 @@ class ScreenLayoutCommon {
 	};
 */
 
-	var countdown = 30;
+	var countdown = 10;
 
 	const ENTRIES = 15;
 

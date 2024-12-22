@@ -518,10 +518,10 @@ class ScreenData{
         %tmp.642 = aputv %tmp.641 %tmp.638 %tmp.640;
         %tmp.643 = dup %tmp.617;
         %tmp.644 = aputv %tmp.643 %tmp.618 %tmp.642;
-        %tmp.645 = "stanceOccelation";
+        %tmp.645 = "stanceOcc";
         %tmp.646 = newd 4;
         %tmp.648 = const :name;
-        %tmp.649 = "stanceOccelation";
+        %tmp.649 = "stanceOcc";
         %tmp.650 = dup %tmp.646;
         %tmp.651 = aputv %tmp.650 %tmp.648 %tmp.649;
         %tmp.653 = const :val;
@@ -538,10 +538,10 @@ class ScreenData{
         %tmp.669 = aputv %tmp.668 %tmp.665 %tmp.667;
         %tmp.670 = dup %tmp.644;
         %tmp.671 = aputv %tmp.670 %tmp.645 %tmp.669;
-        %tmp.672 = "verticalOscillationMM";
+        %tmp.672 = "vertOsc";
         %tmp.673 = newd 4;
         %tmp.675 = const :name;
-        %tmp.676 = "verticalOscillationMM";
+        %tmp.676 = "vertOsc";
         %tmp.677 = dup %tmp.673;
         %tmp.678 = aputv %tmp.677 %tmp.675 %tmp.676;
         %tmp.680 = const :val;
@@ -558,10 +558,10 @@ class ScreenData{
         %tmp.696 = aputv %tmp.695 %tmp.692 %tmp.694;
         %tmp.697 = dup %tmp.671;
         %tmp.698 = aputv %tmp.697 %tmp.672 %tmp.696;
-        %tmp.699 = "groundContactTimeMs";
+        %tmp.699 = "grndConTime";
         %tmp.700 = newd 4;
         %tmp.702 = const :name;
-        %tmp.703 = "groundContactTimeMs";
+        %tmp.703 = "grndConTime";
         %tmp.704 = dup %tmp.700;
         %tmp.705 = aputv %tmp.704 %tmp.702 %tmp.703;
         %tmp.707 = const :val;
@@ -758,7 +758,7 @@ class ScreenData{
         %tmp.936 = dup %tmp.933;
         %tmp.937 = aputv %tmp.936 %tmp.934 %tmp.935;
         %tmp.938 = "sL";
-        %tmp.939 = "strideLength";
+        %tmp.939 = "strideLen";
         %tmp.940 = dup %tmp.937;
         %tmp.941 = aputv %tmp.940 %tmp.938 %tmp.939;
         %tmp.942 = "sP";
@@ -774,15 +774,15 @@ class ScreenData{
         %tmp.952 = dup %tmp.949;
         %tmp.953 = aputv %tmp.952 %tmp.950 %tmp.951;
         %tmp.954 = "sO";
-        %tmp.955 = "stanceOccelation";
+        %tmp.955 = "stanceOcc";
         %tmp.956 = dup %tmp.953;
         %tmp.957 = aputv %tmp.956 %tmp.954 %tmp.955;
         %tmp.958 = "vO";
-        %tmp.959 = "verticalOscillationMM";
+        %tmp.959 = "vertOsc";
         %tmp.960 = dup %tmp.957;
         %tmp.961 = aputv %tmp.960 %tmp.958 %tmp.959;
         %tmp.962 = "gCT";
-        %tmp.963 = "groundContactTimeMs";
+        %tmp.963 = "grndConTime";
         %tmp.964 = dup %tmp.961;
         %tmp.965 = aputv %tmp.964 %tmp.962 %tmp.963;
         %tmp.966 = "cTp";
@@ -940,7 +940,7 @@ type FieldDatum as {:name as Lang.String, :val as Lang.Symbol, :background as La
     var screenFields;
     [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 148; ]
     function mapDisplayFields() {
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_187_4_start:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_186_4_start:
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 150 8 ]
 C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_8_152_8_if_stmt:
 C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_11_150_60_begin:
@@ -967,7 +967,7 @@ C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_
         goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_8_152_8_if_end;
 C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_150_8_152_8_if_end:
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 155 8 ]
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_187_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_187_4_stop" ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_186_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_186_4_stop" ]
         %fields.1 = local;
         %tmp.13 = newa 0 Lang.Array<Lang.String>;
         lputv %fields.1 %tmp.13;
@@ -1048,7 +1048,7 @@ C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_156_
         goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_156_8_162_8_while_test;
 C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_156_8_162_8_while_end:
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 165 2 ]
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_187_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_187_4_stop" ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_186_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_186_4_stop" ]
         %total.4 = local;
 C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_165_14_165_94_begin:
         %tmp.64 = lgetv %fields.1;
@@ -1080,118 +1080,121 @@ C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_165_
         %tmp.81 = newa %tmp.83;
         putv self :fieldTitles %tmp.81;
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 168 2 ]
-        for @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_test @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_incr @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_init:
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_begin" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_end" ]
+        for @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_test @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_incr @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_init:
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_begin" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_end" ]
         %i.5 = local;
         %tmp.84 = 0;
         lputv %i.5 %tmp.84;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_test:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_test:
         %tmp.86 = lgetv %i.5;
         %tmp.88 = lgetv %total.4;
         %tmp.89 = lt %tmp.86 %tmp.88;
-        bf %tmp.89 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_begin:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_186_8_start:
+        bf %tmp.89 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_begin:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_185_8_start:
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 170 3 ]
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_186_8_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_186_8_stop" ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_185_8_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_185_8_stop" ]
         %name.6 = local;
         %tmp.91 = lgetv %fields.1;
         %tmp.93 = lgetv %i.5;
         %tmp.94 = agetv %tmp.91 %tmp.93;
         lputv %name.6 %tmp.94;
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 171 12 ]
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_176_3_if_stmt:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_173_3_if_stmt:
         %tmp.96 = getv ? :abbreviations;
         %tmp.97 = getv function %tmp.96 :hasKey;
         %tmp.99 = lgetv %name.6;
         %tmp.100 = invoke %tmp.96 %tmp.97(%tmp.99);
-        bf %tmp.100 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_176_3_if_false;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_176_3_if_true:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_43_174_12_start:
+        bf %tmp.100 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_173_3_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_173_3_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_43_173_3_start:
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 172 16 ]
         %tmp.102 = getv ? :abbreviations;
         %tmp.104 = lgetv %name.6;
         %tmp.105 = agetv %tmp.102 %tmp.104;
         lputv %name.6 %tmp.105;
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 173 4 ]
-        %tmp.106 = getv self :fieldTitles;
-        %tmp.108 = lgetv %name.6;
-        %tmp.110 = lgetv %i.5;
-        aputv %tmp.106 %tmp.110 %tmp.108;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_43_174_12_stop:
-        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_176_3_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_176_3_if_false:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_174_19_176_3_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 175 4 ]
-        %tmp.111 = getv self :fieldTitles;
-        %tmp.112 = lgetv %name.6;
-        %tmp.113 = getv function %tmp.112 :substring;
-        %tmp.114 = 0;
-        %tmp.115 = 3;
-        %tmp.116 = invoke %tmp.112 %tmp.113(%tmp.114, %tmp.115);
-        %tmp.118 = lgetv %i.5;
-        aputv %tmp.111 %tmp.118 %tmp.116;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_174_19_176_3_stop:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_176_3_if_end:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 178 3 ]
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_3_184_3_if_stmt:
-        %tmp.120 = getv ? :fieldData;
-        %tmp.121 = getv function %tmp.120 :hasKey;
-        %tmp.123 = lgetv %name.6;
-        %tmp.124 = invoke %tmp.120 %tmp.121(%tmp.123);
-        bf %tmp.124 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_3_184_3_if_false;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_3_184_3_if_true:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_30_181_3_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 179 4 ]
-        %tmp.125 = getv self :screenFields;
-        %tmp.127 = getv ? :fieldData;
-        %tmp.129 = lgetv %name.6;
-        %tmp.130 = agetv %tmp.127 %tmp.129;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_43_173_3_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_173_3_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_171_12_173_3_if_end:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 175 3 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_3_183_3_if_stmt:
+        %tmp.107 = getv ? :fieldData;
+        %tmp.108 = getv function %tmp.107 :hasKey;
+        %tmp.110 = lgetv %name.6;
+        %tmp.111 = invoke %tmp.107 %tmp.108(%tmp.110);
+        bf %tmp.111 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_3_183_3_if_false;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_3_183_3_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_30_179_3_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 176 4 ]
+        %tmp.112 = getv self :screenFields;
+        %tmp.114 = getv ? :fieldData;
+        %tmp.116 = lgetv %name.6;
+        %tmp.117 = agetv %tmp.114 %tmp.116;
+        %tmp.119 = lgetv %i.5;
+        aputv %tmp.112 %tmp.119 %tmp.117;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 177 4 ]
+        %tmp.120 = getv self :fieldTitles;
+        %tmp.121 = lgetv %name.6;
+        %tmp.122 = getv function %tmp.121 :substring;
+        %tmp.123 = 0;
+        %tmp.124 = 5;
+        %tmp.125 = invoke %tmp.121 %tmp.122(%tmp.123, %tmp.124);
+        %tmp.127 = lgetv %i.5;
+        aputv %tmp.120 %tmp.127 %tmp.125;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 178 4 ]
+        %tmp.128 = getm $.Toybox.System;
+        %tmp.129 = getv function %tmp.128 :println;
+        %tmp.130 = "map display[";
         %tmp.132 = lgetv %i.5;
-        aputv %tmp.125 %tmp.132 %tmp.130;
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 180 4 ]
-        %tmp.133 = getm $.Toybox.System;
-        %tmp.134 = getv function %tmp.133 :println;
-        %tmp.135 = "map display[";
-        %tmp.137 = lgetv %i.5;
+        %tmp.133 = add %tmp.130 %tmp.132;
+        %tmp.134 = "] is ";
+        %tmp.135 = add %tmp.133 %tmp.134;
+        %tmp.137 = lgetv %name.6;
         %tmp.138 = add %tmp.135 %tmp.137;
-        %tmp.139 = "] is ";
-        %tmp.140 = add %tmp.138 %tmp.139;
-        %tmp.142 = lgetv %name.6;
-        %tmp.143 = add %tmp.140 %tmp.142;
-        invoke %tmp.133 %tmp.134(%tmp.143);
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_30_181_3_stop:
-        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_3_184_3_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_3_184_3_if_false:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_181_10_184_3_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 182 16 ]
-        %tmp.144 = getm $.Toybox.System;
-        %tmp.145 = getv function %tmp.144 :println;
-        %tmp.146 = "map display[";
-        %tmp.148 = lgetv %i.5;
+        invoke %tmp.128 %tmp.129(%tmp.138);
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_30_179_3_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_3_183_3_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_3_183_3_if_false:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_179_10_183_3_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 180 16 ]
+        %tmp.139 = getm $.Toybox.System;
+        %tmp.140 = getv function %tmp.139 :println;
+        %tmp.141 = "map display[";
+        %tmp.143 = lgetv %i.5;
+        %tmp.144 = add %tmp.141 %tmp.143;
+        %tmp.145 = "] could not find ";
+        %tmp.146 = add %tmp.144 %tmp.145;
+        %tmp.148 = lgetv %name.6;
         %tmp.149 = add %tmp.146 %tmp.148;
-        %tmp.150 = "] could not find ";
-        %tmp.151 = add %tmp.149 %tmp.150;
-        %tmp.153 = lgetv %name.6;
-        %tmp.154 = add %tmp.151 %tmp.153;
-        invoke %tmp.144 %tmp.145(%tmp.154);
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 183 16 ]
-        %tmp.155 = getv self :screenFields;
-        %tmp.157 = getv ? :badField;
+        invoke %tmp.139 %tmp.140(%tmp.149);
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 181 4 ]
+        %tmp.150 = getv self :fieldTitles;
+        %tmp.151 = "BAD:";
+        %tmp.152 = lgetv %name.6;
+        %tmp.153 = getv function %tmp.152 :substring;
+        %tmp.154 = 0;
+        %tmp.155 = 5;
+        %tmp.156 = invoke %tmp.152 %tmp.153(%tmp.154, %tmp.155);
+        %tmp.157 = add %tmp.151 %tmp.156;
         %tmp.159 = lgetv %i.5;
-        aputv %tmp.155 %tmp.159 %tmp.157;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_181_10_184_3_stop:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_178_3_184_3_if_end:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_186_8_stop:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_incr:
+        aputv %tmp.150 %tmp.159 %tmp.157;
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 182 16 ]
+        %tmp.160 = getv self :screenFields;
+        %tmp.162 = getv ? :badField;
+        %tmp.164 = lgetv %i.5;
+        aputv %tmp.160 %tmp.164 %tmp.162;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_179_10_183_3_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_175_3_183_3_if_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_34_185_8_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_incr:
 [ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc" 168 ]
-        %tmp.162 = lgetv %i.5;
-        %tmp.163 = add %tmp.162 1;
-        lputv %i.5 %tmp.163;
-        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_test;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_186_8_for_end:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_187_4_stop:
+        %tmp.167 = lgetv %i.5;
+        %tmp.168 = add %tmp.167 1;
+        lputv %i.5 %tmp.168;
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_test;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_168_2_185_8_for_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_ScreenData_mc_148_29_186_4_stop:
     }
 }
 [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\ScreenData.mc"; @line = 1; ]

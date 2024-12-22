@@ -88,50 +88,50 @@ class ScreenData {
 		"smoothPace" => { :name => "smoothPace", :val => :d_smoothPace, :background => :defaultBG, :isNum => :defaultIsNum },
 		"cadiacCost" => { :name => "cadiacCost", :val => :d_cadiacCost, :background => :defaultBG, :isNum => :d_cardiacCostIsNum },
 		"dutyFactor" => { :name => "dutyFactor", :val => :d_dutyFactor, :background => :d_dutyFactorBG, :isNum => :defaultIsNum },
-		"stanceOccelation" => { :name => "stanceOccelation", :val => :d_stanceOccelation, :background => :defaultBG, :isNum => :defaultIsNum },
-		"verticalOscillationMM" => { :name => "verticalOscillationMM", :val => :d_verticalOscillationMM, :background => :defaultBG, :isNum => :defaultIsNum },
-		"groundContactTimeMs" => { :name => "groundContactTimeMs", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
+		"stanceOcc" => { :name => "stanceOcc", :val => :d_stanceOccelation, :background => :defaultBG, :isNum => :defaultIsNum },
+		"vertOsc" => { :name => "vertOsc", :val => :d_verticalOscillationMM, :background => :defaultBG, :isNum => :defaultIsNum },
+		"grndConTime" => { :name => "grndConTime", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
 
 		"coreTemp" => { :name => "coreTemp", :val => :d_coreTemperature, :background => :defaultBG, :isNum => :defaultIsNum },
 		"skinTemp" => { :name => "skinTemp", :val => :d_skinTemperature, :background => :defaultBG, :isNum => :defaultIsNum },
 		"allTemp" => { :name => "allTemp", :val => :d_allTemperature, :background => :d_allTemperatureBG, :isNum => :defaultIsNum },
 		"heatStrainIndex" => { :name => "heatStrainIndex", :val => :d_heatStrainIndex, :background => :d_heatStrainIndexBG, :isNum => :defaultIsNum },
 		"heat" => { :name => "heat", :val => :d_heat, :background => :d_heatBG, :isNum => :defaultIsNum },
-		//"groundContactTimeMs" => { :name => "groundContactTimeMs", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
+		//"grndConTime" => { :name => "grndConTime", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
 
 	};
 
     const abbreviations = {
-        "ca" => "cadence",
-		"hrP" => "hrPwr",
+        "ca" => "cadence", 
+		"hrP" => "hrPwr",			//See https://fellrnr.com/wiki/HrPwr
 		"hr" => "heartRate",
 		"pwr" => "power",
 		"pac" => "pace",
-		"oP" => "opPace",
+		"oP" => "opPace",			//pace in min/km for imperial, min/mile for metric (see pace in the other unit's system)
 		"alt" => "altitude",
-		"dEl" => "deltaElevation",
+		"dEl" => "deltaElevation", 	//Rate of change of elevation in meters per minute
 		"eT" => "elapsedTime",
 		"cT" => "clockTime",
-		"ts" => "times",
-		"gAP" => "GAP",
+		"ts" => "times",			//Alternate between elapsed and clock time
+		"gAP" => "GAP",				//See https://fellrnr.com/wiki/Grade_Adjusted_Pace
 		"g" => "grade",
 		"tA" => "totalAscent",
 		"tD" => "totalDescent",
-		"uD" => "upDown",
+		"uD" => "upDown",			//Alternating total ascent and descent
 		"dis" => "dist",
 		"aP" => "averagePace",
-		"dR" => "distLeft",
-		"sL" => "strideLength",
+		"dR" => "distLeft",			//If you have a route or a segement, this will be the remaining distance
+		"sL" => "strideLen",
 		"sP" => "smoothPace",
 		"cC" => "cadiacCost",
-		"dF" => "dutyFactor",
-		"sO" => "stanceOccelation",
-		"vO" => "verticalOscillationMM",
-		"gCT" => "groundContactTimeMs",
-		"cTp" => "coreTemp",
-		"sTp" => "skinTemp",
-		"aTp" => "allTemp",
-		"ht" => "heat",
+		"dF" => "dutyFactor",		//The percent of time your feet are in contact with the ground
+		"sO" => "stanceOcc",		//The vertical occelation when your feet are in contact with the ground
+		"vO" => "vertOsc",
+		"gCT" => "grndConTime",
+		"cTp" => "coreTemp",		//From CORE sensor
+		"sTp" => "skinTemp",		//From CORE sensor
+		"aTp" => "allTemp",			//From CORE sensor, alternating core, skin, Heat Strain Index
+		"ht" => "heat",				//From CORE sensor, showing core temp until HSI is >= 1.0 when HSI is shown (Future mod is to make changeover HSI configurable, and maybe only show core temp when HSI is zero)
     };
 
 
@@ -140,7 +140,7 @@ class ScreenData {
 	var badField as FieldDatum = {:name => "Bad Field", :val => :badFieldWarning, :background  => :defaultBG, :isNum => :defaultIsNum };
 
     var screenConfig; // = "ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,aP,g,alt,dEl,ts";
-    //var screenConfig = "cadence,hrPwr,heartRate,power,currentPace,distanceDisplay,totalAscentDescent,gradeAdjustedPace,dutyFactor,strideLength,averagePace,grade,altitude,deltaElevation,times";
+    //var screenConfig = "cadence,hrPwr,heartRate,power,currentPace,distanceDisplay,totalAscentDescent,gradeAdjustedPace,dutyFactor,strideLen,averagePace,grade,altitude,deltaElevation,times";
 
 	var screenFields = null as Lang.Array<FieldDatum>;
 
@@ -170,16 +170,15 @@ class ScreenData {
 			var name = fields[i];
             if(abbreviations.hasKey(name)) {
                 name = abbreviations[name];
-				fieldTitles[i] = name;
-            } else {
-				fieldTitles[i] = name.substring(0, 3);
 			}
 
 			if(fieldData.hasKey(name)) {
 				screenFields[i] = fieldData[name];
+				fieldTitles[i] = name.substring(0, 5);
 				System.println("map display[" + i + "] is " + name);
 			} else {
                 System.println("map display[" + i + "] could not find " + name);
+				fieldTitles[i] = "BAD:" + name.substring(0, 5);
                 screenFields[i] = badField;
 			}
 

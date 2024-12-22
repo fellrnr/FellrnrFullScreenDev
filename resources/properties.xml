@@ -120,9 +120,9 @@
   	<property id="TargetCadence" type="number">180</property>
   	<property id="CadenceColorStep" type="number">5</property>
   	<property id="WalkingCadence" type="number">150</property>
-  	<property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht,ts</property>
-  	<property id="FieldsRun" type="string">ca,hrP,hr,pwr,pac,dis,uD,GAP,dF,sL,oP,g,alt,ht,ts</property>
-  	<property id="FieldsTrail" type="string">ca,hrP,hr,pwr,pac,dis,uD,GAP,dEl,sL,oP,g,alt,ht,ts</property>
+    <property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,ca,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>										
+    <property id="FieldsRun" type="string">ca,hrP,hr,pwr,pac,ca,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>										
+    <property id="FieldsTrail" type="string">ca,hrP,hr,pwr,pac,ca,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>										
   	<property id="StoreNativePower" type="boolean">true</property>
 		<property id="CORE_ANT_ID" type="number">0</property>
 		<property id="UseCore" type="boolean">true</property>
