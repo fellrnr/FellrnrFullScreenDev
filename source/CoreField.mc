@@ -40,6 +40,7 @@ class CoreField {
             //resort to magic values to give clues as the glasses won't easily give alpha
             coreTemperature = -1.0;
             skinTemperature = -1.0; 
+            heatStrainIndex = -1.0;
             return;
         }
 

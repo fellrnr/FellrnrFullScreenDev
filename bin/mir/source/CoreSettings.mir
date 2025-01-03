@@ -1,54 +1,54 @@
-[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 19; ]
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 19; ]
 using Toybox.Application;
-[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 22; ]
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 22; ]
 class CoreSettings{
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 22; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 22; ]
     <init> {
     }
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 22; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 22; ]
     static
     <init> {
     }
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 23; @position = 14; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 23; @position = 14; ]
     static
     const KEY_ANT_ID = "CORE_ANT_ID";
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 24; @position = 14; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 24; @position = 14; ]
     static
     const USE_CORE = "UseCore";
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 27; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 27; ]
     static
     function getCoreProperty(key, defaultValue) {
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_27_54_42_4_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 30 2 ]
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_27_54_42_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_27_54_42_4_stop" ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_27_54_42_4_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 30 2 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_27_54_42_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_27_54_42_4_stop" ]
         %result.1 = local;
         %tmp.2 = lgetv %defaultValue;
         lputv %result.1 %tmp.2;
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 31 8 ]
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_27_54_42_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_27_54_42_4_stop" ]
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 31 8 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_27_54_42_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_27_54_42_4_stop" ]
         %app.2 = local;
         %tmp.3 = getm $.Toybox.Application;
         %tmp.4 = getv function %tmp.3 :getApp;
         %tmp.5 = invoke %tmp.3 %tmp.4();
         lputv %app.2 %tmp.5;
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 33 8 ]
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_8_39_8_if_stmt:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_12_33_41_begin:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 33 8 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_8_39_8_if_stmt:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_12_33_41_begin:
         %tmp.7 = lgetv %app.2;
         %tmp.8 = null;
         %tmp.9 = ne %tmp.7 %tmp.8;
-        bf %tmp.9 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_8_39_8_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_29_33_41_true:
+        bf %tmp.9 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_8_39_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_29_33_41_true:
         %tmp.11 = lgetv %key;
         %tmp.12 = null;
         %tmp.13 = ne %tmp.11 %tmp.12;
         push %tmp.13;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_29_33_41_end:
-        %tmp.14 = phi [%tmp.9 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_12_33_41_begin] [%tmp.13 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_29_33_41_true] [%tmp.14 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_29_33_41_end];
-        bf %tmp.14 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_8_39_8_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_8_39_8_if_true:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_44_39_8_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 34 9 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_29_33_41_end:
+        %tmp.14 = phi [%tmp.9 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_12_33_41_begin] [%tmp.13 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_29_33_41_true] [%tmp.14 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_29_33_41_end];
+        bf %tmp.14 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_8_39_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_8_39_8_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_44_39_8_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 34 9 ]
         %tmp.15 = lgetv %app.2;
         %tmp.16 = as %tmp.15 { (!Null) };
         %tmp.17 = getv function %tmp.16 :getProperty;
@@ -56,57 +56,57 @@ C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33
         %tmp.20 = as %tmp.19 { (!Null) };
         %tmp.21 = invoke %tmp.16 %tmp.17(%tmp.20);
         lputv %result.1 %tmp.21;
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 36 9 ]
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_9_38_9_if_stmt:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 36 9 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_9_38_9_if_stmt:
         %tmp.23 = lgetv %result.1;
         %tmp.24 = null;
         %tmp.25 = eq %tmp.23 %tmp.24;
-        bf %tmp.25 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_9_38_9_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_9_38_9_if_true:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_28_38_9_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 37 13 ]
+        bf %tmp.25 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_9_38_9_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_9_38_9_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_28_38_9_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 37 13 ]
         %tmp.27 = lgetv %defaultValue;
         lputv %result.1 %tmp.27;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_28_38_9_stop:
-        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_9_38_9_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_36_9_38_9_if_end:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_44_39_8_stop:
-        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_8_39_8_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_33_8_39_8_if_end:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 41 8 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_28_38_9_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_9_38_9_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_36_9_38_9_if_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_44_39_8_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_8_39_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_33_8_39_8_if_end:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 41 8 ]
         %tmp.29 = lgetv %result.1;
         ret %tmp.29;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_27_54_42_4_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_27_54_42_4_stop:
     }
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 45; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 45; ]
     static
     function setCoreProperty(key, value) {
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_45_47_53_4_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 48 2 ]
-        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_45_47_53_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_45_47_53_4_stop" ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_45_47_53_4_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 48 2 ]
+        [ "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_45_47_53_4_start" "C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_45_47_53_4_stop" ]
         %app.1 = local;
         %tmp.1 = getm $.Toybox.Application;
         %tmp.2 = getv function %tmp.1 :getApp;
         %tmp.3 = invoke %tmp.1 %tmp.2();
         lputv %app.1 %tmp.3;
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 50 6 ]
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_6_52_8_if_stmt:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_10_50_39_begin:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 50 6 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_6_52_8_if_stmt:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_10_50_39_begin:
         %tmp.5 = lgetv %app.1;
         %tmp.6 = null;
         %tmp.7 = ne %tmp.5 %tmp.6;
-        bf %tmp.7 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_6_52_8_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_27_50_39_true:
+        bf %tmp.7 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_6_52_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_27_50_39_true:
         %tmp.9 = lgetv %key;
         %tmp.10 = null;
         %tmp.11 = ne %tmp.9 %tmp.10;
         push %tmp.11;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_27_50_39_end:
-        %tmp.12 = phi [%tmp.7 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_10_50_39_begin] [%tmp.11 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_27_50_39_true] [%tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_27_50_39_end];
-        bf %tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_6_52_8_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_6_52_8_if_true:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_42_52_8_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 51 9 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_27_50_39_end:
+        %tmp.12 = phi [%tmp.7 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_10_50_39_begin] [%tmp.11 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_27_50_39_true] [%tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_27_50_39_end];
+        bf %tmp.12 @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_6_52_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_6_52_8_if_true:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_42_52_8_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 51 9 ]
         %tmp.13 = lgetv %app.1;
         %tmp.14 = as %tmp.13 { (!Null) };
         %tmp.15 = getv function %tmp.14 :setProperty;
@@ -114,50 +114,50 @@ C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50
         %tmp.18 = as %tmp.17 { (!Null) };
         %tmp.20 = lgetv %value;
         invoke %tmp.14 %tmp.15(%tmp.18, %tmp.20);
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_42_52_8_stop:
-        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_6_52_8_if_end;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_50_6_52_8_if_end:
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_45_47_53_4_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_42_52_8_stop:
+        goto @C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_6_52_8_if_end;
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_50_6_52_8_if_end:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_45_47_53_4_stop:
     }
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 59; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 59; ]
     static
     function getCoreAntId() {
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_59_35_61_4_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 60 2 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_59_35_61_4_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 60 2 ]
         %tmp.1 = self;
         %tmp.2 = getv function %tmp.1 :getCoreProperty;
         %tmp.4 = getv ? :KEY_ANT_ID;
         %tmp.5 = 0;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.5);
         ret %tmp.6;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_59_35_61_4_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_59_35_61_4_stop:
     }
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 63; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 63; ]
     static
     function setCoreAntId(value) {
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_63_40_65_4_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 64 8 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_63_40_65_4_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 64 8 ]
         %tmp.1 = self;
         %tmp.2 = getv function %tmp.1 :setCoreProperty;
         %tmp.4 = getv ? :KEY_ANT_ID;
         %tmp.6 = lgetv %value;
         invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_63_40_65_4_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_63_40_65_4_stop:
     }
-    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 67; ]
+    [ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 67; ]
     static
     function getUseCore() {
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_67_33_69_4_start:
-[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc" 68 2 ]
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_67_33_69_4_start:
+[ "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc" 68 2 ]
         %tmp.1 = self;
         %tmp.2 = getv function %tmp.1 :getCoreProperty;
         %tmp.4 = getv ? :KEY_ANT_ID;
         %tmp.5 = false;
         %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.5);
         ret %tmp.6;
-C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreen_source_CoreSettings_mc_67_33_69_4_stop:
+C_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_CoreSettings_mc_67_33_69_4_stop:
     }
 }
-[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreen\source\CoreSettings.mc"; @line = 19; ]
+[ @file = "C:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\CoreSettings.mc"; @line = 19; ]
 <init> {
 }

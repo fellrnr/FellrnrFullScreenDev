@@ -28,6 +28,7 @@ class CoreFitContributor {
 	hidden var mCoreQual = null;
 	hidden var mCoreResv = null;
 	hidden var mConnectIQinfoField = null;
+	hidden var mCoreHSI = null;
 	
     // Variables for computing averages
     hidden var mLastEvenCount = 0;
@@ -161,6 +162,8 @@ class CoreFitContributor {
 		var FIT_HEADING_SKINTEMP  	 = "skin_temperature";
 		var FIT_HEADING_RESERVED 	 = "core_reserved";
 		var FIT_RESERVED_UNITS 		 = "kcal";
+		var FIT_HSI_UNITS			 = "HSI";
+		var FIT_HSI 				 = "Heat Strain Index";
 
 		var CURR_CORE_TEMP_FIELD_ID  	= 0;
 		var LAP_AVG_CORE_TEMP_FIELD_ID 	= 1;
@@ -173,6 +176,7 @@ class CoreFitContributor {
 		var CURR_COREQUAL_FIELD_ID  	= 19;
 		var CURR_RESERVED_FIELD_ID  	= 20;
 		var FIT_CONNECTIQ_INFO_ID	  	= 26;
+		var FIT_HSI_FIELD_ID			= 11;
 		// write CoreTemp as Moxy fields for backward compatability
 
 	    //--------------------
@@ -220,7 +224,15 @@ class CoreFitContributor {
 		        	mCoreResv.currField = dataField.createField(FIT_HEADING_RESERVED, CURR_RESERVED_FIELD_ID, FitContributor.DATA_TYPE_SINT16, { :mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>FIT_RESERVED_UNITS });
 				}
 			}
-					
+
+			if ( mCoreHSI == null ) {
+				// Reserved fields
+				mCoreHSI = new coreFitFieldSimple();
+				if ( mCoreHSI != null ) {
+		        	mCoreHSI.currField = dataField.createField(FIT_HSI, FIT_HSI_FIELD_ID, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>FIT_HSI_UNITS });
+				}
+			}
+
     	}
 	}	// end func initialize
 
@@ -271,6 +283,11 @@ class CoreFitContributor {
             	if ((mCoreResv != null) && (mCoreResv.writeValue( coreResv, mTimerRunning, true ))) {
 					mCoreResv.currField.setData(coreResv.toNumber());								// write CORE Reserved Value
     	        }
+
+				if(mCoreHSI != null && sensor.data.HeatStrainIndex != null) {
+					mCoreHSI.currField.setData(sensor.data.HeatStrainIndex);
+				}
+
         	}  else if ((mCoreResv != null) && (mCoreResv.writeValue( 0, mTimerRunning, true ))) {	// missing data packets
 				mCoreResv.currField.setData( 0x3FFF );												// write marker core_reserved
         	}	// end if

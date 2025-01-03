@@ -51,6 +51,8 @@ class ScreenData {
 	var d_heatStrainIndexBG = Graphics.COLOR_WHITE;
 	var d_heat = null;
 	var d_heatBG = Graphics.COLOR_WHITE;
+	var d_heat2AvgPace = null;
+	var d_heat2AvgPaceBG = Graphics.COLOR_WHITE;
 
 	var defaultBG = Graphics.COLOR_WHITE;
 	var defaultIsNum = true;
@@ -97,6 +99,7 @@ class ScreenData {
 		"allTemp" => { :name => "allTemp", :val => :d_allTemperature, :background => :d_allTemperatureBG, :isNum => :defaultIsNum },
 		"heatStrainIndex" => { :name => "heatStrainIndex", :val => :d_heatStrainIndex, :background => :d_heatStrainIndexBG, :isNum => :defaultIsNum },
 		"heat" => { :name => "heat", :val => :d_heat, :background => :d_heatBG, :isNum => :defaultIsNum },
+		"heat2AvgPace" => { :name => "heat2AvgPace", :val => :d_heat2AvgPace, :background => :d_heat2AvgPaceBG, :isNum => :defaultIsNum },
 		//"grndConTime" => { :name => "grndConTime", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
 
 	};
@@ -132,6 +135,7 @@ class ScreenData {
 		"sTp" => "skinTemp",		//From CORE sensor
 		"aTp" => "allTemp",			//From CORE sensor, alternating core, skin, Heat Strain Index
 		"ht" => "heat",				//From CORE sensor, showing core temp until HSI is >= 1.0 when HSI is shown (Future mod is to make changeover HSI configurable, and maybe only show core temp when HSI is zero)
+		"ht2aP" => "heat2AvgPace",	//same as heat if CORE is there, failing over to average pace 
     };
 
 

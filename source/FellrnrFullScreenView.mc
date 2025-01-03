@@ -235,17 +235,17 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			WalkingCadence = mApp.getProperty("WalkingCadence");
 			UseCore = mApp.getProperty("UseCore");
 
-			System.println("ZeroPowerHR:        	" + ZeroPowerHR);
-			System.println("HrPwrSmoothing:     	" + HrPwrSmoothing);
-			System.println("PaceSmoothing:      	" + PaceSmoothing);
-			System.println("DisplayLoop:        	" + DisplayLoop);
-			System.println("CriticalPower:      	" + CriticalPower);
-			System.println("StoreNativePower:   	" + StoreNativePower);
-			System.println("UseCore:	   			" + UseCore);
-			System.println("FieldsDefaultProperty:	" + FieldsDefaultProperty);
-			System.println("FieldsRunProperty:     	" + FieldsRunProperty);
-			System.println("FieldsTrailProperty:    " + FieldsTrailProperty);
-			System.println("FieldsProperty:     	" + FieldsProperty);
+			// System.println("ZeroPowerHR:        	" + ZeroPowerHR);
+			// System.println("HrPwrSmoothing:     	" + HrPwrSmoothing);
+			// System.println("PaceSmoothing:      	" + PaceSmoothing);
+			// System.println("DisplayLoop:        	" + DisplayLoop);
+			// System.println("CriticalPower:      	" + CriticalPower);
+			// System.println("StoreNativePower:   	" + StoreNativePower);
+			// System.println("UseCore:	   			" + UseCore);
+			// System.println("FieldsDefaultProperty:	" + FieldsDefaultProperty);
+			// System.println("FieldsRunProperty:     	" + FieldsRunProperty);
+			// System.println("FieldsTrailProperty:    " + FieldsTrailProperty);
+			// System.println("FieldsProperty:     	" + FieldsProperty);
 
 	
 	        hrpwrlabel = "" + ZeroPowerHR.format("%d") + ":" + weight.format("%d") + "";
@@ -408,11 +408,18 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			display.screenData.d_dutyFactor = dutyFactor.format("%.0f") + "%";
 			display.screenData.d_dutyFactorBG = GetDutyFactorColor(dutyFactor);
 			if(display.screenData.d_verticalOscillationMM != null) {
-				var flightTimeMs = stepTimeMs - display.screenData.d_groundContactTimeMs;
-				var gravity = 9.8;
-				var timeGoingUpMs = flightTimeMs/2.0;
+				// var flightTimeMs = stepTimeMs - display.screenData.d_groundContactTimeMs;
+				// var gravity = 9.8;
+				// var timeGoingUpMs = flightTimeMs/2.0;
+				// var timeGoingUpSec = timeGoingUpMs / 1000.0;
+				// var stanceVelocityMpS = timeGoingUpSec * gravity;
+				// var stanceHeightM = stanceVelocityMpS * timeGoingUpSec;
+				// var stanceHeightCm = stanceHeightM * 100;
+				// var verticalOscillationCm = display.screenData.d_verticalOscillationMM.toFloat() / 10.0;
+
+				var timeGoingUpMs = (stepTimeMs - display.screenData.d_groundContactTimeMs)/2.0;
 				var timeGoingUpSec = timeGoingUpMs / 1000.0;
-				var stanceVelocityMpS = timeGoingUpSec * gravity;
+				var stanceVelocityMpS = timeGoingUpSec * 9.8;
 				var stanceHeightM = stanceVelocityMpS * timeGoingUpSec;
 				var stanceHeightCm = stanceHeightM * 100;
 				var verticalOscillationCm = display.screenData.d_verticalOscillationMM.toFloat() / 10.0;
@@ -451,7 +458,15 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		display.screenData.d_heatStrainIndex = coreField.heatStrainIndex.format("%.1f");
 		display.screenData.d_heatStrainIndexBG = GetHsiColor(coreField.heatStrainIndex);
 
-		if(coreField.heatStrainIndex < 1.0) {
+		if(coreField.heatStrainIndex >= 0 && coreField.heatStrainIndex < 1.0) {
+			if(loop) {
+				display.screenData.d_heat = display.screenData.d_coreTemperature;
+				display.screenData.d_heatBG = Graphics.COLOR_BLACK;
+			} else {
+				display.screenData.d_heat = display.screenData.d_heatStrainIndex;
+				display.screenData.d_heatBG = display.screenData.d_heatStrainIndexBG;
+			}
+		} else if(coreField.heatStrainIndex == 0.0) {
 			display.screenData.d_heat = display.screenData.d_coreTemperature;
 			display.screenData.d_heatBG = Graphics.COLOR_WHITE;
 		} else {
@@ -674,44 +689,38 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 		//HR-PWR
-	    if(hr != 0 && pwr != 0) {
-			if(info.currentHeartRate <= ZeroPowerHR) {
-				display.screenData.d_hrPwr = "HR < 0pHR";
-	            display.screenData.d_hrPwrIsNum = false;
-				display.screenData.d_hrPwrBG = Graphics.COLOR_WHITE;
-			} else {
-	            display.screenData.d_hrPwrIsNum = true;
+	    if(hr != 0 && pwr != 0 && info.currentHeartRate > ZeroPowerHR) {
+			display.screenData.d_hrPwrIsNum = true;
+			
+			if(SmoothHrPwrCounter < HrPwrSmoothing) {
+				SmoothHrPwrCounter++;
+			}
+			
+			smoothhr = (smoothhr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + hr.toFloat()/SmoothHrPwrCounter;
+			smoothpwr = (smoothpwr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + pwr/SmoothHrPwrCounter;
 				
-				if(SmoothHrPwrCounter < HrPwrSmoothing) {
-					SmoothHrPwrCounter++;
-				}
-				
-				smoothhr = (smoothhr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + hr.toFloat()/SmoothHrPwrCounter;
-				smoothpwr = (smoothpwr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + pwr/SmoothHrPwrCounter;
-					
-				
-				var pwrMw = smoothpwr * 1000.0;
-				var pwkg = (pwrMw / weight);
-				var deltahr = (smoothhr - ZeroPowerHR);
-				var hrpw = pwkg / deltahr;
-				var hrpw1dp = Math.round(hrpw*10)/10.0;
-				
+			
+			// var pwrMw = smoothpwr * 1000.0;
+			// var pwkg = (pwrMw / weight);
+			// var deltahr = (smoothhr - ZeroPowerHR);
+			// var hrpw = pwkg / deltahr;
+			// var hrpw1dp = Math.round(hrpw*10)/10.0;
+
+			var hrpw = ((smoothpwr * 1000.0) / weight) / (smoothhr - ZeroPowerHR);
+			var hrpw1dp = Math.round(hrpw*10)/10.0;
+
+
 //if(hack > 55) { hack=15; } else { hack += 2; }
 //hrpw1dp = hack;
+			display.screenData.d_hrPwr = hrpw1dp.format("%.1f");
 
-
-				display.screenData.d_hrPwr = hrpw1dp.format("%.1f");
-
-				//Garmin keeps reseting max hr, making percent HRR useless
-
-				display.screenData.d_hrPwrBG = GetHrPwrColor(hrpw1dp);
-				
-				shrpwrField.setData(hrpw1dp.toFloat());
-			}
+			//Garmin keeps reseting max hr, making percent HRR useless
+			display.screenData.d_hrPwrBG = GetHrPwrColor(hrpw1dp);
+			
+			shrpwrField.setData(hrpw1dp.toFloat());
 	    } else {
-				display.screenData.d_hrPwr = null;
-				display.screenData.d_hrPwrBG = Graphics.COLOR_WHITE;
-
+			display.screenData.d_hrPwr = null;
+			display.screenData.d_hrPwrBG = Graphics.COLOR_WHITE;
 		}
 
 
@@ -827,6 +836,17 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			display.screenData.d_averagePace = null;
 		}
 
+
+
+		//core if we have it, otherwise average pace
+		//need a generic fall back approach
+		if(coreField.heatStrainIndex >= 0) {
+			display.screenData.d_heat2AvgPace = display.screenData.d_heat;
+			display.screenData.d_heat2AvgPaceBG = display.screenData.d_heatBG;
+		} else {
+			display.screenData.d_heat2AvgPace = display.screenData.d_averagePace;
+			display.screenData.d_heat2AvgPaceBG = Graphics.COLOR_BLACK;
+		}
 
 
 //    _____  _     _                         _____                      _       _             
@@ -1049,22 +1069,6 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		return Graphics.COLOR_WHITE;
 	}
 
-
-	var colorArray = [0xAA0000, 0xFF0000, 0xFF5500, 0xFFAA00, 0xFFFF00, 0xAAFF00, 0x00FF00, 0x00FF55, 0x00FFAA, 0x00FFFF, 0x00AAFF, 0x0055FF,0x00AAFF, 0x5500FF, 0xAA00FF, 0xFF00FF] as Lang.Array<Number>;
-	var colorCount = colorArray.size();
-	function GetColor(value, white, red, green, pink) {
-		if(value <= white) {
-			return Graphics.COLOR_WHITE;
-		}
-
-        if( value >= pink) { 
-			return Graphics.COLOR_PINK;
-        } else if(value > green) {
-        	return Graphics.COLOR_GREEN;
-		} else {
-			return Graphics.COLOR_DK_RED;
-		}
-	}
 
 
 	function GetHrPwrColor(currentHrPwr) {

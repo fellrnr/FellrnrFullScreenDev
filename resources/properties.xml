@@ -70,9 +70,19 @@
 			dataLabel="@Strings.fit_skin_temp_label"
 			fillColor="#0099FF" />
 		
+		<fitField id="11"
+			sortOrder="83" precision="1"
+			displayInChart="true" 
+			displayInActivityLaps="false"
+			displayInActivitySummary="false"
+			chartTitle="@Strings.fit_hsi_label"
+			unitLabel="@Strings.fit_hsi_units"
+			dataLabel="@Strings.fit_hsi_label"
+			fillColor="#FF0000" />
+		
 		<fitField id="19" 
 			sortOrder="35" precision="0" 
-      displayInChart="false"
+      		displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="false"
 			unitLabel="@Strings.fit_core_qual_units"
@@ -80,7 +90,7 @@
 			
 		<fitField id="20" 
 			sortOrder="30" precision="0" 
-      displayInChart="false"
+      		displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="false"
 			unitLabel="@Strings.fit_core_resv_units"
@@ -120,13 +130,13 @@
   	<property id="TargetCadence" type="number">180</property>
   	<property id="CadenceColorStep" type="number">5</property>
   	<property id="WalkingCadence" type="number">150</property>
-    <property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,ca,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>										
-    <property id="FieldsRun" type="string">ca,hrP,hr,pwr,pac,ca,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>										
-    <property id="FieldsTrail" type="string">ca,hrP,hr,pwr,pac,ca,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>										
-  	<property id="StoreNativePower" type="boolean">true</property>
-		<property id="CORE_ANT_ID" type="number">0</property>
-		<property id="UseCore" type="boolean">true</property>
-		<property id="StoreCore" type="boolean">true</property>
+    <property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht2aP,ts</property>										
+    <property id="FieldsRun" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht2aP,ts</property>										
+    <property id="FieldsTrail" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht2aP,ts</property>										
+  	<property id="StoreNativePower" type="boolean">false</property>
+	<property id="CORE_ANT_ID" type="number">0</property>
+	<property id="UseCore" type="boolean">true</property>
+	<property id="StoreCore" type="boolean">true</property>
   </properties>
 
 <!--  	<property id="Fields" type="string">ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,oP,g,alt,dEl,aTp</property>-->
@@ -183,7 +193,7 @@
   </settings>
 
 	<strings>
-    <string id="AppName">Fellrnr Full Screen</string>
+    <string id="AppName">Fellrnr FS-Dev</string>
     <string id="Pwr">Power</string>
     <string id="SHRPWR">Smoothed HRPwr</string>
     <string id="Watts">Watts</string>
@@ -192,20 +202,14 @@
     <string id="PaceUnits">m/s</string>
     <string id="ZeroPowerHRTitle">Heart Rate at Zero Power</string>
     <string id="ZeroPowerHRPrompt">This is above resting HR, representing the HR when not running, but standing</string>
-		<string id="HrPwrSmoothingTitle">HrPwr Smoothing</string>
-		<string id="HrPwrSmoothingPrompt">Seconds of smoothing to apply to HrPwr</string>
-		<string id="PaceSmoothingTitle">Pace Smoothing</string>
-		<string id="PaceSmoothingPrompt">Seconds of smoothing to apply to Pace</string>
-		<string id="DisplayLoopTitle">Display Loop Time</string>
-		<string id="DisplayLoopPrompt">How many seconds between display scrolls</string>
-		<string id="CriticalPowerTitle">Critical Power (watts)</string>
-		<string id="CriticalPowerPrompt">Critical Power, used to color power field</string>
-		<string id="CardiacGADTitle">Cardiac GAP Distance</string>
-		<string id="CardiacGADLabel">HrDistance</string>
-		<string id="CardiacGADUnits">mm.HR-1</string>
-		<string id="StrideLengthTitle">Stride Length</string>
-		<string id="StrideLengthLabel">SL</string>
-		<string id="StrideLengthUnits">meters</string>
+	<string id="HrPwrSmoothingTitle">HrPwr Smoothing</string>
+	<string id="HrPwrSmoothingPrompt">Seconds of smoothing to apply to HrPwr</string>
+	<string id="PaceSmoothingTitle">Pace Smoothing</string>
+	<string id="PaceSmoothingPrompt">Seconds of smoothing to apply to Pace</string>
+	<string id="DisplayLoopTitle">Display Loop Time</string>
+	<string id="DisplayLoopPrompt">How many seconds between display scrolls</string>
+	<string id="CriticalPowerTitle">Critical Power (watts)</string>
+	<string id="CriticalPowerPrompt">Critical Power, used to color power field</string>
 
     <string id="fit_core_temp_label">CORE Temperature</string>
     <string id="fit_core_avg_label">CORE Avg Temp</string>
@@ -218,29 +222,31 @@
     <string id="fit_core_qual_units">Q</string>
     <string id="fit_core_resv_units">kcal</string>
 
+    <string id="fit_hsi_label">CORE Heat Strain Index</string>
+    <string id="fit_hsi_units">HSI</string>
 
-		<string id="FieldsDefaultTitle">Field List (default)</string>
-		<string id="FieldsDefaultPrompt">Field list as CSV, see documentation</string>
-		<string id="FieldsRunTitle">Field List (run)</string>
-		<string id="FieldsRunPrompt">Field list as CSV, see documentation</string>
-		<string id="FieldsTrailTitle">Field List (trail)</string>
-		<string id="FieldsTrailPrompt">Field list as CSV, see documentation</string>
+	<string id="FieldsDefaultTitle">Field List (default)</string>
+	<string id="FieldsDefaultPrompt">Field list as CSV, see documentation</string>
+	<string id="FieldsRunTitle">Field List (run)</string>
+	<string id="FieldsRunPrompt">Field list as CSV, see documentation</string>
+	<string id="FieldsTrailTitle">Field List (trail)</string>
+	<string id="FieldsTrailPrompt">Field list as CSV, see documentation</string>
 
-		<string id="StoreNativePowerTitle">Store Native Power</string>
-		<string id="StoreNativePowerPrompt">Put the power data into native power field in FIT, where it will get to Strava</string>
+	<string id="StoreNativePowerTitle">Store Native Power</string>
+	<string id="StoreNativePowerPrompt">Put the power data into native power field in FIT, where it will get to Strava</string>
 
-		<string id="TargetCadenceTitle">Target cadence (SPM)</string>
-		<string id="TargetCadencePrompt">Target cadence (Use 180 not 90)</string>
+	<string id="TargetCadenceTitle">Target cadence (SPM)</string>
+	<string id="TargetCadencePrompt">Target cadence (Use 180 not 90)</string>
 
-		<string id="WalkingCadenceTitle">Cadence for walking</string>
-		<string id="WalkingCadencePrompt">Below this cadence, color as walking</string>
+	<string id="WalkingCadenceTitle">Cadence for walking</string>
+	<string id="WalkingCadencePrompt">Below this cadence, color as walking</string>
 
-		<string id="CadenceColorStepTitle">Steps for coloring cadence field</string>
-		<string id="CadenceColorStepPrompt">Target cadence plus/minus this step for coloring</string>
+	<string id="CadenceColorStepTitle">Steps for coloring cadence field</string>
+	<string id="CadenceColorStepPrompt">Target cadence plus/minus this step for coloring</string>
 
     <string id="CORE_ANT_ID_title">CORE Sensor Id:</string>
   	<string id="CORE_ANT_ID_prompt">Enter ANT+ id between 1 and 65535, 0 = use any CORE</string>
-	  <string id="CORE_ANT_ID_error_msg">only numbers between 0 and 65535</string>
+	<string id="CORE_ANT_ID_error_msg">only numbers between 0 and 65535</string>
 
   	<string id="UseCore">Try to use CORE sensor?</string>
   	<string id="StoreCore">Store CORE data into FIT file?</string>
