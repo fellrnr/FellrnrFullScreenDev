@@ -53,6 +53,8 @@ class ScreenData {
 	var d_heatBG = Graphics.COLOR_WHITE;
 	var d_heat2AvgPace = null;
 	var d_heat2AvgPaceBG = Graphics.COLOR_WHITE;
+	var d_gctBal = null;
+	var d_gctBalBG = Graphics.COLOR_WHITE;
 
 	var defaultBG = Graphics.COLOR_WHITE;
 	var defaultIsNum = true;
@@ -102,6 +104,7 @@ class ScreenData {
 		"heat2AvgPace" => { :name => "heat2AvgPace", :val => :d_heat2AvgPace, :background => :d_heat2AvgPaceBG, :isNum => :defaultIsNum },
 		//"grndConTime" => { :name => "grndConTime", :val => :d_groundContactTimeMs, :background => :defaultBG, :isNum => :defaultIsNum },
 
+		"gctBal" => { :name => "gctBal", :val => :d_gctBal, :background => :d_gctBalBG, :isNum => :defaultIsNum },
 	};
 
     const abbreviations = {
@@ -134,8 +137,9 @@ class ScreenData {
 		"cTp" => "coreTemp",		//From CORE sensor
 		"sTp" => "skinTemp",		//From CORE sensor
 		"aTp" => "allTemp",			//From CORE sensor, alternating core, skin, Heat Strain Index
-		"ht" => "heat",				//From CORE sensor, showing core temp until HSI is >= 1.0 when HSI is shown (Future mod is to make changeover HSI configurable, and maybe only show core temp when HSI is zero)
+		"ht" => "heat",				//From CORE sensor, showing core temp until HSI is greater than 0.0, then alternate core and HSI until HSI is 1.0 when HSI is shown (Future mod is to make changeover HSI configurable, and maybe only show core temp when HSI is zero)
 		"ht2aP" => "heat2AvgPace",	//same as heat if CORE is there, failing over to average pace 
+		"gctBal" => "gctBal", 		//Ground contact time balance
     };
 
 

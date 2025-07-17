@@ -10,3 +10,4 @@ bin/mir/source/FellrnrFullScreenBackground.mir
 bin/mir/source/FellrnrFullScreenView.mir
 bin/mir/source/ScreenLayoutCommon.mir
 bin/mir/source-round/ScreenRound.mir
+resources/properties.xml

@@ -2,100 +2,100 @@
 
   <fitContributions>
 
-		<fitField id="0" 
-			sortOrder="81" precision="2" 
-			displayInChart="true" 
-			displayInActivityLaps="true" 
+		<fitField id="0"
+			sortOrder="81" precision="2"
+			displayInChart="true"
+			displayInActivityLaps="true"
 			displayInActivitySummary="true"
 			chartTitle="@Strings.fit_core_temp_label"
 			unitLabel="@Strings.fit_core_temp_units"
 			dataLabel="@Strings.fit_core_temp_label"
 			fillColor="#00FF00" />
 
-		<fitField id="1" 
-			sortOrder="57" precision="2" 
-			displayInChart="false" 
+		<fitField id="1"
+			sortOrder="57" precision="2"
+			displayInChart="false"
 			displayInActivityLaps="true"
 			displayInActivitySummary="false"
 			dataLabel="@Strings.fit_core_avg_label"
 			unitLabel="@Strings.fit_core_temp_units" />
 
-		<fitField id="2" 
-			sortOrder="58" precision="2" 
-			displayInChart="false" 
+		<fitField id="2"
+			sortOrder="58" precision="2"
+			displayInChart="false"
 			displayInActivityLaps="true"
 			displayInActivitySummary="false"
 			dataLabel="@Strings.fit_core_max_label"
 			unitLabel="@Strings.fit_core_temp_units" />
 
-		<fitField id="3" 
-			sortOrder="59" precision="2" 
-			displayInChart="false" 
+		<fitField id="3"
+			sortOrder="59" precision="2"
+			displayInChart="false"
 			displayInActivityLaps="true"
 			displayInActivitySummary="false"
 			dataLabel="@Strings.fit_core_min_label"
 			unitLabel="@Strings.fit_core_temp_units" />
 
-		<fitField id="5" 
-			sortOrder="54" precision="2" 
-			displayInChart="false" 
+		<fitField id="5"
+			sortOrder="54" precision="2"
+			displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="true"
 			dataLabel="@Strings.fit_core_avg_label"
 			unitLabel="@Strings.fit_core_temp_units" />
-			
-		<fitField id="6" 
-			sortOrder="55" precision="2" 
-			displayInChart="false" 
+
+		<fitField id="6"
+			sortOrder="55" precision="2"
+			displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="true"
 			dataLabel="@Strings.fit_core_max_label"
 			unitLabel="@Strings.fit_core_temp_units" />
-			
-		<fitField id="7" 
-			sortOrder="56" precision="2" 
-			displayInChart="false" 
+
+		<fitField id="7"
+			sortOrder="56" precision="2"
+			displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="true"
 			dataLabel="@Strings.fit_core_min_label"
 			unitLabel="@Strings.fit_core_temp_units" />
-			
+
 		<fitField id="10"
 			sortOrder="82" precision="2"
-			displayInChart="true" 
+			displayInChart="true"
 			displayInActivityLaps="false"
 			displayInActivitySummary="false"
 			chartTitle="@Strings.fit_skin_temp_label"
 			unitLabel="@Strings.fit_core_temp_units"
 			dataLabel="@Strings.fit_skin_temp_label"
 			fillColor="#0099FF" />
-		
+
 		<fitField id="11"
 			sortOrder="83" precision="1"
-			displayInChart="true" 
+			displayInChart="true"
 			displayInActivityLaps="false"
 			displayInActivitySummary="false"
 			chartTitle="@Strings.fit_hsi_label"
 			unitLabel="@Strings.fit_hsi_units"
 			dataLabel="@Strings.fit_hsi_label"
 			fillColor="#FF0000" />
-		
-		<fitField id="19" 
-			sortOrder="35" precision="0" 
+
+		<fitField id="19"
+			sortOrder="35" precision="0"
       		displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="false"
 			unitLabel="@Strings.fit_core_qual_units"
 			dataLabel="@Strings.fit_core_qual_label" />
-			
-		<fitField id="20" 
-			sortOrder="30" precision="0" 
+
+		<fitField id="20"
+			sortOrder="30" precision="0"
       		displayInChart="false"
 			displayInActivityLaps="false"
 			displayInActivitySummary="false"
 			unitLabel="@Strings.fit_core_resv_units"
 			dataLabel="@Strings.fit_core_resv_label" />
-			
+
     <fitField id="30"
       displayInChart="true"
       displayInActivityLaps="false"
@@ -130,13 +130,15 @@
   	<property id="TargetCadence" type="number">180</property>
   	<property id="CadenceColorStep" type="number">5</property>
   	<property id="WalkingCadence" type="number">150</property>
-    <property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht2aP,ts</property>										
-    <property id="FieldsRun" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht2aP,ts</property>										
-    <property id="FieldsTrail" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,ht2aP,ts</property>										
+    <property id="FieldsDefault" type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,aP,ts</property>
+    <property id="FieldsRun"     type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,gctBal,ht2aP,ts</property>
+    <property id="FieldsTrail"   type="string">ca,hrP,hr,pwr,pac,dis,uD,gAP,dF,sL,oP,g,alt,dEl,ts</property>
+
   	<property id="StoreNativePower" type="boolean">false</property>
 	<property id="CORE_ANT_ID" type="number">0</property>
 	<property id="UseCore" type="boolean">true</property>
 	<property id="StoreCore" type="boolean">true</property>
+  	<property id="StrydId" type="number">48453</property>
   </properties>
 
 <!--  	<property id="Fields" type="string">ca,hrP,hr,pwr,pac,dis,tAD,gAP,dF,sL,oP,g,alt,dEl,aTp</property>-->
@@ -180,7 +182,7 @@
   		<settingConfig type="boolean"/>
     </setting>
     <setting propertyKey="@Properties.CORE_ANT_ID" title="@Strings.CORE_ANT_ID_title" prompt="@Strings.CORE_ANT_ID_prompt" helpUrl="https://corebodytemp.com/coreconnectiqmanual/">
-        <settingConfig type="numeric" readonly="false" 
+        <settingConfig type="numeric" readonly="false"
             required="false" min="0" max="65535" errorMessage="@Strings.CORE_ANT_ID_error_msg"  />
     </setting>
 
@@ -190,10 +192,12 @@
     <setting propertyKey="@Properties.StoreCore" title="@Strings.StoreCore">
         <settingConfig type="boolean"/>
     </setting>
+    <setting propertyKey="@Properties.StrydId" title="@Strings.StrydIdTitle" prompt="@Strings.StrydIdPrompt">
+		  <settingConfig type="numeric" />
+    </setting>
   </settings>
 
 	<strings>
-    <string id="AppName">Fellrnr FS-Dev</string>
     <string id="Pwr">Power</string>
     <string id="SHRPWR">Smoothed HRPwr</string>
     <string id="Watts">Watts</string>
@@ -210,6 +214,8 @@
 	<string id="DisplayLoopPrompt">How many seconds between display scrolls</string>
 	<string id="CriticalPowerTitle">Critical Power (watts)</string>
 	<string id="CriticalPowerPrompt">Critical Power, used to color power field</string>
+	<string id="StrydIdTitle">Ant Id of Stryd sensor (0=ignore)</string>
+	<string id="StrydIdPrompt">Ant Id for Stryd</string>
 
     <string id="fit_core_temp_label">CORE Temperature</string>
     <string id="fit_core_avg_label">CORE Avg Temp</string>

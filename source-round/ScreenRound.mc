@@ -404,11 +404,53 @@ Graphics.COLOR_PINK ,
 
 		if(screenData.screenFields != null && screenData.screenFields.size() > pos && screenData.screenFields[pos] != null) {
 			var bgSym = screenData.screenFields[pos][:background] as Lang.Symbol;
+			var valSym = screenData.screenFields[pos][:val] as Lang.Symbol;
 
 			if(screenData has bgSym) {
 
 				var bg = screenData[bgSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
-				if(bg != Graphics.COLOR_TRANSPARENT) {
+
+				if(bg == null) {
+					//currently only used for GCT balance
+					var val = screenData[valSym]; //use a symbol like an array reference to get the data out of the object screenData. Idea copied from ActiveLook
+
+					if(val != null) {
+						val = val.toDouble();
+						var leftBG = Graphics.COLOR_GREEN;
+						var rightBG = Graphics.COLOR_GREEN;
+
+						if(val == 0) {
+							leftBG = Graphics.COLOR_BLACK;
+							rightBG = Graphics.COLOR_BLACK;
+						} else if(val > 52.2) {
+							leftBG = Graphics.COLOR_RED;
+//System.println("Right Red " + val);
+						} else if(val > 51.5) {
+							leftBG = Graphics.COLOR_ORANGE;
+//System.println("Right Orange " + val);
+						} else if(val > 50.7) {
+							leftBG = Graphics.COLOR_YELLOW;
+//System.println("Right Orange " + val);
+						} else if(val < 47.8) {
+							rightBG = Graphics.COLOR_RED;
+//System.println("Left Red " + val);
+						} else if(val < 48.5) {
+							rightBG = Graphics.COLOR_ORANGE;
+//System.println("Left Orange " + val);
+						} else if(val < 49.3) {
+							rightBG = Graphics.COLOR_YELLOW;
+//System.println("Left Orange " + val);
+						} else {
+//System.println("All green " + val);
+						}
+
+						dc.setColor(leftBG, Graphics.COLOR_TRANSPARENT);
+						dc.fillRectangle(bgx+1, bgy+1, (bgw-1)/2, bgh-1);
+						dc.setColor(rightBG, Graphics.COLOR_TRANSPARENT);
+						dc.fillRectangle(bgx+1+(bgw-1)/2, bgy+1, (bgw-1)/2, bgh-1);
+
+					}
+				} else if(bg != Graphics.COLOR_TRANSPARENT) {
 					dc.setColor(bg.toNumber(), Graphics.COLOR_TRANSPARENT);
 					dc.fillRectangle(bgx+1, bgy+1, bgw-1, bgh-1);
 				}
@@ -476,14 +518,19 @@ Graphics.COLOR_PINK ,
 	}
 
 	function foregroundForBackground(bg) {
+		if(bg == null) {
+			return Graphics.COLOR_WHITE;
+		}
 		var red = (bg & 0xFF0000) >> 16;
 		var green = (bg & 0x00FF00) >> 8;
 		//green is far lighter than you'd expect from RGB
-		green = green * 2; //hack
+		//green = green * 2; //hack
 		var blue = (bg & 0xFF);
-		var total = red + blue + green;
+		//var total = red + blue + green;
+		//preceptual values
+		var total =  (0.21 * red) + (0.72 * green) + (0.07 * blue);
 		//3*127=381
-		if(total > 381) {
+		if(total > 128) {
 			return Graphics.COLOR_BLACK;
 		} else {
 			return Graphics.COLOR_WHITE;

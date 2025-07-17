@@ -4,7 +4,8 @@ using Toybox.System;
 using Toybox.Attention;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
-import Toybox.Lang;
+using Toybox.AntPlus;
+using Toybox.Lang;
 
 
 //http://patorjk.com/software/taag/#p=display&c=c%2B%2B&f=Big&t=Debug
@@ -30,7 +31,7 @@ import Toybox.Lang;
 
 class FellrnrFullScreenView extends WatchUi.DataField {
 
-//var hack=0;
+//var hack=47.0;
 
     var pwr;
 	var calcpwr=0;
@@ -40,7 +41,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var weight;
 	var rhr;
 	var MaxHR;
-	
+
 	var hrpwrlabel;
 	var display as ScreenLayout;
     var mBgColorFG;
@@ -60,15 +61,18 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var WalkingCadence;
 	var UseCore;
 
-	
+
 	var coreField = null;
+
+	var antplusBikePower as AntPlus.BikePower;
+
 
 	var StartingElevation = 0;
 	var ElevationDelta;
 	var simple;
     var unitP                        = 1000.0;
     var unitE                        = 1609.344;
-    
+
     var smoothhr=0;
     var smoothpwr=0;
 	var smoothSpeed = 0;
@@ -89,13 +93,13 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	hidden var shrpwrField;
 	var gacardiacCostField;
 
-	var RemaininDistanceInUnits="";
-	var FinishTimeOfDay = "";
-	var TimeRemainingString = "";
-	var EstimatedFinishTimeSmoothed = "";
-	var EstimatedFinishTimeAverage = "";
-	var EstimatedDistanceSmoothed = "";
-	var EstimatedDistanceAverage = "";
+	// var RemaininDistanceInUnits="";
+	// var FinishTimeOfDay = "";
+	// var TimeRemainingString = "";
+	// var EstimatedFinishTimeSmoothed = "";
+	// var EstimatedFinishTimeAverage = "";
+	// var EstimatedDistanceSmoothed = "";
+	// var EstimatedDistanceAverage = "";
 
 	var elevationarray;
 
@@ -116,8 +120,8 @@ class FellrnrFullScreenView extends WatchUi.DataField {
     	SmoothHrPwrCounter=0;
 		coreField.mFitContributor.onTimerReset();
 		coreField.mFitContributor.onTimerLap();
-	}	
-	
+	}
+
     function onTimerStart() {
 		display.countdown = 0;
 		StartingElevation = 0;
@@ -134,7 +138,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	    smoothhr=0;
 	    smoothpwr=0;
 		coreField.mFitContributor.setTimerRunning( false, coreField.mSensor );
-	}	
+	}
 
     function onTimerResume() {
     	smoothSpeedCounter=0;
@@ -142,7 +146,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	    smoothhr=0;
 	    smoothpwr=0;
 		coreField.mFitContributor.setTimerRunning( true, coreField.mSensor );
-	}	
+	}
 
     function onTimerStop() {
     	smoothSpeedCounter=0;
@@ -150,17 +154,26 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	    smoothhr=0;
 	    smoothpwr=0;
 		coreField.mFitContributor.setTimerRunning( false, coreField.mSensor );
-	}	
+	}
 
-	
-//  _                 
-// | |                
-// | |     __ _ _ __  
-// | |    / _` | '_ \ 
+    // Called from App.onStart()
+    function onStart() {
+
+	}
+
+    // Called from App.onStop()
+    function onStop() {
+	}
+
+
+//  _
+// | |
+// | |     __ _ _ __
+// | |    / _` | '_ \
 // | |___| (_| | |_) |
-// |______\__,_| .__/ 
-//             | |    
-//             |_|    
+// |______\__,_| .__/
+//             | |
+//             |_|
 	//calculate avg lap, std dev, corrected dist
 	var distancecorrection=0;
 	var distanceatlastlap=0;
@@ -172,13 +185,13 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	var LapList = new [0];
 	function onTimerLap() {
 	}
-	
+
 
     function initialize() {
 	        DataField.initialize();
-	        
+
 	        hrpwr = -10;
-	        
+
 
 			//Fenix 5X is 3.1.0
 			//Fenix 6X is 3.4.0
@@ -202,7 +215,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	        weight = profile.weight / 1000.0; //grams to Kg
 	        hrZones = profile.getHeartRateZones(profile.getCurrentSport());
 	        MaxHR = hrZones[5];
-	        //weight = weight.toLong(); 
+	        //weight = weight.toLong();
 	        rhr = profile.restingHeartRate;
 
 
@@ -210,8 +223,8 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 	            unitP = 1609.344;
 	            unitE = 1000.0;
 	        }
-	        
-	        
+
+
 			var mApp = Application.getApp();
 	        ZeroPowerHR = mApp.getProperty("ZeroPowerHR");
 			HrPwrSmoothing = mApp.getProperty("HrPwrSmoothing").toFloat();
@@ -228,12 +241,17 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			} else {
 				FieldsProperty = FieldsDefaultProperty;
 			}
-				
+
 			StoreNativePower = mApp.getProperty("StoreNativePower");
 			TargetCadence = mApp.getProperty("TargetCadence");
 			CadenceColorStep = mApp.getProperty("CadenceColorStep");
 			WalkingCadence = mApp.getProperty("WalkingCadence");
 			UseCore = mApp.getProperty("UseCore");
+
+			if(isRun) {
+		        antplusBikePower = new AntPlus.BikePower(null);
+			}
+
 
 			// System.println("ZeroPowerHR:        	" + ZeroPowerHR);
 			// System.println("HrPwrSmoothing:     	" + HrPwrSmoothing);
@@ -247,12 +265,12 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			// System.println("FieldsTrailProperty:    " + FieldsTrailProperty);
 			// System.println("FieldsProperty:     	" + FieldsProperty);
 
-	
+
 	        hrpwrlabel = "" + ZeroPowerHR.format("%d") + ":" + weight.format("%d") + "";
-	        
+
 	        display = new ScreenLayout(); //governed by monkey.jungle
 			display.screenData.screenConfig = FieldsProperty;
-	        
+
 			//pwrField = createField("pwr", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD, :units=>"N" });
 
 	        //pwrField = createField("Fellrnr_FS_power", 0, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
@@ -264,13 +282,13 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			shrpwrField = createField("Fellrnr_FS_hrpwr", 31, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 			//strideLengthField = createField("Fellrnr_FS_stride_length", 2, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
 			//gacardiacCostField = createField("Fellrnr_FS_cardic_distance", 3, FitContributor.DATA_TYPE_FLOAT, { :mesgType=>FitContributor.MESG_TYPE_RECORD } );
-	        
+
 			if(pwrField != null) {
 	        	pwrField.setData(0);
 			}
 			shrpwrField.setData(0.0);
-			//strideLengthField.setData(0.0); 
-			//gacardiacCostField.setData(0.0); 
+			//strideLengthField.setData(0.0);
+			//gacardiacCostField.setData(0.0);
 
 			if(Toybox.AntPlus has :RunningDynamics) {
 				runningDynamics = new Toybox.AntPlus.RunningDynamics(null);
@@ -291,7 +309,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
     // the draw context is changed this will be called.
     function onLayout(dc) {
     	//System.println(">FellrnrFullScreenView:onLayout");
-    
+
         var obscurityFlags = DataField.getObscurityFlags();
         simple = true;
 
@@ -316,7 +334,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
         	simple = false;
             View.setLayout(Rez.Layouts.MainLayout(dc));
             //View.setLayout(Rez.Layouts.ComplexLayout(dc));
-            
+
         }
 
 		if(simple) {
@@ -342,23 +360,22 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			coreField.computeCore();
         }
 
-
-//  ____                                  
-// |  _ \                                 
-// | |_) | __ _ _ __  _ __   ___ _ __ ___ 
+//  ____
+// |  _ \
+// | |_) | __ _ _ __  _ __   ___ _ __ ___
 // |  _ < / _` | '_ \| '_ \ / _ \ '__/ __|
 // | |_) | (_| | | | | | | |  __/ |  \__ \
 // |____/ \__,_|_| |_|_| |_|\___|_|  |___/
-//                                        
-  
+//
+
 		//Pause = auto pause
 		/*
 		if(info.timerState == Activity.TIMER_STATE_PAUSED || info.timerState == Activity.TIMER_STATE_STOPPED) {
-			display.banner = 
+			display.banner =
 				"m last l  " + distanceatlastlap.format("%.1f") + "\n" +
 				"m " + info.elapsedDistance.format("%.1f") + "\n" +
 				"Avg: " + AverageLap.format("%.4f") + "\n" +
-				"correction " + distancecorrection.format("%.1f") + "\n" + 
+				"correction " + distancecorrection.format("%.1f") + "\n" +
 				"sd " + LapStandardDeviation.format("%.4f");
 			return;
 		}
@@ -369,29 +386,37 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		}
 */
 
-//    _____                   _               _____                              _          
-//   |  __ \                 (_)             |  __ \                            (_)         
-//   | |__) |   _ _ __  _ __  _ _ __   __ _  | |  | |_   _ _ __   __ _ _ __ ___  _  ___ ___ 
+//    _____                   _               _____                              _
+//   |  __ \                 (_)             |  __ \                            (_)
+//   | |__) |   _ _ __  _ __  _ _ __   __ _  | |  | |_   _ _ __   __ _ _ __ ___  _  ___ ___
 //   |  _  / | | | '_ \| '_ \| | '_ \ / _` | | |  | | | | | '_ \ / _` | '_ ` _ \| |/ __/ __|
 //   | | \ \ |_| | | | | | | | | | | | (_| | | |__| | |_| | | | | (_| | | | | | | | (__\__ \
 //   |_|  \_\__,_|_| |_|_| |_|_|_| |_|\__, | |_____/ \__, |_| |_|\__,_|_| |_| |_|_|\___|___/
-//                                     __/ |          __/ |                                 
-//                                    |___/          |___/                                  
+//                                     __/ |          __/ |
+//                                    |___/          |___/
 
 
 		var stepPerMinutes = null;
 		var grndConTime = null;
+		var vertOcc = null;
         if (runningDynamics != null) {
 		     var rd = runningDynamics.getRunningDynamics();
 		     if (rd != null) {
 		         stepPerMinutes = rd.cadence; //like strides per minute is one leg
-		         display.screenData.d_verticalOscillationMM = rd.verticalOscillation;
+				 vertOcc = rd.verticalOscillation;
+		         display.screenData.d_verticalOscillationMM = rd.verticalOscillation.format("%.0f");
 		         grndConTime = rd.groundContactTime.toFloat();
 				 display.screenData.d_groundContactTimeMs = rd.groundContactTime;
 		         //var stepLength = rd.stepLength;
+				 display.screenData.d_gctBal = rd.groundContactBalance.format("%.1f");
+				 display.screenData.d_gctBalBG = null;
+
 			 }
 		}
 
+// display.screenData.d_gctBal = hack.format("%.1f");
+// display.screenData.d_gctBalBG = null;
+// if(hack > 52.5) { hack = 48.5; } hack += 0.1;
 
 		 //stepPerMinutes = 90;
 		 //grndConTime = 250;
@@ -407,7 +432,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			var dutyFactor = grndConTime / stepTimeMs * 100.0;
 			display.screenData.d_dutyFactor = dutyFactor.format("%.0f") + "%";
 			display.screenData.d_dutyFactorBG = GetDutyFactorColor(dutyFactor);
-			if(display.screenData.d_verticalOscillationMM != null) {
+			if(vertOcc != null) {
 				// var flightTimeMs = stepTimeMs - display.screenData.d_groundContactTimeMs;
 				// var gravity = 9.8;
 				// var timeGoingUpMs = flightTimeMs/2.0;
@@ -422,7 +447,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				var stanceVelocityMpS = timeGoingUpSec * 9.8;
 				var stanceHeightM = stanceVelocityMpS * timeGoingUpSec;
 				var stanceHeightCm = stanceHeightM * 100;
-				var verticalOscillationCm = display.screenData.d_verticalOscillationMM.toFloat() / 10.0;
+				var verticalOscillationCm = vertOcc / 10.0;
 
 				display.screenData.d_stanceOccelation = verticalOscillationCm - stanceHeightCm;
 			}
@@ -435,66 +460,68 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 		loop3 = ((sequence / DisplayLoop) % 3);
 
-	 	display.varB = null; 
+	 	display.varB = null;
 
 
 
 
-//     _____ ____  _____  ______    _____                           
-//    / ____/ __ \|  __ \|  ____|  / ____|                          
-//   | |   | |  | | |__) | |__    | (___   ___ _ __  ___  ___  _ __ 
+//     _____ ____  _____  ______    _____
+//    / ____/ __ \|  __ \|  ____|  / ____|
+//   | |   | |  | | |__) | |__    | (___   ___ _ __  ___  ___  _ __
 //   | |   | |  | |  _  /|  __|    \___ \ / _ \ '_ \/ __|/ _ \| '__|
-//   | |___| |__| | | \ \| |____   ____) |  __/ | | \__ \ (_) | |   
-//    \_____\____/|_|  \_\______| |_____/ \___|_| |_|___/\___/|_|   
-//                                                                  
-//                                                                  
+//   | |___| |__| | | \ \| |____   ____) |  __/ | | \__ \ (_) | |
+//    \_____\____/|_|  \_\______| |_____/ \___|_| |_|___/\___/|_|
+//
+//
 
 //if(hack > 9.5) { hack=0; } else { hack += 0.5; }
 //coreField.heatStrainIndex = hack;
 
 
-		display.screenData.d_coreTemperature = coreField.coreTemperature.format("%.2f");
-		display.screenData.d_skinTemperature = coreField.skinTemperature.format("%.2f");
-		display.screenData.d_heatStrainIndex = coreField.heatStrainIndex.format("%.1f");
-		display.screenData.d_heatStrainIndexBG = GetHsiColor(coreField.heatStrainIndex);
+		if(UseCore) {
+			display.screenData.d_coreTemperature = coreField.coreTemperature.format("%.2f");
+			display.screenData.d_skinTemperature = coreField.skinTemperature.format("%.2f");
+			display.screenData.d_heatStrainIndex = coreField.heatStrainIndex.format("%.1f");
+			display.screenData.d_heatStrainIndexBG = GetHsiColor(coreField.heatStrainIndex);
 
-		if(coreField.heatStrainIndex >= 0 && coreField.heatStrainIndex < 1.0) {
-			if(loop) {
+			if(coreField.heatStrainIndex > 0.1 && coreField.heatStrainIndex < 1.0) {
+				if(loop) {
+					display.screenData.d_heat = display.screenData.d_coreTemperature;
+					display.screenData.d_heatBG = Graphics.COLOR_BLACK;
+				} else {
+					display.screenData.d_heat = display.screenData.d_heatStrainIndex;
+					display.screenData.d_heatBG = display.screenData.d_heatStrainIndexBG;
+				}
+			} else if(coreField.heatStrainIndex < 0.1) { //ignore values between 0 and 0.1
 				display.screenData.d_heat = display.screenData.d_coreTemperature;
-				display.screenData.d_heatBG = Graphics.COLOR_BLACK;
+				display.screenData.d_heatBG = Graphics.COLOR_WHITE;
 			} else {
 				display.screenData.d_heat = display.screenData.d_heatStrainIndex;
 				display.screenData.d_heatBG = display.screenData.d_heatStrainIndexBG;
 			}
-		} else if(coreField.heatStrainIndex == 0.0) {
-			display.screenData.d_heat = display.screenData.d_coreTemperature;
-			display.screenData.d_heatBG = Graphics.COLOR_WHITE;
-		} else {
-			display.screenData.d_heat = display.screenData.d_heatStrainIndex;
-			display.screenData.d_heatBG = display.screenData.d_heatStrainIndexBG;
+
+
+			if(loop3 == 0) {
+				display.screenData.d_allTemperature = display.screenData.d_coreTemperature;
+				display.screenData.d_allTemperatureBG = Graphics.COLOR_WHITE;
+			} else if(loop3 == 1) {
+				display.screenData.d_allTemperature = display.screenData.d_skinTemperature;
+				display.screenData.d_allTemperatureBG = Graphics.COLOR_BLACK;
+			} else {
+				display.screenData.d_allTemperature = display.screenData.d_heatStrainIndex;
+				display.screenData.d_allTemperatureBG = display.screenData.d_heatStrainIndexBG;
+			}
 		}
 
 
-		if(loop3 == 0) {
-			display.screenData.d_allTemperature = display.screenData.d_coreTemperature;
-			display.screenData.d_allTemperatureBG = Graphics.COLOR_WHITE;
-		} else if(loop3 == 1) {
-			display.screenData.d_allTemperature = display.screenData.d_skinTemperature;
-			display.screenData.d_allTemperatureBG = Graphics.COLOR_BLACK;
-		} else {
-			display.screenData.d_allTemperature = display.screenData.d_heatStrainIndex;
-			display.screenData.d_allTemperatureBG = display.screenData.d_heatStrainIndexBG;
-		} 
-
-
-//    _______ _                     
-//   |__   __(_)                    
-//      | |   _ _ __ ___   ___  ___ 
+//    _______ _
+//   |__   __(_)
+//      | |   _ _ __ ___   ___  ___
 //      | |  | | '_ ` _ \ / _ \/ __|
 //      | |  | | | | | | |  __/\__ \
 //      |_|  |_|_| |_| |_|\___||___/
-//                                  
-//                                  
+//
+//
 
 		//tail
 		var myTime = System.getClockTime(); // ClockTime object
@@ -509,8 +536,8 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		} else {
 			display.screenData.d_times = display.screenData.d_elapsedTime;
 			display.screenData.d_timesBG = Graphics.COLOR_BLACK;
-		} 
-		
+		}
+
 
 		pwr = 0;
 		hr = 0;
@@ -518,14 +545,14 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 
-//     _____          _                     
-//    / ____|        | |                    
-//   | |     __ _  __| | ___ _ __   ___ ___ 
+//     _____          _
+//    / ____|        | |
+//   | |     __ _  __| | ___ _ __   ___ ___
 //   | |    / _` |/ _` |/ _ \ '_ \ / __/ _ \
 //   | |___| (_| | (_| |  __/ | | | (_|  __/
 //    \_____\__,_|\__,_|\___|_| |_|\___\___|
-//                                          
-//                                          
+//
+//
 
 		if(info.currentCadence  == 0 || info.currentCadence == null) {
 			display.screenData.d_cadence = null;
@@ -542,14 +569,14 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 
-//    _____       _ _          ______ _                 _   _             
-//   |  __ \     | | |        |  ____| |               | | (_)            
-//   | |  | | ___| | |_ __ _  | |__  | | _____   ____ _| |_ _  ___  _ __  
-//   | |  | |/ _ \ | __/ _` | |  __| | |/ _ \ \ / / _` | __| |/ _ \| '_ \ 
+//    _____       _ _          ______ _                 _   _
+//   |  __ \     | | |        |  ____| |               | | (_)
+//   | |  | | ___| | |_ __ _  | |__  | | _____   ____ _| |_ _  ___  _ __
+//   | |  | |/ _ \ | __/ _` | |  __| | |/ _ \ \ / / _` | __| |/ _ \| '_ \
 //   | |__| |  __/ | || (_| | | |____| |  __/\ V / (_| | |_| | (_) | | | |
 //   |_____/ \___|_|\__\__,_| |______|_|\___| \_/ \__,_|\__|_|\___/|_| |_|
-//                                                                        
-//                                                                        
+//
+//
 
 //GAP relies on changeinelevation, so this first
 		var changeinelevation = 0;
@@ -561,27 +588,27 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 					elevationarray[i] = info.altitude;
 				}
 			}
-			changeinelevation = info.altitude - elevationarray[0]; 
+			changeinelevation = info.altitude - elevationarray[0];
 			display.screenData.d_deltaElevation = "Δ" + changeinelevation.format("%.1f");
 
 			//fifo
 			elevationarray = elevationarray.slice(1, null);
 			elevationarray.add(info.altitude);
-		} 
+		}
 
 
 //		if(isTrailRun) {
 
 
 
-//     _____          _____     _____               _                    _ _           _           _   _____               
-//    / ____|   /\   |  __ \   / ____|             | |          /\      | (_)         | |         | | |  __ \              
-//   | |  __   /  \  | |__) | | |  __ _ __ __ _  __| | ___     /  \   __| |_ _   _ ___| |_ ___  __| | | |__) |_ _  ___ ___ 
+//     _____          _____     _____               _                    _ _           _           _   _____
+//    / ____|   /\   |  __ \   / ____|             | |          /\      | (_)         | |         | | |  __ \
+//   | |  __   /  \  | |__) | | |  __ _ __ __ _  __| | ___     /  \   __| |_ _   _ ___| |_ ___  __| | | |__) |_ _  ___ ___
 //   | | |_ | / /\ \ |  ___/  | | |_ | '__/ _` |/ _` |/ _ \   / /\ \ / _` | | | | / __| __/ _ \/ _` | |  ___/ _` |/ __/ _ \
 //   | |__| |/ ____ \| |      | |__| | | | (_| | (_| |  __/  / ____ \ (_| | | |_| \__ \ ||  __/ (_| | | |  | (_| | (_|  __/
 //    \_____/_/    \_\_|       \_____|_|  \__,_|\__,_|\___| /_/    \_\__,_| |\__,_|___/\__\___|\__,_| |_|   \__,_|\___\___|
-//                                                                       _/ |                                              
-//                                                                      |__/                                               
+//                                                                       _/ |
+//                                                                      |__/
 
 //https://journals.physiology.org/doi/full/10.1152/japplphysiol.01177.2001
 //NOTE: other fields rely on the GAP
@@ -589,7 +616,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		if(info.currentSpeed != null && info.currentSpeed > 0) {
 			var hspeed = info.currentSpeed;
 			var vspeed = changeinelevation / 60.0; //mps
-			var incline = vspeed / hspeed; 
+			var incline = vspeed / hspeed;
 			grade = incline * 100;
 
 
@@ -603,13 +630,13 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			if(incline < -0.5) {
 				incline = -0.5;
 			}
-				
+
 			var cost = Math.pow(incline, 2) * 15.14 + incline * 2.896 + 1;
 			//System.println("cost " + cost + ", incline " + incline + ", incline^2 " + Math.pow(incline, 2) );
 
 			gradeAdjustedSpeed = hspeed * cost;
 
-			  
+
 			display.screenData.d_gradeAdjustedPace = fmtPace(gradeAdjustedSpeed);
 
 		} else {
@@ -622,14 +649,14 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			display.screenData.d_grade = grade.format("%.1f") + "%";
 		}
 
-//    _    _                 _     _____       _       
-//   | |  | |               | |   |  __ \     | |      
-//   | |__| | ___  __ _ _ __| |_  | |__) |__ _| |_ ___ 
+//    _    _                 _     _____       _
+//   | |  | |               | |   |  __ \     | |
+//   | |__| | ___  __ _ _ __| |_  | |__) |__ _| |_ ___
 //   |  __  |/ _ \/ _` | '__| __| |  _  // _` | __/ _ \
 //   | |  | |  __/ (_| | |  | |_  | | \ \ (_| | ||  __/
 //   |_|  |_|\___|\__,_|_|   \__| |_|  \_\__,_|\__\___|
-//                                                     
-//                                                     
+//
+//
 
 		//Just HR
 		if(info.currentHeartRate == 0 || info.currentHeartRate == null) {
@@ -644,27 +671,32 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 
-//    _____                       
-//   |  __ \                      
-//   | |__) |____      _____ _ __ 
+//    _____
+//   |  __ \
+//   | |__) |____      _____ _ __
 //   |  ___/ _ \ \ /\ / / _ \ '__|
-//   | |  | (_) \ V  V /  __/ |   
-//   |_|   \___/ \_/\_/ \___|_|   
-//                                
-//                                
+//   | |  | (_) \ V  V /  __/ |
+//   |_|   \___/ \_/\_/ \___|_|
+//
+//
 
-		//Calcualted Power 
+		//Calcualted Power
 		calcpwr=0;
 		if(info.currentSpeed != null && info.currentSpeed > 0) {
 			//power is about speed (m/s) * weight (kg) * 1.04;
 			calcpwr = gradeAdjustedSpeed * weight * 1.04;
 		}
 
-		if(info.currentPower != 0 && info.currentPower != null) {
+		if(antplusBikePower != null && antplusBikePower.getCalculatedPower() != null && antplusBikePower.getCalculatedPower().power != null) {
+			pwr = antplusBikePower.getCalculatedPower().power;
+			display.screenData.d_powerBG = GetPwrColor(pwr);
+			//display.screenData.d_powerBG = Graphics.COLOR_BLACK;
+
+		} else if(info.currentPower != 0 && info.currentPower != null) {
 			pwr = info.currentPower;
 			//var wpkg = pwr / weight;
 			display.screenData.d_powerBG = GetPwrColor(pwr);
-			
+
         } else {
 			//confirm we're calculating power with inverted colours
 			display.screenData.d_powerBG = Graphics.COLOR_WHITE;
@@ -678,28 +710,28 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 
-//    _    _      _____                
-//   | |  | |    |  __ \               
-//   | |__| |_ __| |__) |_      ___ __ 
+//    _    _      _____
+//   | |  | |    |  __ \
+//   | |__| |_ __| |__) |_      ___ __
 //   |  __  | '__|  ___/\ \ /\ / / '__|
-//   | |  | | |  | |     \ V  V /| |   
-//   |_|  |_|_|  |_|      \_/\_/ |_|   
-//                                     
-//                                     
+//   | |  | | |  | |     \ V  V /| |
+//   |_|  |_|_|  |_|      \_/\_/ |_|
+//
+//
 
 
 		//HR-PWR
 	    if(hr != 0 && pwr != 0 && info.currentHeartRate > ZeroPowerHR) {
 			display.screenData.d_hrPwrIsNum = true;
-			
+
 			if(SmoothHrPwrCounter < HrPwrSmoothing) {
 				SmoothHrPwrCounter++;
 			}
-			
+
 			smoothhr = (smoothhr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + hr.toFloat()/SmoothHrPwrCounter;
 			smoothpwr = (smoothpwr*(SmoothHrPwrCounter-1.0)/SmoothHrPwrCounter) + pwr/SmoothHrPwrCounter;
-				
-			
+
+
 			// var pwrMw = smoothpwr * 1000.0;
 			// var pwkg = (pwrMw / weight);
 			// var deltahr = (smoothhr - ZeroPowerHR);
@@ -716,7 +748,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 			//Garmin keeps reseting max hr, making percent HRR useless
 			display.screenData.d_hrPwrBG = GetHrPwrColor(hrpw1dp);
-			
+
 			shrpwrField.setData(hrpw1dp.toFloat());
 	    } else {
 			display.screenData.d_hrPwr = null;
@@ -728,30 +760,30 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 
 
-//             _ _   _ _             _      
-//       /\   | | | (_) |           | |     
-//      /  \  | | |_ _| |_ _   _  __| | ___ 
+//             _ _   _ _             _
+//       /\   | | | (_) |           | |
+//      /  \  | | |_ _| |_ _   _  __| | ___
 //     / /\ \ | | __| | __| | | |/ _` |/ _ \
 //    / ____ \| | |_| | |_| |_| | (_| |  __/
 //   /_/    \_\_|\__|_|\__|\__,_|\__,_|\___|
-//                                          
-//                                          
+//
+//
 
 		if(info.altitude != null) {
 			display.screenData.d_altitude = "@" +  info.altitude.format("%.0f");
 		}
 
-		
 
 
-//                                _              _____                           _   
-//       /\                      | |     ___    |  __ \                         | |  
-//      /  \   ___  ___ ___ _ __ | |_   ( _ )   | |  | | ___  ___  ___ ___ _ __ | |_ 
+
+//                                _              _____                           _
+//       /\                      | |     ___    |  __ \                         | |
+//      /  \   ___  ___ ___ _ __ | |_   ( _ )   | |  | | ___  ___  ___ ___ _ __ | |_
 //     / /\ \ / __|/ __/ _ \ '_ \| __|  / _ \/\ | |  | |/ _ \/ __|/ __/ _ \ '_ \| __|
-//    / ____ \\__ \ (_|  __/ | | | |_  | (_>  < | |__| |  __/\__ \ (_|  __/ | | | |_ 
+//    / ____ \\__ \ (_|  __/ | | | |_  | (_>  < | |__| |  __/\__ \ (_|  __/ | | | |_
 //   /_/    \_\___/\___\___|_| |_|\__|  \___/\/ |_____/ \___||___/\___\___|_| |_|\__|
-//                                                                                   
-//                                                                                   
+//
+//
 
 		if(info.totalAscent != null) {
 			display.screenData.d_totalAscent = "+" +  info.totalAscent.format("%.0f");
@@ -760,24 +792,24 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		if(info.totalDescent != null) {
 			display.screenData.d_totalDescent = "-" + info.totalDescent.format("%.0f");
 		}
-		
+
 		if(loop) {
 			display.screenData.d_totalAscentDescent = display.screenData.d_totalAscent;
 			display.screenData.d_totalAscentDescentBG = Graphics.COLOR_WHITE;
 		} else {
 			display.screenData.d_totalAscentDescent = display.screenData.d_totalDescent;
 			display.screenData.d_totalAscentDescentBG = Graphics.COLOR_BLACK;
-		} 
+		}
 
 
-//    _____  _     _                       
-//   |  __ \(_)   | |                      
-//   | |  | |_ ___| |_ __ _ _ __   ___ ___ 
+//    _____  _     _
+//   |  __ \(_)   | |
+//   | |  | |_ ___| |_ __ _ _ __   ___ ___
 //   | |  | | / __| __/ _` | '_ \ / __/ _ \
 //   | |__| | \__ \ || (_| | | | | (_|  __/
 //   |_____/|_|___/\__\__,_|_| |_|\___\___|
-//                                         
-//                                         
+//
+//
 
 		if(info.elapsedDistance != null) {
 			var distance;
@@ -787,27 +819,27 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				distance = info.elapsedDistance;
 			}
 			distance = distance / unitP;
-			
+
 			if(distance < 100.0) {
 				display.screenData.d_distanceDisplay = distance.format("%.2f");
 			} else {
 				display.screenData.d_distanceDisplay = distance.format("%.1f");
 			}
 		}
-		
+
 
 //Used to calcualte time delta for race pacing - see version history
 
 
 
-//     _____                          _     _____               
-//    / ____|                        | |   |  __ \              
-//   | |    _   _ _ __ _ __ ___ _ __ | |_  | |__) |_ _  ___ ___ 
+//     _____                          _     _____
+//    / ____|                        | |   |  __ \
+//   | |    _   _ _ __ _ __ ___ _ __ | |_  | |__) |_ _  ___ ___
 //   | |   | | | | '__| '__/ _ \ '_ \| __| |  ___/ _` |/ __/ _ \
 //   | |___| |_| | |  | | |  __/ | | | |_  | |  | (_| | (_|  __/
 //    \_____\__,_|_|  |_|  \___|_| |_|\__| |_|   \__,_|\___\___|
-//                                                              
-//                                                              
+//
+//
 
 
 	    if(info.currentSpeed != null && info.currentSpeed > 0) {
@@ -816,20 +848,20 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		} else {
 			display.screenData.d_currentPace = null;
 		}
-		
-		
 
 
-//                                            _____               
-//       /\                                  |  __ \              
-//      /  \__   _____ _ __ __ _  __ _  ___  | |__) |_ _  ___ ___ 
+
+
+//                                            _____
+//       /\                                  |  __ \
+//      /  \__   _____ _ __ __ _  __ _  ___  | |__) |_ _  ___ ___
 //     / /\ \ \ / / _ \ '__/ _` |/ _` |/ _ \ |  ___/ _` |/ __/ _ \
 //    / ____ \ V /  __/ | | (_| | (_| |  __/ | |  | (_| | (_|  __/
 //   /_/    \_\_/ \___|_|  \__,_|\__, |\___| |_|   \__,_|\___\___|
-//                                __/ |                           
-//                               |___/                            
+//                                __/ |
+//                               |___/
 
-                		
+
 	    if(info.averageSpeed != null && info.averageSpeed > 0) {
 			display.screenData.d_averagePace = fmtPace(info.averageSpeed);
 		} else {
@@ -840,30 +872,32 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 		//core if we have it, otherwise average pace
 		//need a generic fall back approach
-		if(coreField.heatStrainIndex >= 0) {
-			display.screenData.d_heat2AvgPace = display.screenData.d_heat;
-			display.screenData.d_heat2AvgPaceBG = display.screenData.d_heatBG;
-		} else {
-			display.screenData.d_heat2AvgPace = display.screenData.d_averagePace;
-			display.screenData.d_heat2AvgPaceBG = Graphics.COLOR_BLACK;
+		if(UseCore) {
+			if(coreField.heatStrainIndex >= 0) {
+				display.screenData.d_heat2AvgPace = display.screenData.d_heat;
+				display.screenData.d_heat2AvgPaceBG = display.screenData.d_heatBG;
+			} else {
+				display.screenData.d_heat2AvgPace = display.screenData.d_averagePace;
+				display.screenData.d_heat2AvgPaceBG = Graphics.COLOR_BLACK;
+			}
 		}
 
 
-//    _____  _     _                         _____                      _       _             
-//   |  __ \(_)   | |                       |  __ \                    (_)     (_)            
-//   | |  | |_ ___| |_ __ _ _ __   ___ ___  | |__) |___ _ __ ___   __ _ _ _ __  _ _ __   __ _ 
+//    _____  _     _                         _____                      _       _
+//   |  __ \(_)   | |                       |  __ \                    (_)     (_)
+//   | |  | |_ ___| |_ __ _ _ __   ___ ___  | |__) |___ _ __ ___   __ _ _ _ __  _ _ __   __ _
 //   | |  | | / __| __/ _` | '_ \ / __/ _ \ |  _  // _ \ '_ ` _ \ / _` | | '_ \| | '_ \ / _` |
 //   | |__| | \__ \ || (_| | | | | (_|  __/ | | \ \  __/ | | | | | (_| | | | | | | | | | (_| |
 //   |_____/|_|___/\__\__,_|_| |_|\___\___| |_|  \_\___|_| |_| |_|\__,_|_|_| |_|_|_| |_|\__, |
 //                                                                                       __/ |
-//                                                                                      |___/ 
+//                                                                                      |___/
 
 
 	    if(!(info has :distanceToDestination)) {
 			display.screenData.d_distanceRemaining = "N/S";
 		} else if(info.distanceToDestination != null && info.distanceToDestination  > 0) {
 
-			var distance; 
+			var distance;
 			distance = info.distanceToDestination / unitP;
 
 			if(distance < 100.0) {
@@ -875,37 +909,37 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		} else {
 			display.screenData.d_distanceRemaining = null;
 		}
-		
 
 
 
-//     _____ _        _     _        _                      _   _     
-//    / ____| |      (_)   | |      | |                    | | | |    
-//   | (___ | |_ _ __ _  __| | ___  | |     ___ _ __   __ _| |_| |__  
-//    \___ \| __| '__| |/ _` |/ _ \ | |    / _ \ '_ \ / _` | __| '_ \ 
+
+//     _____ _        _     _        _                      _   _
+//    / ____| |      (_)   | |      | |                    | | | |
+//   | (___ | |_ _ __ _  __| | ___  | |     ___ _ __   __ _| |_| |__
+//    \___ \| __| '__| |/ _` |/ _ \ | |    / _ \ '_ \ / _` | __| '_ \
 //    ____) | |_| |  | | (_| |  __/ | |___|  __/ | | | (_| | |_| | | |
 //   |_____/ \__|_|  |_|\__,_|\___| |______\___|_| |_|\__, |\__|_| |_|
-//                                                     __/ |          
-//                                                    |___/           
+//                                                     __/ |
+//                                                    |___/
 
 		if(info.currentCadence == null || info.currentCadence  == 0 || info.currentSpeed == null || info.currentSpeed == 0) {
 			display.screenData.d_strideLength = null;
-			//strideLengthField.setData(0.0); 
+			//strideLengthField.setData(0.0);
 		} else {
 			var sl = (info.currentSpeed * 60) / info.currentCadence;
 			display.screenData.d_strideLength = sl.format("%.2f");
-			//strideLengthField.setData(sl); 
+			//strideLengthField.setData(sl);
 		}
 
 
-//    _____        _          ______ _      _     _    _____                       _   _              _   _____               
-//   |  __ \      | |        |  ____(_)    | |   | |  / ____|                     | | | |            | | |  __ \              
-//   | |  | | __ _| |_ __ _  | |__   _  ___| | __| | | (___  _ __ ___   ___   ___ | |_| |__   ___  __| | | |__) |_ _  ___ ___ 
+//    _____        _          ______ _      _     _    _____                       _   _              _   _____
+//   |  __ \      | |        |  ____(_)    | |   | |  / ____|                     | | | |            | | |  __ \
+//   | |  | | __ _| |_ __ _  | |__   _  ___| | __| | | (___  _ __ ___   ___   ___ | |_| |__   ___  __| | | |__) |_ _  ___ ___
 //   | |  | |/ _` | __/ _` | |  __| | |/ _ \ |/ _` |  \___ \| '_ ` _ \ / _ \ / _ \| __| '_ \ / _ \/ _` | |  ___/ _` |/ __/ _ \
 //   | |__| | (_| | || (_| | | |    | |  __/ | (_| |  ____) | | | | | | (_) | (_) | |_| | | |  __/ (_| | | |  | (_| | (_|  __/
 //   |_____/ \__,_|\__\__,_| |_|    |_|\___|_|\__,_| |_____/|_| |_| |_|\___/ \___/ \__|_| |_|\___|\__,_| |_|   \__,_|\___\___|
-//                                                                                                                            
-//                                                                                                                            
+//
+//
 
 	    if(info.currentSpeed != null && info.currentSpeed > 0) {
 			var realPace = info.currentSpeed*AverageLap;
@@ -917,7 +951,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 				smoothSpeedCounter++;
 			}
 			smoothSpeed = (smoothSpeed*(smoothSpeedCounter-1)/smoothSpeedCounter) + realPace/smoothSpeedCounter;
-			//System.println("smoothpace " +  smoothpace.format("%.2f") +", currentSpeed " +  info.currentSpeed.format("%.2f") +", smoothSpeedCounter " +  smoothSpeedCounter);  
+			//System.println("smoothpace " +  smoothpace.format("%.2f") +", currentSpeed " +  info.currentSpeed.format("%.2f") +", smoothSpeedCounter " +  smoothSpeedCounter);
 			display.screenData.d_smoothPace = fmtPace(smoothSpeed);
 
 		}
@@ -933,11 +967,11 @@ class FellrnrFullScreenView extends WatchUi.DataField {
         // Set the background color (it can change)
         var BgColorFG = (getBackgroundColor() == Graphics.COLOR_BLACK) ? Graphics.COLOR_WHITE : Graphics.COLOR_BLACK;
     	//System.println(">FellrnrFullScreenView:onUpdate");
-        
+
 //        try {
 	        if(simple) {
 		        View.findDrawableById("Background").setColor(getBackgroundColor());
-		
+
 		        // Set the foreground color and value
 		        var value = View.findDrawableById("value");
 		        if (getBackgroundColor() == Graphics.COLOR_BLACK) {
@@ -946,17 +980,17 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 		            value.setColor(Graphics.COLOR_BLACK);
 		        }
 		        value.setText(hrpwr.format("%.1f"));
-		        
+
 		        //You update the view elements, then ask the view to do the update
 		        View.onUpdate(dc);
-				//then you can do 
+				//then you can do
 		        // Call parent's onUpdate(dc) to redraw the layout
 	        } else {
 //	            var value;
-	
-				
-				
-				
+
+
+
+
 				//Ask the view to do it's update, then we can apply our changes
 		        //View.onUpdate(dc);
     			//System.println(">FellrnrFullScreenView:onUpdate->display.DisplayData");
@@ -975,15 +1009,15 @@ class FellrnrFullScreenView extends WatchUi.DataField {
         if(secs > 3599) { // more than an hour
 	        var hours = secs / 3600.0;
 	        return hours.format("%.1f") + "h";
-	        
+
         } else if(secs > 599) { //10 mins - an hour
 	        var mins = secs / 60.0;
 	        return mins.format("%.1f") + "m";
-	        
+
         } else if(secs > 59) { //1-10 mins
 	        var s = secs.toLong();
 	        return (s / 60).format("%0d") + ":" + (s % 60).format("%02d");
-	        
+
         } else { //< minute
 	        return secs.format("%d");
         }
@@ -1031,23 +1065,23 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			return Graphics.COLOR_WHITE;
 		}
 
-        if( currentPwr <= (CriticalPower * 0.65)) { 
+        if( currentPwr <= (CriticalPower * 0.65)) {
 			return Graphics.COLOR_DK_GRAY; //zone 1
-        } else if( currentPwr <= (CriticalPower * 0.8)) { 
+        } else if( currentPwr <= (CriticalPower * 0.8)) {
         	return Graphics.COLOR_BLUE; //zone 2
-        } else if( currentPwr <= (CriticalPower * 0.9)) { 
+        } else if( currentPwr <= (CriticalPower * 0.9)) {
 			return Graphics.COLOR_GREEN; //zone 3
-        } else if( currentPwr <= (CriticalPower * 1.03)) { 
+        } else if( currentPwr <= (CriticalPower * 1.03)) {
         	return Graphics.COLOR_ORANGE; //zone 4
-        } else if( currentPwr <= (CriticalPower * 1.15)) { 
+        } else if( currentPwr <= (CriticalPower * 1.15)) {
         	return Graphics.COLOR_RED; //zone 5
-        } else if( currentPwr <= (CriticalPower * 1.3)) { 
+        } else if( currentPwr <= (CriticalPower * 1.3)) {
         	return Graphics.COLOR_PURPLE; //zone 6
 		} else {
 			return Graphics.COLOR_PINK; //zone 7
 		}
 	}
-		
+
 
 
 	function GetHrColor(currentHeartRate) {
@@ -1055,7 +1089,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			return Graphics.COLOR_WHITE;
 		}
 
-        if( currentHeartRate >= hrZones[4]) { 
+        if( currentHeartRate >= hrZones[4]) {
         	return Graphics.COLOR_RED;
 		} else if( currentHeartRate >= hrZones[3]) {
 			return Graphics.COLOR_ORANGE;
@@ -1076,7 +1110,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			return Graphics.COLOR_WHITE;
 		}
 
-        if( currentHrPwr >= 45) { 
+        if( currentHrPwr >= 45) {
 			return Graphics.COLOR_PURPLE;
         } else if( currentHrPwr >= 40) {
         	return Graphics.COLOR_GREEN;
@@ -1133,7 +1167,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 
 	function GetHsiColor(hsi) {
 
-		if(hsi  < 1.0){ 
+		if(hsi  < 1.0){
 			return Graphics.COLOR_BLUE;
 		} else if(hsi < 3.0) {
 			return Graphics.COLOR_YELLOW;
@@ -1141,7 +1175,7 @@ class FellrnrFullScreenView extends WatchUi.DataField {
 			return Graphics.COLOR_ORANGE;
 		} else {
 			return Graphics.COLOR_RED;
-		} 
+		}
 	}
 
 }

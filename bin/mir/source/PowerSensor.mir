@@ -1,0 +1,370 @@
+[ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Ant,3,13,16]; ]
+using Toybox.Ant;
+[ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Time,4,13,17]; ]
+using Toybox.Time;
+[ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 6; @symbol_classdef = [PowerSensor,6,6,17]; @symbol_extends<0> = [Ant,6,26,29]; @symbol_extends<1> = [GenericChannel,6,30,44]; ]
+class PowerSensor extends Ant.GenericChannel {
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 6; ]
+    <init> {
+    }
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 7; @position = 8; @symbol_vardef = [searching,7,8,17]; ]
+    var searching;
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 8; @position = 8; @symbol_vardef = [failedInit,8,8,18]; ]
+    var failedInit = false;
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 10; @position = 5; @symbol_vardef = [currentPower,10,5,17]; ]
+    var currentPower = null;
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 12; @position = 8; @symbol_vardef = [deviceNumber,12,8,20]; ]
+    var deviceNumber;
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 13; @position = 8; @symbol_vardef = [reopen,13,8,14]; ]
+    var reopen = false;
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 15; @symbol_functiondef = [initialize,15,13,23]; @symbol_param<0> = [devNumber,15,24,33]; ]
+    function initialize(devNumber) as Void {
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_15_35_44_4_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 16 5 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_16_5_19_5_if_stmt:
+        %tmp.1 = lgetv %devNumber;
+        symbol [ devNumber %tmp.1 16 9 18 ];
+        %tmp.2 = 0;
+        %tmp.3 = lte %tmp.1 %tmp.2;
+        bf %tmp.3 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_16_5_19_5_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_16_5_19_5_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_17_5_19_5_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 18 6 ]
+        ret ?;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_17_5_19_5_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_16_5_19_5_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_16_5_19_5_if_end:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 20 5 ]
+        %tmp.4 = lgetv %devNumber;
+        symbol [ devNumber %tmp.4 20 20 29 ];
+        symbol [ deviceNumber ? 20 5 17 ];
+        putv self :deviceNumber %tmp.4;
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 22 8 ]
+        [ "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_15_35_44_4_start" "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_15_35_44_4_stop" ]
+        %chanAssign.1 = local;
+        symbol [ chanAssign %chanAssign.1 22 12 22 ];
+        symbol [ Ant %tmp.7 22 29 32 ];
+        %tmp.7 = getm $.Toybox.Ant;
+        symbol [ ChannelAssignment %tmp.8 22 33 50 ];
+        %tmp.8 = getv function ? %tmp.7 :ChannelAssignment;
+        symbol [ Toybox %tmp.10 23 12 18 ];
+        %tmp.10 = getv ? :Toybox;
+        symbol [ Ant %tmp.11 23 19 22 ];
+        %tmp.11 = getv %tmp.10 :Ant;
+        symbol [ CHANNEL_TYPE_RX_NOT_TX %tmp.12 23 23 45 ];
+        %tmp.12 = getv %tmp.11 :CHANNEL_TYPE_RX_NOT_TX;
+        symbol [ Toybox %tmp.14 24 12 18 ];
+        %tmp.14 = getv ? :Toybox;
+        symbol [ Ant %tmp.15 24 19 22 ];
+        %tmp.15 = getv %tmp.14 :Ant;
+        symbol [ NETWORK_PLUS %tmp.16 24 23 35 ];
+        %tmp.16 = getv %tmp.15 :NETWORK_PLUS;
+        %tmp.5 = newc %tmp.8 (%tmp.12, %tmp.16);
+        lputv %chanAssign.1 %tmp.5;
+        symbol [ chanAssign %chanAssign.1 22 12 22 ];
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 25 8 ]
+        try @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_beginTry @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_endTry @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_catch @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_beginTry:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_12_27_8_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 26 12 ]
+        symbol [ GenericChannel %tmp.18 26 12 26 ];
+        %tmp.18 = getv ? :GenericChannel;
+        symbol [ initialize %tmp.19 26 27 37 ];
+        %tmp.19 = getv function %tmp.18 :initialize;
+        %tmp.20 = self;
+        symbol [ method %tmp.21 26 38 44 ];
+        %tmp.21 = getv function %tmp.20 :method;
+        %tmp.23 = const :onMessage;
+        symbol [ onMessage %tmp.23 26 46 55 const ];
+        %tmp.24 = invoke %tmp.20 %tmp.21(%tmp.23);
+        %tmp.25 = lgetv %chanAssign.1;
+        symbol [ chanAssign %tmp.25 26 58 68 ];
+        invoke %tmp.18 %tmp.19(%tmp.24, %tmp.25);
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_12_27_8_stop:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_endTry:
+        jsr @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally;
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_catch:
+        %tmp.26 = exception;
+        push %tmp.26;
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 27 10 ]
+        %tmp.27 = dup %tmp.26;
+        symbol [ Ant %tmp.28 27 29 32 ];
+        %tmp.28 = getm $.Toybox.Ant;
+        symbol [ UnableToAcquireChannelException %tmp.29 27 33 64 ];
+        %tmp.29 = getv %tmp.28 :UnableToAcquireChannelException;
+        %tmp.30 = isa %tmp.27 %tmp.29;
+        bf %tmp.30 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_10_31_8_next;
+        [ "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_catch" "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_10_31_8_next" ]
+        %e.2 = local;
+        symbol [ e %e.2 27 16 17 ];
+        %tmp.31 = dup %tmp.26;
+        %tmp.32 = as %tmp.31 Ant.UnableToAcquireChannelException;
+        lputv %e.2 %tmp.32;
+        symbol [ e %e.2 27 16 17 ];
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_66_31_8_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 28 12 ]
+        symbol [ System %tmp.34 28 12 18 ];
+        %tmp.34 = getv ? :System;
+        symbol [ println %tmp.35 28 19 26 ];
+        %tmp.35 = getv function %tmp.34 :println;
+        %tmp.36 = lgetv %e.2;
+        symbol [ e %tmp.36 28 27 28 ];
+        symbol [ getErrorMessage %tmp.37 28 29 44 ];
+        %tmp.37 = getv function %tmp.36 :getErrorMessage;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        invoke %tmp.34 %tmp.35(%tmp.38);
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 29 12 ]
+        %tmp.39 = true;
+        symbol [ failedInit ? 29 12 22 ];
+        putv self :failedInit %tmp.39;
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 30 12 ]
+        pop;
+        jsr @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally;
+        ret ?;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_66_31_8_stop:
+        jsr @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally;
+        pop;
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_10_31_8_next:
+        try @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_catch @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_10_31_8_next @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_27_10_31_8_next @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally;
+        jsr @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally;
+        throw %tmp.26;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_finally:
+        jsrret;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_25_8_31_8_end:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 33 8 ]
+        [ "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_15_35_44_4_start" "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_15_35_44_4_stop" ]
+        %deviceCfg.3 = local;
+        symbol [ deviceCfg %deviceCfg.3 33 12 21 ];
+        symbol [ Ant %tmp.42 33 28 31 ];
+        %tmp.42 = getm $.Toybox.Ant;
+        symbol [ DeviceConfig %tmp.43 33 32 44 ];
+        %tmp.43 = getv function ? %tmp.42 :DeviceConfig;
+        %tmp.44 = newd 7;
+        %tmp.46 = const :deviceNumber;
+        symbol [ deviceNumber %tmp.46 34 13 25 const ];
+        symbol [ deviceNumber %tmp.48 34 29 41 ];
+        %tmp.48 = getv ? :deviceNumber;
+        %tmp.49 = dup %tmp.44;
+        %tmp.50 = aputv %tmp.49 %tmp.46 %tmp.48;
+        %tmp.52 = const :deviceType;
+        symbol [ deviceType %tmp.52 35 13 23 const ];
+        %tmp.53 = 11;
+        %tmp.54 = dup %tmp.50;
+        %tmp.55 = aputv %tmp.54 %tmp.52 %tmp.53;
+        %tmp.57 = const :transmissionType;
+        symbol [ transmissionType %tmp.57 36 13 29 const ];
+        %tmp.58 = 5;
+        %tmp.59 = dup %tmp.55;
+        %tmp.60 = aputv %tmp.59 %tmp.57 %tmp.58;
+        %tmp.62 = const :messagePeriod;
+        symbol [ messagePeriod %tmp.62 37 13 26 const ];
+        %tmp.63 = 8182;
+        %tmp.64 = dup %tmp.60;
+        %tmp.65 = aputv %tmp.64 %tmp.62 %tmp.63;
+        %tmp.67 = const :radioFrequency;
+        symbol [ radioFrequency %tmp.67 38 13 27 const ];
+        %tmp.68 = 57;
+        %tmp.69 = dup %tmp.65;
+        %tmp.70 = aputv %tmp.69 %tmp.67 %tmp.68;
+        %tmp.72 = const :searchTimeoutLowPriority;
+        symbol [ searchTimeoutLowPriority %tmp.72 39 13 37 const ];
+        %tmp.73 = 10;
+        %tmp.74 = dup %tmp.70;
+        %tmp.75 = aputv %tmp.74 %tmp.72 %tmp.73;
+        %tmp.77 = const :searchThreshold;
+        symbol [ searchThreshold %tmp.77 40 13 28 const ];
+        %tmp.78 = 0;
+        %tmp.79 = dup %tmp.75;
+        %tmp.80 = aputv %tmp.79 %tmp.77 %tmp.78;
+        %tmp.40 = newc %tmp.43 (%tmp.80);
+        lputv %deviceCfg.3 %tmp.40;
+        symbol [ deviceCfg %deviceCfg.3 33 12 21 ];
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 42 8 ]
+        symbol [ GenericChannel %tmp.82 42 8 22 ];
+        %tmp.82 = getv ? :GenericChannel;
+        symbol [ setDeviceConfig %tmp.83 42 23 38 ];
+        %tmp.83 = getv function %tmp.82 :setDeviceConfig;
+        %tmp.84 = lgetv %deviceCfg.3;
+        symbol [ deviceCfg %tmp.84 42 39 48 ];
+        invoke %tmp.82 %tmp.83(%tmp.84);
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 43 8 ]
+        %tmp.85 = self;
+        symbol [ open %tmp.86 43 8 12 ];
+        %tmp.86 = getv function %tmp.85 :open;
+        invoke %tmp.85 %tmp.86();
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_15_35_44_4_stop:
+    }
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 46; @symbol_functiondef = [open,46,13,17]; ]
+    function open() {
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_46_20_50_4_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 47 8 ]
+        symbol [ GenericChannel %tmp.2 47 8 22 ];
+        %tmp.2 = getv ? :GenericChannel;
+        symbol [ open %tmp.3 47 23 27 ];
+        %tmp.3 = getv function %tmp.2 :open;
+        invoke %tmp.2 %tmp.3();
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 48 8 ]
+        %tmp.4 = 0;
+        symbol [ currentPower ? 48 8 20 ];
+        putv self :currentPower %tmp.4;
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 49 8 ]
+        %tmp.5 = true;
+        symbol [ searching ? 49 8 17 ];
+        putv self :searching %tmp.5;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_46_20_50_4_stop:
+    }
+    [ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 52; @symbol_functiondef = [onMessage,52,13,22]; @symbol_param<0> = [msg,52,23,26]; ]
+    function onMessage(msg) {
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 54 8 ]
+        [ "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_start" "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_stop" ]
+        %payload.1 = local;
+        symbol [ payload %payload.1 54 12 19 ];
+        %tmp.1 = lgetv %msg;
+        symbol [ msg %tmp.1 54 22 25 ];
+        symbol [ getPayload %tmp.2 54 26 36 ];
+        %tmp.2 = getv function %tmp.1 :getPayload;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %payload.1 %tmp.3;
+        symbol [ payload %payload.1 54 12 19 ];
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 55 8 ]
+        [ "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_start" "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_stop" ]
+        %payload0.2 = local;
+        symbol [ payload0 %payload0.2 55 12 20 ];
+        %tmp.4 = lgetv %payload.1;
+        symbol [ payload %tmp.4 55 23 30 ];
+        %tmp.5 = 0;
+        %tmp.6 = agetv %tmp.4 %tmp.5;
+        lputv %payload0.2 %tmp.6;
+        symbol [ payload0 %payload0.2 55 12 20 ];
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 56 8 ]
+        [ "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_start" "c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_stop" ]
+        %payload1.3 = local;
+        symbol [ payload1 %payload1.3 56 12 20 ];
+        %tmp.7 = lgetv %payload.1;
+        symbol [ payload %tmp.7 56 23 30 ];
+        %tmp.8 = 1;
+        %tmp.9 = agetv %tmp.7 %tmp.8;
+        lputv %payload1.3 %tmp.9;
+        symbol [ payload1 %payload1.3 56 12 20 ];
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 57 8 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_8_75_8_if_stmt:
+        %tmp.10 = 0x4e;
+        %tmp.11 = lgetv %msg;
+        symbol [ msg %tmp.11 57 50 53 ];
+        symbol [ messageId %tmp.12 57 54 63 ];
+        %tmp.12 = getv %tmp.11 :messageId;
+        %tmp.13 = eq %tmp.10 %tmp.12;
+        bf %tmp.13 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_8_75_8_if_false;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_8_75_8_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_65_64_8_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 58 12 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_12_63_12_if_stmt:
+        %tmp.14 = 0x10;
+        %tmp.15 = lgetv %payload0.2;
+        symbol [ payload0 %tmp.15 58 54 62 ];
+        %tmp.16 = eq %tmp.14 %tmp.15;
+        bf %tmp.16 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_12_63_12_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_12_63_12_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_64_63_12_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 61 16 ]
+        %tmp.17 = false;
+        symbol [ searching ? 61 16 25 ];
+        putv self :searching %tmp.17;
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 62 16 ]
+        %tmp.18 = lgetv %payload.1;
+        symbol [ payload %tmp.18 62 31 38 ];
+        %tmp.19 = 6;
+        %tmp.20 = agetv %tmp.18 %tmp.19;
+        %tmp.21 = lgetv %payload.1;
+        symbol [ payload %tmp.21 62 46 53 ];
+        %tmp.22 = 7;
+        %tmp.23 = agetv %tmp.21 %tmp.22;
+        %tmp.24 = 8;
+        %tmp.25 = shl %tmp.23 %tmp.24;
+        %tmp.26 = bitor %tmp.20 %tmp.25;
+        symbol [ currentPower ? 62 16 28 ];
+        putv self :currentPower %tmp.26;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_64_63_12_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_12_63_12_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_58_12_63_12_if_end:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_65_64_8_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_8_75_8_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_8_75_8_if_false:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 64 15 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_15_75_8_if_stmt:
+        %tmp.27 = 0x40;
+        %tmp.28 = lgetv %msg;
+        symbol [ msg %tmp.28 64 64 67 ];
+        symbol [ messageId %tmp.29 64 68 77 ];
+        %tmp.29 = getv %tmp.28 :messageId;
+        %tmp.30 = eq %tmp.27 %tmp.29;
+        bf %tmp.30 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_15_75_8_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_15_75_8_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_79_75_8_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 65 12 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_12_74_12_if_stmt:
+        %tmp.31 = 0x01;
+        %tmp.32 = lgetv %payload0.2;
+        symbol [ payload0 %tmp.32 65 47 55 ];
+        %tmp.33 = eq %tmp.31 %tmp.32;
+        bf %tmp.33 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_12_74_12_if_else_false;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_12_74_12_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_57_73_12_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 66 16 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_16_72_16_if_stmt:
+        %tmp.34 = 0x07;
+        %tmp.35 = lgetv %payload1.3;
+        symbol [ payload1 %tmp.35 66 65 73 ];
+        %tmp.36 = eq %tmp.34 %tmp.35;
+        bf %tmp.36 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_16_72_16_if_false;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_16_72_16_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_75_69_16_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 68 20 ]
+        %tmp.37 = true;
+        symbol [ reopen ? 68 20 26 ];
+        putv self :reopen %tmp.37;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_75_69_16_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_16_72_16_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_16_72_16_if_false:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 69 23 ]
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_23_72_16_if_stmt:
+        %tmp.38 = 0x08;
+        %tmp.39 = lgetv %payload1.3;
+        symbol [ payload1 %tmp.39 69 79 87 ];
+        %tmp.40 = eq %tmp.38 %tmp.39;
+        bf %tmp.40 @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_23_72_16_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_23_72_16_if_true:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_89_72_16_start:
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 70 17 ]
+        %tmp.41 = 0;
+        symbol [ currentPower ? 70 17 29 ];
+        putv self :currentPower %tmp.41;
+[ "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc" 71 20 ]
+        %tmp.42 = true;
+        symbol [ searching ? 71 20 29 ];
+        putv self :searching %tmp.42;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_89_72_16_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_23_72_16_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_69_23_72_16_if_end:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_66_16_72_16_if_end:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_57_73_12_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_12_74_12_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_12_74_12_if_else_false:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_65_12_74_12_if_end:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_79_75_8_stop:
+        goto @c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_15_75_8_if_end;
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_64_15_75_8_if_end:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_57_8_75_8_if_end:
+c_Users_jfsav_OneDrive_Coding_GitHub_FellrnrFullScreenDev_source_PowerSensor_mc_52_28_76_4_stop:
+    }
+}
+[ @file = "c:\Users\jfsav\OneDrive\Coding\GitHub\FellrnrFullScreenDev\source\PowerSensor.mc"; @line = 3; ]
+<init> {
+}

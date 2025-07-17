@@ -125,9 +125,9 @@ class CoreField {
         // re-initialize the datafield and sensor
         // on settings change or if field seems to be 'stuck'
         //---------------------------------------------------
-        emsg("dataFieldReset hard:" + hardReset);
+        //emsg("dataFieldReset hard:" + hardReset);
         if ( mSensor != null ) {
-            emsg("dataFieldReset close sensor");
+            //emsg("dataFieldReset close sensor");
             mSensor.close();
             
             if ( hardReset == true ) {
@@ -139,7 +139,7 @@ class CoreField {
         if ( mSensor == null ) {
             try {
                 //Create the sensor object and open it
-                emsg("dataFieldReset create sensor");
+                //emsg("dataFieldReset create sensor");
                 mSensor = new CoreSensor();
             } catch (e) {
                 System.println(e.getErrorMessage());
@@ -150,7 +150,7 @@ class CoreField {
         
         if ( mSensor != null ) {
             //initFieldData();
-            emsg("dataFieldReset init");
+            //emsg("dataFieldReset init");
             mSensor.initialize();		// force the new ANT ID
             mSensor.open();
             mFitContributor.initialize(DataField);
